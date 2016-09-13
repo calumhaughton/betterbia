@@ -55,7 +55,7 @@
                         </span>
                         <button class="button button-positive" ng-click="startFixedTimer($index)" ng-show="!timerRunning">Start Timer</button>
                     </div>
-                    <div ng-show="showScrollableTimer"></div>
+                    <div ng-if="showScrollableTimer"></div>
                 </div>
             </ion-slide>
         </ion-slide-box>
