@@ -1,0 +1,31 @@
+﻿<ion-view title="Shopping Lists" id="listHome" class="" hide-nav-bar="false">
+    <ion-nav-buttons side="primary">
+        <button class="button icon ion-android-more-vertical"></button>
+    </ion-nav-buttons>
+
+        <ion-content class="padding">
+
+            <ion-list>
+
+                <ion-item ng-repeat="list in lists" class="restrict-height" style="padding:0px;margin-top:8px;border-color:transparent;background-color:transparent;border-style:none;">
+                    <div class="flex-list-shell">
+                        <div class="flex-list-item text-middle" ng-click="setList(list.name, thisAccount)" ui-sref="listDetail">
+                            <h2>{{list.name}}</h2>
+                        </div>
+                        <button class="button button-light icon ion-android-share right flex-list-button" ng-click="shareList(list.name)"></button>
+                    </div>
+                </ion-item>
+
+                <ion-item ng-repeat="sharedList in sharedLists" class="restrict-height" style="padding:0px;margin-top:8px;border-color:transparent;background-color:transparent;border-style:none;">
+                    <div class="flex-list-shell">
+                        <div class="flex-list-item text-middle" ng-click="setList(sharedList.name, sharedList.accountId)" ui-sref="listDetail">
+                            <h2>{{sharedList.name}}</h2>
+                        </div>
+                    </div>
+                </ion-item>
+
+            </ion-list>
+            <button class="button button-block button-positive" ng-click="createNewList()">Create New List</button>
+        </ion-content>
+
+</ion-view>

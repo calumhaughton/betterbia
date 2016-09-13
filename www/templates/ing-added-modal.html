@@ -1,0 +1,8 @@
+﻿<div class="card ing-modal" ng-class="{'show-ing-modal':showModal, 'ing-modal-menu-hidden':menuHidden}">
+    <div class="item item-text-wrap" ng-show="!moreThanOneItem">
+        {{ingredient}} has been added to {{list}}.
+    </div>
+    <div class="item item-text-wrap" ng-show="moreThanOneItem">
+        {{multipleIngredients.length}} items have been added to {{list}}.
+    </div>
+</div>

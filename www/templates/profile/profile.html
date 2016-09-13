@@ -1,0 +1,54 @@
+<ion-view title="Profile" id="profile">
+    <ion-nav-buttons side="primary">
+        <button ng-click="openPopover($event)" ng-controller="PopoverController" class="button icon ion-android-more-vertical"></button>
+    </ion-nav-buttons>
+
+    <ion-content padding="true" scroll="false" class="has-header">
+       
+        <calendar selected="day"></calendar>
+        
+         <script id="calendar-temp.html" type="text/ng-template">
+
+             <div class="cal-wrapper">
+                 <form id="page-form2" class="list ">
+                     <ion-list id="page-list1" class="">
+                         <ion-item class="item-avatar  " id="page-list-item1">
+                             <img src="img/default.png" class="img-rounded" />
+                             <h2>User Name</h2>
+                             <p class="points">{{calendar.points}} Points</p>
+                         </ion-item>
+                     </ion-list>
+                     <p id="page-markdown3" style="" class="">How did you get on today?</p>
+                     <ion-checkbox ng-class="{ticked: healthy}" ng-model="healthy" ng-change="recalcPoints('ateHealthy', healthy)">I ate healthy</ion-checkbox>
+                     <ion-checkbox ng-class="{ticked: exercise}" ng-model="exercise" ng-change="recalcPoints('exercised', exercise)">I exercised</ion-checkbox>
+                 </form> 
+                 <div class="header">
+                     <i class="icon ion-arrow-left-a" ng-click="previous()"></i>
+                     <span>{{month.format("MMMM YYYY")}}</span>
+                     <i class="icon ion-arrow-right-a" ng-click="next()"></i>
+                 </div>
+                 <div class="week names">
+                     <span class="day">Sun</span>
+                     <span class="day">Mon</span>
+                     <span class="day">Tue</span>
+                     <span class="day">Wed</span>
+                     <span class="day">Thu</span>
+                     <span class="day">Fri</span>
+                     <span class="day">Sat</span>
+                 </div>
+                 <div class="week" ng-repeat="week in weeks">
+                     <span class="day" ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected), unselectable: !day.isSelectable }" ng-click="select(day)" ng-repeat="day in week.days" custom="day" calendar="calendar" calendar-day>{{day.number}}</span>
+                 </div>
+             </div>
+
+        </script>
+
+        
+
+    </ion-content>
+  
+
+
+
+
+</ion-view>

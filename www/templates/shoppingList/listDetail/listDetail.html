@@ -1,0 +1,88 @@
+<ion-view title="Shopping List" id="listDetail" class="" hide-nav-bar="true" >
+
+        <div class="inline-nav-bar nav-bar-default" ng-class="{'nav-bar-scrolled': navScrolled.option}">
+            <button class="button button-light button-clear icon ion-android-arrow-back back-btn-position" ng-class="{'button-dark': navScrolled.option}" ui-sref="tabsController.listHome"></button>
+            <h4>{{shoppingList.selectedList.listName}}</h4>
+        </div>
+
+        <ion-content style="background:#323232;" on-scroll="scrolled()" class="padding">
+            
+            <ion-list style="position:relative;top:50px;">
+                <ion-item ng-repeat="ingredient in items | filter:{checked:false} | orderBy:'name'"
+                          class="item-remove-animate restrict-height"
+                          style="padding:0px;border-color:transparent;background-color:transparent;border-style:none;"
+                          ingredient-display
+                          options-display>
+                    <div class="flex-list-shell" ng-class="{'shorten-width':shift}">
+                        <div class="flex-list-item" ng-click="ingredient.checked = !ingredient.checked; items.$save(ingredient)" ng-class="{checked : ingredient.checked}">
+                            <div ng-show="measureDisplay">
+                                <strong>{{ingredient.name}}</strong>
+                                <br />
+                                <small><span ng-bind-html="ingredient.quantity | DecimalToFraction"></span> {{ingredient.measure}}<span ng-show="prepDisplay">, {{ingredient.prep}}</span></small>
+                            </div>
+                            <div ng-hide="measureDisplay" ng-class="{'text-middle':!prepDisplay}">
+                                <strong><span ng-bind-html="ingredient.quantity | DecimalToFraction"></span> {{ingredient.name}}</strong>
+                                <br />
+                                <small ng-show="prepDisplay">{{ingredient.prep}}</small>
+                            </div>
+                        </div>
+                        <button class="button button-light button-clear icon flex-list-button" ng-click="shiftOptions()" ng-class="{'ion-android-done':shift, 'ion-edit':!shift, 'button-balanced':shift}"></button>
+                    </div>
+                    
+                    <div class="shopping-list-options" ng-class="{'show-buttons':showButtons}" ng-if="shift">
+                        <button class="button button-light button-clear icon ion-android-remove inline-display" ng-click="removeQuantity()"></button>
+                        <button class="button button-light button-clear icon ion-android-add inline-display" ng-click="addQuantity()"></button>
+                    </div>
+                    
+                </ion-item>
+                <div class="item item-divider" ng-show="trashItems.length" style="margin-top:8px;height:50px;">
+                    <button ng-click="shoppingList.clearDone()" class="button button-dark button-clear icon ion-trash-a trash-btn"></button>
+                    <strong style="line-height:34px;">Got It!</strong>
+                    
+                </div>
+                <ion-item ng-repeat="ingredient in items | filter:{checked:true} as trashItems"
+                          class="item-remove-animate restrict-height"
+                          style="padding:0px;border-color:transparent;background-color:transparent;border-style:none;"
+                          ingredient-display
+                          options-display>
+                    <div class="flex-list-shell" ng-class="{'shorten-width':shift}">
+                        <div class="flex-list-item" ng-click="ingredient.checked = !ingredient.checked; items.$save(ingredient)" ng-class="{checked : ingredient.checked}">
+                            <div ng-show="measureDisplay">
+                                <strong>{{ingredient.name}}</strong>
+                                <br />
+                                <small><span ng-bind-html="ingredient.quantity | DecimalToFraction"></span> {{ingredient.measure}}<span ng-show="prepDisplay">, {{ingredient.prep}}</span></small>
+                            </div>
+                            <div ng-hide="measureDisplay" ng-class="{'text-middle':!prepDisplay}">
+                                <strong><span ng-bind-html="ingredient.quantity | DecimalToFraction"></span> {{ingredient.name}}</strong>
+                                <br />
+                                <small ng-show="prepDisplay">{{ingredient.prep}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+
+
+        <ion-footer-bar align-title="left" class="bar-large bar-balanced item-input-inset">
+            <div for="newItem" class="item-input-wrapper">
+                <span class="autocomplete-wrapper"
+                      ng-class="{'autocomplete-hidden': suggestions.length == 0}">
+                    <input id="newItem"
+                           type="text"
+                           class="autocomplete-input"
+                           ng-model="newItem"
+                           ng-keyup="$event.keyCode == 13 && addItem(newItem)"
+                           placeholder="Add item">
+                    <span class="autocomplete-suggestions">
+                        <div class="autocomplete-suggestion" ng-repeat="suggestion in suggestions">
+                            <p ng-click="addItem(suggestion)">{{suggestion}}</p>
+                        </div>
+                    </span>
+                </span>
+            </div>
+            <button id="addItem" ng-click="addItem(newItem)" class="button icon ion-plus"></button>
+        </ion-footer-bar>
+
+</ion-view>
+

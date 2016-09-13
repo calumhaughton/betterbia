@@ -1,0 +1,857 @@
+.has-header {
+    background-color: #323232;
+}
+
+/* fontawsome */
+@font-face {
+    font-family: 'fontawesome';
+    src:url('../fonts/fontawesome-webfont.eot');
+    src:url('../fonts/fontawesome-webfont.eot') format('embedded-opentype'),
+        url('../fonts/fontawesome-webfont.woff') format('woff'),
+        url('../fonts/fontawesome-webfont.ttf') format('truetype'),
+        url('../fonts/fontawesome-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.icon-google-wallet:before {
+    font-family: "fontawesome";
+    content: "\f1ee";
+}
+
+
+/* Inline Nav Bar */
+
+.inline-nav-bar {
+    width:100%;
+    position:fixed;
+    z-index:1000;
+    height:45px;
+    transition:ease all 0.1s;
+}
+
+.nav-bar-default {
+    background-color:#323232;
+}
+
+.nav-bar-scrolled {
+    background-color:white !important;
+    box-shadow:0px 2px 6px #222222;
+}
+
+.inline-nav-bar > h4 {
+    position:relative;
+    top:4px;
+    left: 55px;
+    color:white;
+    width:50%;
+}
+
+.inline-nav-bar.nav-bar-scrolled > h4 {
+    color:#323232;
+}
+
+
+
+.back-btn-position {
+    position:absolute;
+    left:0px;
+    top:0px;
+    z-index:5;
+}
+
+/* Shopping List */
+
+.shopping-list-options {
+    height:55px;
+    position:absolute;
+    right:0px;
+    top:4px;
+    z-index:1;
+    display:inline-block;
+    opacity:0;
+    transition:all ease 0.3s;
+}
+
+.show-buttons {
+    display:inline-block;
+    opacity:1;
+}
+
+.flex-list-shell {
+    height:55px;
+    width:100%;
+    border-style:solid;
+    border-color:#AAAAAA;
+    border-width:1px;
+    background-color:white;
+    z-index:2;
+    box-shadow:0px 3px 6px 0px #222222;
+    transition:width ease 0.3s;
+    display:flex;
+    justify-content:space-between;
+}
+
+.flex-list-item {
+    flex-grow:8;
+    padding:10px;
+    position:relative;
+    z-index:3;
+}
+
+.flex-list-button {
+    margin-top:4px;
+    transition:ease 0.3s;
+    z-index:3;
+}
+
+.trash-btn {
+    position:relative;
+    left:-15px;
+    top:-10px;
+}
+
+.flex-list-item>div>strong {
+    font-size:14px;
+}
+
+.flex-list-item>div>small {
+    font-size:10px;
+}
+
+
+ion-item {
+  line-height: 15px;
+}
+
+restrict-height {
+    height:55px;
+    margin:6px;
+}
+
+.checked {
+  text-decoration: line-through;
+  color: #AAAAAA;
+}
+
+ion-footer-bar.bar.bar-large {
+  height: 55px;
+}
+ion-footer-bar.bar.bar-large .item-input-wrapper input {
+  height: 35px;
+}
+
+
+.item-input-inset {
+  overflow: visible;
+}
+.item-input-wrapper {
+  padding: 0px;
+  width: 100%;
+}
+
+.autocomplete-wrapper {
+  position: relative;
+  width: 100%;
+  background-color: inherit;
+  border-radius: 0px 0px 4px 4px;
+}
+.autocomplete-wrapper.autocomplete-hidden {
+  border-radius: 4px 4px 4px 4px;
+}
+.autocomplete-suggestions {
+  bottom: 100%;
+  color: #444;
+  position: absolute;
+  width: 100%;
+  padding: 8px 8px 0px 8px;
+  background-color: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px dashed #DDD;
+  border-radius: 4px 4px 0px 0px;
+}
+.autocomplete-hidden .autocomplete-suggestions {
+  display: none;
+}
+
+
+
+.shift-button-over {
+    right:121px;
+}
+
+.shorten-width {
+    width:224px;
+}
+
+/* Calendar */
+
+
+
+.border-box {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+calendar {
+  display: block;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background: white;
+  width: 100%;
+  border: solid 0px #444;
+  margin-bottom: 5px;
+}
+calendar  div.header {
+  /* float: left; */
+  width: 100%;
+  background: #83B541;
+  height: 40px;
+  color: white;
+}
+calendar  div.header > * {
+  height: 40px;
+  line-height: 40px !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+calendar  div.header > i {
+  float: left;
+  width: 40px;
+  font-size: 1.125em;
+  font-weight: bold;
+  position: relative;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 0 10px;
+  cursor: pointer;
+}
+calendar  div.header > i.ion-arrow-left-a {
+  text-align: left;
+}
+calendar  div.header > i.ion-arrow-right-a {
+  text-align: right;
+  margin-left: -40px;
+}
+calendar  div.header > span {
+  float: left;
+  width: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-left: 50px;
+  margin-left: -40px;
+  text-align: center;
+  padding-right: 40px;
+  color: inherit;
+}
+calendar  div.week {
+  /* float: left; */
+  width: 100%;
+  border-top: solid 1px #CCC;
+}
+calendar  div.week:first-child {
+  border-top: none;
+}
+calendar  div.week > span.day {
+  /* float: left; */
+  width: 14.28571429%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border-left: solid 1px #444;
+  font-size: 0.75em;
+  text-align: center;
+  height: 30px;
+  line-height: 30px !important;
+  display: inline-block;
+  vertical-align: middle;
+  background: white;
+  cursor: pointer;
+  color: #444;
+}
+calendar  div.week > span.day:first-child {
+  border-left: none;
+}
+calendar  div.week > span.day.today {
+  font-weight: bold;
+}
+calendar  div.week > span.day.different-month {
+  color: #C0C0C0;
+}
+
+.selected {
+  background: #E3F2FF !important;
+  font-weight: 900;
+  
+}
+
+
+calendar  div.week.names > span {
+  color: #fff;
+  font-weight: bold;
+  background-color: #444;
+}
+
+.unselectable {
+  background: #CCCCCC !important
+}
+.oneOption {
+  background: #B8E986 !important;
+}
+
+.twoOptions {
+  background: #83B541 !important;
+  color: white !important;
+}
+
+calendar form {
+    background-color: #323232;
+    /* margin: 0 auto; */
+    /* width: 80%; */
+}
+
+.cal-wrapper {
+    background-color: #323232;
+    padding: 0px 10%;
+}
+
+#page-markdown3 {
+    color: white;
+    text-align: center;
+}
+
+.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
+    background: transparent !important;
+    border: none !important;
+}
+
+.checkbox input:before, .checkbox input:before, .checkbox-icon:before{
+    border: none !important;
+}
+
+.checkbox-icon:after {
+    border: 2px solid green !important;
+    border-top: 0 !important;
+    border-right: 0 !important;
+}
+
+.item-checkbox .checkbox {
+    left: initial;
+}
+
+.item-avatar {
+    background: 0;
+    border: 0;
+    color: white;
+}
+
+.item-avatar h2 {
+    color: white;
+}
+
+p.points {
+    color: #8cff8c;
+    font-size: 150%;
+    line-height: 150%;
+}
+
+.item-checkbox {
+    padding-left: 10px;
+}
+
+.item-checkbox {
+    background-color: #BEBFBC !important;
+    color: #959595 !important;
+}
+.item-checkbox.ticked {
+    background-color: white !important;
+}
+
+.checkbox input:before, .checkbox-icon:before {
+    background: transparent;
+}
+
+.week.names span.day {
+    width: 12.5%!important;
+}
+
+.week.names span.day:nth-child(4) {
+    width: 16% !important;
+}
+
+.item-avatar > img:first-child {
+    border-color: #81B141;
+    border-style: solid;
+    border-width: 2pt;
+}
+
+/* Loading Spinner Rules */
+
+.spinner {
+    margin:auto;
+    position:absolute;
+    top: 0; left: 0; bottom: 0; right:0;
+    height:25px;
+    text-align:center;
+}
+
+.spinner svg {
+    width: 19% !important;
+    height:25px !important;
+}
+
+/* Step by Step Rules */
+
+/* Slider */
+.slider-pager {
+    top:15px;
+}
+
+.slider-slide {
+    padding-top:35px;
+}
+
+.ing-btn-position {
+    position:absolute;
+    right:0px;
+    top:0px;
+    z-index:5;
+}
+
+.timer-text {
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    display:block;
+}
+
+/* Slidebox progress bar */
+
+.progress-bar {
+    width:70%;
+    margin-left:15%;
+    margin-right:15%;
+    height:4px;
+    background:#f5f9fc;
+    position:absolute;
+    top:20px;
+    z-index:999;
+}
+
+.increment {
+    width:5%;
+    height:100%;
+    background:#6fa724;
+    transition: all .75s;
+}
+
+/* Recipe Detail Page Rules */
+
+.footer-button {
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+
+.fullscreen {
+    position:fixed;
+    z-index:0;
+    top:0px;
+}
+
+.detail-page-content {
+    position:relative;
+    z-index:1000;
+    background-color:#323232;
+    top:325px;
+    box-shadow:0px -1px 8px #222222;
+}
+
+.detail-page-content>h3 {
+    color:white;
+}
+
+
+/* Cards */
+.item.detail-card {
+    padding:0px;
+}
+
+.card-image {
+    position:absolute;
+    z-index:1;
+    height:150px;
+    width:340px;
+}
+
+.spice-image {
+    z-index:2;
+    position:relative;
+    left:275px;
+    top:105px;
+}
+
+.item>div>div>h3 {
+    overflow:visible;
+    white-space:normal;
+}
+
+.detail-card-content {
+    padding:10px;
+}
+
+.detail-card-text-area {
+    width:240px;
+    display:inline-block;
+}
+
+.detail-card-images {
+    height:150px;
+    width:340px;
+}
+
+/* Helper utility classes */
+
+.display-inline {
+    display:inline;
+}
+.right {
+    float:right;
+}
+
+.left {
+    float:left;
+}
+
+.align-top {
+    top:0px;
+}
+
+.fixed-item-height {
+    height:63px;
+}
+
+.text-middle {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.text-align-middle {
+    vertical-align:middle;
+}
+
+.shift-up {
+    margin-top:-23px;
+}
+
+.shift-up-more {
+    margin-top:-31px;
+}
+
+.no-margin {
+    margin-top:0px !important;
+    margin-bottom:0px !important;
+    margin-right:0px !important;
+    margin-left:0px !important;
+}
+
+.margin-bottom-10 {
+    margin-bottom:10px;
+}
+
+
+.button-green {
+    background-color: #6fa724;
+    color:white;
+    box-shadow:0px 2px 6px #222222;
+}
+
+.button-round {
+    border-radius:100%;
+    height:64px;
+    width:64px;
+}
+
+.button-green:hover {
+    color:white;
+}
+
+.button-green>activated {
+    background-color:green;
+}
+
+.button-arrow-left {
+    position:fixed;
+    left: 60px;
+    bottom:60px;
+}
+
+.button-arrow-right {
+    position:fixed;
+    right:60px;
+    bottom:60px;
+}
+
+/* Sliding Menu Styles */
+
+.border-box {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+menu {
+  display: block;
+}
+menu > div {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-transition: -webkit-transform ease 250ms;
+  -moz-transition: -webkit-transform ease 250ms;
+  -o-transition: -webkit-transform ease 250ms;
+  transition: -webkit-transform ease 250ms;
+  -webkit-transition: transform ease 250ms;
+  -moz-transition: transform ease 250ms;
+  -o-transition: transform ease 250ms;
+  transition: transform ease 250ms;
+}
+menu > div.left {
+  background: white;
+  left: -250px;
+}
+menu > div.show.left {
+  transform: translate3d(250px, 0, 0);
+  -ms-transform: translate3d(250px, 0, 0);
+  -webkit-transform: translate3d(250px, 0, 0);
+  -o-transform: translate3d(250px, 0, 0);
+  -moz-transform: translate3d(250px, 0, 0);
+}
+menu > div.right {
+  background: white;
+  right: -250px;
+}
+menu > div.show.right {
+  transform: translate3d(-250px, 0, 0);
+  -ms-transform: translate3d(-250px, 0, 0);
+  -webkit-transform: translate3d(-250px, 0, 0);
+  -o-transform: translate3d(-250px, 0, 0);
+  -moz-transform: translate3d(-250px, 0, 0);
+}
+menu > div > menu-item {
+  display: block;
+}
+menu > div > menu-item > div {
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 10px 15px;
+  border-bottom: solid 1px #C0C0C0;
+  cursor: pointer;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  color: #141414;
+}
+
+menu > div > menu-item > div > span {
+  float: left;
+  color: inherit;
+}
+
+/* This rule is to correct a blue border that was on a button. Remove it somewhere else, this is just a quickfix. */
+
+.bar.bar-balanced.bar-footer {
+    background-image:none;
+}
+
+.green {
+    background-color:#6fa724 !important;
+    color:white !important;
+}
+
+.button-transition {
+    transition:all ease 0.5s;
+}
+
+/* time select */
+
+#time-select {
+    position: fixed;
+    bottom:20px;
+    right: 20px;
+    z-index: 9999;
+    width: 75px;
+    height: 75px;
+    line-height: 75px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0px 2px 6px #222222;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    padding: 0;
+    border: none;
+    border-radius: 37.5px;
+    transition:all ease 0.3s;
+    vertical-align:bottom;
+}
+
+.menu-open {
+    height:400px !important;
+}
+
+#time-select span {
+    position:absolute;
+    bottom:0;
+    right:0;
+    left:0;
+}
+
+.height-control {
+    margin-top:25px;
+    opacity:0;
+    height:300px;
+    transition:all ease 0.3s;
+}
+
+.slider-on {
+    opacity:1 !important;
+}
+
+.rzslider.rz-vertical .rz-bar-wrapper {
+    margin: 0 0 0 0;
+}
+
+.ing-modal {
+    margin-top:0px;
+    box-shadow:0 1px 3px rgba(0, 0, 0, 0.3);
+    transition:ease all 0.3s;
+}
+
+.ing-modal-menu-hidden {
+    position:relative;
+    top:-85px;
+    z-index:1000;
+}
+
+.show-ing-modal {
+    margin-top:100px !important;
+}
+
+/* Log In page rules */
+
+.main-header {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-top:30px;
+    padding-bottom:80px;
+    font-family:Roboto;
+    color:#fff;
+    text-align:center;
+}
+
+.main-header > h1 {
+    color:white;
+    font-weight:300;
+    margin:0px;
+    padding:0px;
+}
+
+.main-header > p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.triangle {
+    border-left:180px solid transparent;
+    border-right:180px solid #323232;
+    border-bottom:45px solid #323232;
+    border-top:45px solid transparent;
+    margin-top:-90px;
+}
+
+.login-input-body {
+    padding:5px 30px;
+    background-color:#323232;
+}
+
+.bb-form-input {
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    color:white !important;
+    margin-bottom:15px;
+    margin-top:0px;    
+}
+
+.fade.ng-enter {
+    transition:all ease 0.5s;
+    margin-top:600px;
+}
+
+.fade.ng-enter.ng-enter-active {
+    margin-top:0px;
+}
+
+.fade.ng-leave {
+    transition:all ease 0.5s;
+    opacity:1;
+}
+
+.fade.ng-leave.ng-leave-active {
+    opacity:0;
+}
+
+.has-errors {
+    border-bottom:1px solid #B83E2C;
+}
+
+.no-errors {
+    border-bottom:1px solid #6fa724;
+}
+
+p[ng-message] {
+    color:#B83E2C;
+}
+
+.error {
+    color:#B83E2C;
+}
+
+.timer-image {
+    position:absolute;
+    top:120px;
+    left:76px;
+    height:200px;
+    width:200px;
+    opacity:1;
+}
+
+.step-text-one {
+    position:absolute;
+    width:100%;
+    margin-left:0px;
+    transition:all ease 0.5s;
+}
+
+.step-text-two {
+    position:absolute;
+    width:100%;
+    margin-left:400px;
+    transition:all ease 0.5s;
+}
+
+.slide-out {
+    margin-left:-400px;
+}
+
+.slide-out-vanish {
+    display:none !important;
+}
+
+.slide-in {
+    margin-left:0px;
+}

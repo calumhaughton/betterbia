@@ -1,0 +1,74 @@
+<ion-view id="recipeSteps" hide-nav-bar="true"  style="background-color:#323232;">
+
+    <ion-content>
+        <menu visible="rightVisible" alignment="right">
+            <button class="button button-clear button-dark icon ion-android-close left" ng-click="close()"></button>
+            <menu-item ng-repeat="ingredient in ingredients | orderBy:['name']">{{ingredient.name}}</menu-item>
+        </menu>
+        <button class="button button-light button-clear icon ion-android-arrow-back back-btn-position" ui-sref="recipeDetail"></button>
+        <button class="button button-light button-clear icon ion-knife ion-pizza ing-btn-position" ng-click="showRight()"></button>
+
+        <div class="progress-bar">
+            <div class="increment"></div>
+        </div>
+
+        <ion-slide-box on-slide-changed="slideChange($index)" ng-cloak show-pager="false">
+            <ion-slide ng-repeat="step in steps" style='text-align:center;color:white;' timer-display>
+                <div ng-show="oldStyle">
+                    <div ng-show="showTimer">
+                        <span class="timer-text" style="margin:15px;"><timer interval="1000" countdown="step.timer[1]" autostart="false" finish-callback="timerUp($index)">{{minutes}}:{{sseconds}}</timer></span>
+                    </div>
+                    <p style="font-size:16px;margin:15px;">{{step.text}}</p>
+                    <img ng-src="{{step.image}}" style="width:300px;height:300px;margin:auto;display:block;" />
+                    <div ng-show="upcomingTimer">
+                        <span class="timer-text" style="margin:15px;">{{step.timer[1] | SecondstoMinutes}}</span>
+                        <button class="button button-positive" ng-click="startUpcomingTimer($index); next()">Start Timer</button>
+                    </div>
+                </div>
+                <div ng-show="newStyle">
+                    <div ng-if="showFixedPageTimer">
+                        <div style="font-size:16px;margin-top:15px;margin-bottom:15px;" class="step-text-one" ng-class="{'slide-out':timerRunning, 'slide-out-vanish':slideOutVanish}">{{step.text1}}</div>
+                        <div style="font-size:16px;margin-top:15px;margin-bottom:15px;" class="step-text-two" ng-class="{'slide-in':timerRunning}">{{step.text2}}</div>
+                        <img ng-src="{{step.image1}}" class="timer-image"/>
+                        <img ng-src="{{step.image2}}" class="timer-image"/>
+                        <div style="height:50px;"></div>
+                        <round-progress
+                                        max="step.timer.time"
+                                        current="currentTime"
+                                        color="#6fa724"
+                                        bg-color="white"
+                                        radius="145"
+                                        stroke="3"
+                                        semi="false"
+                                        rounded="false"
+                                        clockwise="true"
+                                        responsive="false"
+                                        duration="600"
+                                        animation="easeOutCubic"
+                                        animation-delay="0"></round-progress>
+                        <span class="timer-text" style="margin:15px;">
+                            <timer 
+                                        interval="1000"
+                                        countdown="step.timer.time"
+                                        autostart="false"
+                                        finish-callback="timerUp($index)">{{minutes}}:{{sseconds}}</timer>
+                        </span>
+                        <button class="button button-positive" ng-click="startFixedTimer($index)" ng-show="!timerRunning">Start Timer</button>
+                    </div>
+                    <div ng-show="showScrollableTimer"></div>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+
+
+
+        <div class="padding">
+            <button class="button button-round button-green button-arrow-left icon ion-android-arrow-back" ng-click="previous()" ng-show="buttonStatus.prev"></button>
+            <button class="button button-round button-green button-arrow-right icon ion-android-arrow-forward" ng-click="next()" style="float:right;" ng-show="buttonStatus.next"></button>
+            <button class="button button-balanced button-full" style="float:right;" ng-show="buttonStatus.done">Done</button>
+        </div>
+
+
+    </ion-content>
+
+</ion-view>
