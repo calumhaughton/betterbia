@@ -420,8 +420,8 @@ p.points {
 
 .timer-text {
     color:white;
-    font-size:24px;
-    font-weight:bold;
+    font-size:48px;
+    font-weight:300;
     display:block;
 }
 
@@ -821,12 +821,31 @@ p[ng-message] {
     color:#B83E2C;
 }
 
-.timer-image {
+.timer-image-one {
     position:absolute;
     top:120px;
-    left:76px;
+    left:71px;
     height:200px;
     width:200px;
+    opacity:1;
+    transition:all linear 0.3s;
+}
+
+.timer-image-two {
+    position:absolute;
+    top:120px;
+    left:71px;
+    height:200px;
+    width:200px;
+    opacity:0;
+    transition:all linear 0.3s;
+}
+
+.timer-image-fade-out {
+    opacity:0;
+}
+
+.timer-image-fade-in {
     opacity:1;
 }
 
@@ -834,14 +853,14 @@ p[ng-message] {
     position:absolute;
     width:100%;
     margin-left:0px;
-    transition:all ease 0.5s;
+    transition:all ease 0.3s;
 }
 
 .step-text-two {
     position:absolute;
     width:100%;
     margin-left:400px;
-    transition:all ease 0.5s;
+    transition:all ease 0.3s;
 }
 
 .slide-out {

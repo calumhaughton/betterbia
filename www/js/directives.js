@@ -226,6 +226,7 @@ angular.module('app.directives', [])
 
         scope.timerRunning = false;
         scope.slideOutVanish = false;
+        scope.imageVanish = false;
 
         scope.startFixedTimer = function (i) {
             var timerIndex = document.getElementsByTagName('timer');
@@ -235,10 +236,14 @@ angular.module('app.directives', [])
             $timeout(function () {
                 scope.slideOutVanish = true;
             }, 600);
+            $timeout(function () {
+                scope.imageVanish = true;
+            }, 300);
         }
 
         scope.$on('timer-tick', function (event, args) {
             scope.currentTime -= 1;
+            scope.$digest();
         });
 
     }
