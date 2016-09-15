@@ -14,7 +14,7 @@
         <div ng-controller="scrollTimerCtrl">
             <div ng-if="displayScrollableTimer">
                 <div style="height:50px;"></div>
-                <div class="scrollable-timer">
+                <div class="scrollable-timer" ng-class="{animated:timeUp, infinite:timeUp, flash:timeUp}">
                     <round-progress style="display:inline-block;"
                                     max="scrollTime.max"
                                     current="scrollTime.current"
@@ -28,7 +28,8 @@
                                     responsive="false"
                                     duration="600"
                                     animation="easeOutCubic"
-                                    animation-delay="0"></round-progress>
+                                    animation-delay="0"
+                                    ></round-progress>
                     <span class="timer-text-small"><timer interval="1000" countdown="scrollTime.max" autostart="false" finish-callback="scrollTimerUp()">{{minutes}}:{{sseconds}}</timer></span>
                 </div>
             </div>
@@ -55,27 +56,27 @@
                         <img ng-src="{{step.image1}}" class="timer-image-one" ng-class="{'timer-image-fade-out':timerRunning}"/>
                         <img ng-src="{{step.image2}}" class="timer-image-two" ng-class="{'timer-image-fade-in':imageVanish}"/>
                         <div style="height:50px;"></div>
-                        <round-progress
-                                        max="step.timer.time"
-                                        current="currentTime"
-                                        color="#6fa724"
-                                        bg-color="white"
-                                        radius="145"
-                                        stroke="3"
-                                        semi="false"
-                                        rounded="false"
-                                        clockwise="true"
-                                        responsive="false"
-                                        duration="600"
-                                        animation="easeOutCubic"
-                                        animation-delay="0"></round-progress>
-                        <span class="timer-text" style="margin:35px;">
-                            <timer 
-                                        interval="1000"
-                                        countdown="step.timer.time"
-                                        autostart="false"
-                                        finish-callback="timerUp($index)">{{minutes}}:{{sseconds}}</timer>
-                        </span>
+                        <div ng-class="{animated:timeUp, infinite:timeUp, flash:timeUp}">
+                            <round-progress max="step.timer.time"
+                                            current="currentTime"
+                                            color="#6fa724"
+                                            bg-color="white"
+                                            radius="145"
+                                            stroke="3"
+                                            semi="false"
+                                            rounded="false"
+                                            clockwise="true"
+                                            responsive="false"
+                                            duration="600"
+                                            animation="easeOutCubic"
+                                            animation-delay="0"></round-progress>
+                            <span class="timer-text" style="margin:35px;">
+                                <timer interval="1000"
+                                       countdown="step.timer.time"
+                                       autostart="false"
+                                       finish-callback="timerUp($index)">{{minutes}}:{{sseconds}}</timer>
+                            </span>
+                        </div>
                         <button class="button button-positive" ng-click="startFixedTimer($index)" ng-show="!timerRunning">Start Timer</button>
                     </div>
                     <div ng-if="showScrollableTimer">

@@ -8,6 +8,8 @@ angular.module('app.controllers').controller('scrollTimerCtrl', function ($scope
         current: 0
     }
 
+    $scope.timeUp = false;
+
     $rootScope.$on('start-scrollable-timer', function () {
         $scope.scrollTime.max = scrollableTimerStore.getTime();
         $scope.scrollTime.current = scrollableTimerStore.getTime();
@@ -19,8 +21,10 @@ angular.module('app.controllers').controller('scrollTimerCtrl', function ($scope
     });
 
     $scope.scrollTimerUp = function () {
+        $scope.timeUp = true;
         $timeout(function () {
             $scope.displayScrollableTimer = false;
+            $scope.timeUp = false;
         }, 5000);
 
         //var alarm = new Media('/android_asset/www/sounds/alarm.mp3',
@@ -118,6 +122,10 @@ angular.module('app.controllers').controller('recipeStepsCtrl', function ($scope
         var increment = $document[0].getElementsByClassName('increment');
         increment[0].style.width = (1 + 19 * index / (slides - 1)) * 5 + '%';
 
+        // if a timer has finished, reset so that the flash animations are removed
+        if ($scope.timeUp) {
+            $scope.timeUp = false;
+        }
     };
 
     $scope.next = function () {
@@ -128,7 +136,10 @@ angular.module('app.controllers').controller('recipeStepsCtrl', function ($scope
         $ionicSlideBoxDelegate.previous();
     };
 
+    $scope.timeUp = false;
+
     $scope.timerUp = function (index) {
+        $scope.timeUp = true;
         $timeout(function () {
             if (index === 0) {
                 $scope.buttonStatus.prev = false;
@@ -141,8 +152,6 @@ angular.module('app.controllers').controller('recipeStepsCtrl', function ($scope
                 $scope.buttonStatus.done = false;
             }
         });
-
-        console.log('timer up');
         //var alarm = new Media('/android_asset/www/sounds/alarm.mp3',
         //    function () {
         //        console.log('Play');
