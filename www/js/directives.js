@@ -229,8 +229,7 @@ angular.module('app.directives', [])
         scope.imageVanish = false;
 
         scope.startFixedTimer = function (i) {
-            var timerIndex = document.getElementsByTagName('timer');
-            document.getElementsByTagName('timer')[i + 1].start();
+            scope.$broadcast('timer-start');
             scope.timerRunning = true;
 
             $timeout(function () {
@@ -243,12 +242,13 @@ angular.module('app.directives', [])
 
         scope.startScrollableTimer = function (i) {
             scrollableTimerStore.setTime(scope.step.timer.time);
-            $rootScope.$broadcast('start-scrollable-timer');
+            $rootScope.$emit('start-scrollable-timer');
         }
 
         scope.$on('timer-tick', function (event, args) {
-            scope.currentTime -= 1;
-            scope.$digest();
+            $timeout(function () {
+                scope.currentTime -= 1;
+            });
         });
 
     }

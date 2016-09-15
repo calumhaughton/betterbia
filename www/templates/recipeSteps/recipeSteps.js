@@ -1,5 +1,46 @@
 ﻿// recipeStepsCtrl
 
+angular.module('app.controllers').controller('scrollTimerCtrl', function ($scope, $timeout, $rootScope, scrollableTimerStore) {
+    $scope.displayScrollableTimer = false;
+
+    $scope.scrollTime = {
+        max: 0,
+        current: 0
+    }
+
+    $rootScope.$on('start-scrollable-timer', function () {
+        $scope.scrollTime.max = scrollableTimerStore.getTime();
+        $scope.scrollTime.current = scrollableTimerStore.getTime();
+        $scope.displayScrollableTimer = true;
+        $timeout(function () {
+            console.log('start timer!');
+            $scope.$broadcast('timer-start');
+        }, 1000);
+    });
+
+    $scope.scrollTimerUp = function () {
+        $timeout(function () {
+            $scope.displayScrollableTimer = false;
+        }, 5000);
+
+        //var alarm = new Media('/android_asset/www/sounds/alarm.mp3',
+        //    function () {
+        //        console.log('Play');
+        //    }, function (err) {
+        //        console.log(err);
+        //    });
+        //alarm.play();
+        //navigator.vibrate([500, 500, 500, 500, 500, 500, 500, 500, 500, 500]);
+    }
+
+
+    $scope.$on('timer-tick', function (event, args) {
+        $timeout(function () {
+            $scope.scrollTime.current -= 1;
+        });
+    });
+});
+
 angular.module('app.controllers').controller('recipeStepsCtrl', function ($scope, $log, $timeout, $ionicSlideBoxDelegate, $document, detailStore, scrollableTimerStore) {
     $scope.steps = {};
     $scope.recipeData = {};
@@ -88,7 +129,7 @@ angular.module('app.controllers').controller('recipeStepsCtrl', function ($scope
     };
 
     $scope.timerUp = function (index) {
-        $scope.$apply(function () {
+        $timeout(function () {
             if (index === 0) {
                 $scope.buttonStatus.prev = false;
             } else if (Object.keys($scope.steps).length === (index + 4) && index > 0) {
@@ -101,33 +142,17 @@ angular.module('app.controllers').controller('recipeStepsCtrl', function ($scope
             }
         });
 
-        var alarm = new Media('/android_asset/www/sounds/alarm.mp3',
-            function () {
-                console.log('Play');
-            }, function (err) {
-                console.log(err);
-            });
-        alarm.play();
-        navigator.vibrate([500, 500, 500, 500, 500, 500, 500, 500, 500, 500]);
+        console.log('timer up');
+        //var alarm = new Media('/android_asset/www/sounds/alarm.mp3',
+        //    function () {
+        //        console.log('Play');
+        //    }, function (err) {
+        //        console.log(err);
+        //    });
+        //alarm.play();
+        //navigator.vibrate([500, 500, 500, 500, 500, 500, 500, 500, 500, 500]);
     }
 
-    $scope.displayScrollableTimer = false;
-    $scope.scrollTime = {
-        value:0
-    }
-
-    $scope.$on('start-scrollable-timer', function () {
-        $scope.scrollTime.value = scrollableTimerStore.getTime();
-        $scope.displayScrollableTimer = true;
-
-        var timer = document.getElementsByTagName('timer');
-        console.log(timer);
-;
-    });
-
-    $scope.scrollTimerUp = function () {
-        $scope.displayScrollableTimer = false;
-    }
 
     // Sliding menu controls
 

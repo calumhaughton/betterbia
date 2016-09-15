@@ -432,10 +432,9 @@ p.points {
 }
 
 .scrollable-timer {
-    margin-top:49px;
     text-align:center;
     width:30%;
-    position:absolute;
+    position:fixed;
     margin-left:35%;
 
 }
