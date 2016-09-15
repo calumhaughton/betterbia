@@ -177,6 +177,19 @@ angular.module('app.services', [])
     }
 })
 
+.factory('scrollableTimerStore', function () {
+    var time = {};
+    time.value = "";
+
+    return {
+        setTime: function (setTime) {
+            time.value = setTime;
+        },
+        getTime: function () {
+            return time.value;
+        }
+    }
+})
 
 // login sign up
 

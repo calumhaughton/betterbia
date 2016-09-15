@@ -1,6 +1,6 @@
 ﻿// recipeStepsCtrl
 
-angular.module('app.controllers').controller('recipeStepsCtrl', function ($scope, $log, $timeout, $ionicSlideBoxDelegate, $document, detailStore) {
+angular.module('app.controllers').controller('recipeStepsCtrl', function ($scope, $log, $timeout, $ionicSlideBoxDelegate, $document, detailStore, scrollableTimerStore) {
     $scope.steps = {};
     $scope.recipeData = {};
     $scope.ingredients = [];
@@ -65,7 +65,11 @@ angular.module('app.controllers').controller('recipeStepsCtrl', function ($scope
             if ($scope.stepTimerArray.fixedPageTimer) {
                 $scope.buttonStatus.prev = false;
                 $scope.buttonStatus.next = false;
+            } else if ($scope.stepTimerArray.scrollableTimer) {
+                $scope.buttonStatus.prev = true;
+                $scope.buttonStatus.next = false;
             }
+               
         }
 
         // update the slider when the slide changes
@@ -105,6 +109,24 @@ angular.module('app.controllers').controller('recipeStepsCtrl', function ($scope
             });
         alarm.play();
         navigator.vibrate([500, 500, 500, 500, 500, 500, 500, 500, 500, 500]);
+    }
+
+    $scope.displayScrollableTimer = false;
+    $scope.scrollTime = {
+        value:0
+    }
+
+    $scope.$on('start-scrollable-timer', function () {
+        $scope.scrollTime.value = scrollableTimerStore.getTime();
+        $scope.displayScrollableTimer = true;
+
+        var timer = document.getElementsByTagName('timer');
+        console.log(timer);
+;
+    });
+
+    $scope.scrollTimerUp = function () {
+        $scope.displayScrollableTimer = false;
     }
 
     // Sliding menu controls

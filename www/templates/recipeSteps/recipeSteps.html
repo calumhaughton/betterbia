@@ -12,6 +12,25 @@
             <div class="increment"></div>
         </div>
 
+        <div class="scrollable-timer" ng-if="displayScrollableTimer">
+            <round-progress
+                           style="display:inline-block;"
+                           max="10"
+                           current="6"
+                           color="#6fa724"
+                           bg-color="white"
+                           radius="15"
+                           stroke="2"
+                           semi="false"
+                           rounded="false"
+                           clockwise="true"
+                           responsive="false"
+                           duration="600"
+                           animation="easeOutCubic"
+                           animation-delay="0"></round-progress>
+            <span class="timer-text-small"><timer interval="1000" countdown="scrollTime.value" autostart="false" finish-callback="scrollTimerUp()">{{minutes}}:{{sseconds}}</timer></span>
+        </div>
+
         <ion-slide-box on-slide-changed="slideChange($index)" ng-cloak show-pager="false">
             <ion-slide ng-repeat="step in steps" style='text-align:center;color:white;' timer-display>
                 <div ng-show="oldStyle">
@@ -55,7 +74,25 @@
                         </span>
                         <button class="button button-positive" ng-click="startFixedTimer($index)" ng-show="!timerRunning">Start Timer</button>
                     </div>
-                    <div ng-if="showScrollableTimer"></div>
+                    <div ng-if="showScrollableTimer">
+                        <div style="font-size:16px;margin:15px;">{{step.text}}</div>
+                        <round-progress 
+                                        max="step.timer.time"
+                                        current="currentTime"
+                                        color="#6fa724"
+                                        bg-color="white"
+                                        radius="145"
+                                        stroke="3"
+                                        semi="false"
+                                        rounded="false"
+                                        clockwise="true"
+                                        responsive="false"
+                                        duration="600"
+                                        animation="easeOutCubic"
+                                        animation-delay="0"></round-progress>
+                        <span class="timer-text" style="margin:35px;">{{step.timer.time | SecondstoMinutes}}</span>
+                        <button class="button button-round button-positive round-start-button" ng-click="startScrollableTimer($index); next()">Start</button>
+                    </div>
                 </div>
             </ion-slide>
         </ion-slide-box>
