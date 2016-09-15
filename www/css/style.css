@@ -425,6 +425,26 @@ p.points {
     display:block;
 }
 
+.timer-text-small {
+    color:white;
+    font-size:20px;
+    font-weight:300;
+}
+
+.scrollable-timer {
+    text-align:center;
+    width:30%;
+    position:fixed;
+    margin-left:35%;
+
+}
+
+.scrollable-timer > span {
+    position:relative;
+    top:-8px;
+    left:10px;
+}
+
 /* Slidebox progress bar */
 
 .progress-bar {
@@ -873,4 +893,11 @@ p[ng-message] {
 
 .slide-in {
     margin-left:0px;
+}
+
+.round-start-button {
+    margin-top: 46px;
+    margin-left: 158px;
+    margin-bottom: 10px;
+    box-shadow:0px 2px 6px #222222;
 }

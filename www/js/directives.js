@@ -182,7 +182,7 @@ angular.module('app.directives', [])
 })
 
     // Recipe Steps page, shows and manages and timer steps in recipe methods
-.directive('timerDisplay', function ($timeout) {
+.directive('timerDisplay', function ($timeout, $rootScope, scrollableTimerStore) {
     return function (scope, element, attrs) {
         // this block differentiates between the old array style and the new object style, and adjust the page accordingly. Should be removed when array style is removed. 
         scope.oldStyle = "";
@@ -229,8 +229,7 @@ angular.module('app.directives', [])
         scope.imageVanish = false;
 
         scope.startFixedTimer = function (i) {
-            var timerIndex = document.getElementsByTagName('timer');
-            document.getElementsByTagName('timer')[i + 1].start();
+            scope.$broadcast('timer-start');
             scope.timerRunning = true;
 
             $timeout(function () {
@@ -241,9 +240,15 @@ angular.module('app.directives', [])
             }, 300);
         }
 
+        scope.startScrollableTimer = function (i) {
+            scrollableTimerStore.setTime(scope.step.timer.time);
+            $rootScope.$emit('start-scrollable-timer');
+        }
+
         scope.$on('timer-tick', function (event, args) {
-            scope.currentTime -= 1;
-            scope.$digest();
+            $timeout(function () {
+                scope.currentTime -= 1;
+            });
         });
 
     }
