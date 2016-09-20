@@ -1,0 +1,51 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        },
+        "cordova-plugin-image-picker": {
+            "PACKAGE_NAME": "com.ionicframework.betterbia425422"
+        }
+    },
+    "dependent_plugins": {}
+}
