@@ -18,7 +18,7 @@ angular.module('app.controllers', [])
 })
 
 //Pop up controller
-  .controller('PopoverController', function ($scope, $ionicPopover, $localStorage, $state) {
+  .controller('PopoverController', function ($scope, $ionicPopover, $state) {
 
       $ionicPopover.fromTemplateUrl('templates/profile/profile-menu.html', {
           scope: $scope
@@ -45,21 +45,7 @@ angular.module('app.controllers', [])
           // Execute action
       });
 
-      $scope.logout = function () {
-          if (firebase.auth()) {
-              firebase.auth().signOut().then(function () {
-                  //Close the popover menu
-                  $scope.closePopover();
-                  //Clear the saved credentials.
-                  $localStorage.$reset();
-                  //Proceed to login screen.
-                  $state.go('login');
-              }, function (error) {
-                  //Show error message.
-                  Utils.message(Popup.errorIcon, Popup.errorLogout);
-              });
-          }
-      };
+    
   })
 
     // takes in a list of recipes, and filters using a time value. Returns a set of recipes that match the time selected.

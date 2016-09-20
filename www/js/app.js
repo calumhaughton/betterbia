@@ -7,7 +7,7 @@
 'Use Strict';
 
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'firebase', 'ngStorage', 'ngCordovaOauth', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ion-floating-menu', 'timer', 'rzModule', 'ngAnimate', 'ngMessages', 'angular-svg-round-progressbar'])
+angular.module('app', ['ionic','ngCordova', 'firebase', 'ngStorage', 'ngCordovaOauth', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ion-floating-menu', 'timer', 'rzModule', 'ngAnimate', 'ngMessages', 'angular-svg-round-progressbar'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {

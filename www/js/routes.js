@@ -88,7 +88,22 @@ angular.module('app.routes', [])
      url: '/completeAccount',
      templateUrl: 'templates/completeAccount/completeAccount.html',
      controller: 'completeAccountCtrl'
+   })
+
+  .state('accountOptions', {
+     url: '/accountOptions',
+     templateUrl: 'templates/accountOptions/accountOptions.html',
+     controller: 'accountOptionsCtrl'
   })
+
+    .state('editProfile', {
+        url: '/editProfile',
+        templateUrl: 'templates/accountOptions/editProfile/editProfile.html',
+        controller: 'editProfileCtrl'
+      })
+
+
+
 
 $urlRouterProvider.otherwise('/login')
 
