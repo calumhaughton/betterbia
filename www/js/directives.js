@@ -181,6 +181,11 @@ angular.module('app.directives', [])
         }
 })
 
+
+
+
+
+
     // Recipe Steps page, shows and manages and timer steps in recipe methods
 .directive('timerDisplay', function ($timeout) {
     return function (scope, element, attrs) {

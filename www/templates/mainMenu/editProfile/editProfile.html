@@ -1,0 +1,32 @@
+﻿<ion-view view-title="Edit Profile" id="accountOptions" style="background-color:#323232;">
+    <ion-nav-buttons>
+        <button class="button button-dark button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsController.profile"  nav-direction="back"></button>
+    </ion-nav-buttons>
+
+    <ion-content scroll="true">
+
+        <ion-item class="item-avatar" id="page-list-item1">
+            <img src="img/default.png" ng-src="{{x}}" class="img-rounded" />
+            
+            <button class="button button-balanced button-small" ng-click="addMedia()">New Profile Picture</button>
+   
+        </ion-item>
+
+        <div class="list">
+            <a class="item">User Name: {{userName}}</a>
+            <a class="item">User Email: {{email}}</a>
+            <a class="item">Provider: {{provider}}</a>
+        
+        </div>
+
+
+        
+        
+    
+         
+       
+
+
+    </ion-content>
+
+</ion-view>

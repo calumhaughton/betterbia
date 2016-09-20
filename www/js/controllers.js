@@ -17,36 +17,8 @@ angular.module('app.controllers', [])
     //});    
 })
 
-//Pop up controller
-  .controller('PopoverController', function ($scope, $ionicPopover, $state) {
 
-      $ionicPopover.fromTemplateUrl('templates/profile/profile-menu.html', {
-          scope: $scope
-      }).then(function (popover) {
-          $scope.popover = popover;
-      });
-
-      $scope.openPopover = function ($event) {
-          $scope.popover.show($event);
-      };
-      $scope.closePopover = function () {
-          $scope.popover.hide();
-      };
-      //Cleanup the popover when we're done with it!
-      $scope.$on('$destroy', function () {
-          $scope.popover.remove();
-      });
-      // Execute action on hide popover
-      $scope.$on('popover.hidden', function () {
-          // Execute action
-      });
-      // Execute action on remove popover
-      $scope.$on('popover.removed', function () {
-          // Execute action
-      });
-
-    
-  })
+  
 
     // takes in a list of recipes, and filters using a time value. Returns a set of recipes that match the time selected.
 .filter("timeFilter", function (timeStore) {

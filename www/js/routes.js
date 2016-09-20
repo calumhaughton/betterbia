@@ -90,17 +90,23 @@ angular.module('app.routes', [])
      controller: 'completeAccountCtrl'
    })
 
-  .state('accountOptions', {
-     url: '/accountOptions',
-     templateUrl: 'templates/accountOptions/accountOptions.html',
-     controller: 'accountOptionsCtrl'
-  })
-
     .state('editProfile', {
         url: '/editProfile',
-        templateUrl: 'templates/accountOptions/editProfile/editProfile.html',
+        templateUrl: 'templates/mainMenu/editProfile/editProfile.html',
         controller: 'editProfileCtrl'
-      })
+    })
+
+    .state('help', {
+        url: '/help',
+        templateUrl: 'templates/mainMenu/help/help.html',
+        controller: 'helpCtrl'
+    })
+
+    .state('privacyPolicy', {
+        url: '/privacyPolicy',
+        templateUrl: 'templates/mainMenu/privacyPolicy/privacyPolicy.html',
+        controller: 'privacyPolicyCtrl'
+    })
 
 
 

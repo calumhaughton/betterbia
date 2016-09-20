@@ -6,7 +6,7 @@ angular.module('app.controllers').controller('completeAccountCtrl', function ($s
         if (firebase.auth().currentUser.photoURL) {
             $scope.profilePic = firebase.auth().currentUser.photoURL;
         } else {
-            $scope.profilePic = "https://i0.wp.com/market.ionic.io/img/user-default.png";
+            $scope.profilePic = "img/default.png";
         }
         //Checks if the Social Login has a displayName, and show it on the Registration Form.
         if (firebase.auth().currentUser.displayName) {
