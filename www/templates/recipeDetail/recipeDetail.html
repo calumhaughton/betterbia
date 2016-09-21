@@ -1,24 +1,31 @@
 <ion-view view-title="Recipe Detail" id="recipeDetail" hide-nav-bar="true"  style="background-color:#323232;">
     <ing-added-modal></ing-added-modal>
-    <button class="button button-dark button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsController.recipesList"></button>
+    <button class="button button-dark button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsController.recipesList" ng-hide="pageScrolled"></button>
     <img ng-src="{{recipeID.fullscreen}}" class="fullscreen" />
-    <ion-content scroll="true">
-        <div class="detail-page-content padding" button-flash>
+    <ion-content scroll="true" on-scroll="scrolled()">
+        <div class="detail-page-content padding" ng-class="{'detail-open': detailTabOpen}" button-flash>
             <h3>{{recipeID.title}}</h3>
             <button class="button button-positive button-full icon button-transition" ng-click="addAllToList(); reset()" ng-class="{'green':trigger, 'ion-android-checkmark-circle':trigger, 'ion-android-cart':!trigger}">  Add to Shopping List</button>
-            <div class="button-bar">
-                <a class="button" ng-class="{ 'button-stable': !isSet(1), 'button-balanced': isSet(1)}" ng-click="setTab(1)">1</a>
-                <a class="button" ng-class="{ 'button-stable': !isSet(2), 'button-balanced': isSet(2)}" ng-click="setTab(2)">2</a>
-                <a class="button" ng-class="{ 'button-stable': !isSet(3), 'button-balanced': isSet(3)}" ng-click="setTab(3)">3</a>
-                <a class="button" ng-class="{ 'button-stable': !isSet(4), 'button-balanced': isSet(4)}" ng-click="setTab(4)">4</a>
+
+            <div class="button-flex-group">
+                <button class="button button-round icon ion-clipboard" ng-class="{'button-balanced': isSet(1)}" ng-click="setTab(1)"></button>
+                <button class="button button-round icon ion-pizza" ng-class="{'button-balanced': isSet(2)}" ng-click="setTab(2)"></button>
+                <button class="button button-round icon ion-erlenmeyer-flask" ng-class="{'button-balanced': isSet(3)}" ng-click="setTab(3)"></button>
+                <button class="button button-round icon ion-umbrella" ng-class="{'button-balanced': isSet(4)}" ng-click="setTab(4)"></button>
             </div>
-            <div class="card" ng-show="isSet(1)">
+
+            <div style="margin-top:10px;" ng-show="detailTabOpen">
+                <div class="pointer" ng-class="{'vanish':!showDetailTab, 'tab-two':isSet(2), 'tab-three':isSet(3), 'tab-four':isSet(4)}"></div>
+                <hr />
+            </div>
+            
+            <div class="card detail-tab" ng-show="isSet(1)">
                 <div class="item item-text-wrap">
                     <h4>Overview</h4>
                     {{recipeID.overview[0]}}
                 </div>
             </div>
-            <div class="card" ng-show="isSet(2)">
+            <div class="card detail-tab" ng-show="isSet(2)">
                 <div class="item item-text-wrap">
                     <h4>Ingredients</h4>
                     <ion-list>
@@ -39,7 +46,7 @@
                     </ion-list>
                 </div>
             </div>
-            <div class="card" ng-show="isSet(3)">
+            <div class="card detail-tab" ng-show="isSet(3)">
                 <div class="item item-text-wrap">
                     <h4>Equipment</h4>
                     <ion-list>
@@ -49,7 +56,7 @@
                     </ion-list>
                 </div>
             </div>
-            <div class="card" ng-show="isSet(4)">
+            <div class="card detail-tab" ng-show="isSet(4)">
                 <div class="item item-text-wrap">
                     <h4>Chef Tips</h4>
                     <ion-list>
@@ -59,6 +66,7 @@
                     </ion-list>
                 </div>
             </div>
+            <hr class="detail-line" ng-class="{'push-line-down':detailTabOpen, 'remove-margin':showDetailTab}" />
         </div>
         
     </ion-content>
