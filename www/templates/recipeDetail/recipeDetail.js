@@ -1,7 +1,9 @@
 ﻿// recipeDetailCtrl
 
-angular.module('app.controllers').controller('recipeDetailCtrl', function ($scope, $log, detailStore, ShoppingList) {
+angular.module('app.controllers').controller('recipeDetailCtrl', function ($scope, $log, $timeout, detailStore, ShoppingList, $ionicScrollDelegate) {
     $scope.tab = 0;
+    $scope.detailTabOpen = false;
+    $scope.showDetailTab = false;
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
         StatusBar.backgroundColorByHexString("#272727");
         $scope.recipeID = detailStore.getID();
@@ -9,7 +11,24 @@ angular.module('app.controllers').controller('recipeDetailCtrl', function ($scop
         $scope.tab = 0;
     });
     $scope.setTab = function (newValue) {
-        $scope.tab = newValue;
+        if (newValue === $scope.tab) {
+            
+            $scope.showDetailTab = false;
+
+            $timeout(function () {
+                $scope.detailTabOpen = false;
+                $scope.tab = 0;
+            }, 500);
+
+        } else {
+            $scope.tab = newValue;
+            $scope.detailTabOpen = true;
+            $timeout(function () {
+                $scope.showDetailTab = true;
+                
+            }, 500);
+        }
+               
     };
     $scope.isSet = function (tabName) {
         return $scope.tab === tabName;
@@ -26,4 +45,17 @@ angular.module('app.controllers').controller('recipeDetailCtrl', function ($scop
     };
 
     $scope.page = "Recipe Detail";
+
+    $scope.pageScrolled = false;
+    $scope.scrolled = function () {
+        if ($ionicScrollDelegate.getScrollPosition().top > 0) {
+            $scope.$apply(function () {
+                $scope.pageScrolled = true;
+            });
+        } else {
+            $scope.$apply(function () {
+                $scope.pageScrolled = false;
+            });
+        }
+    }
 });
