@@ -92,19 +92,19 @@ angular.module('app.routes', [])
 
     .state('editProfile', {
         url: '/editProfile',
-        templateUrl: 'templates/mainMenu/editProfile/editProfile.html',
+        templateUrl: 'templates/profileMenu/editProfile/editProfile.html',
         controller: 'editProfileCtrl'
     })
 
     .state('help', {
         url: '/help',
-        templateUrl: 'templates/mainMenu/help/help.html',
+        templateUrl: 'templates/profileMenu/help/help.html',
         controller: 'helpCtrl'
     })
 
     .state('privacyPolicy', {
         url: '/privacyPolicy',
-        templateUrl: 'templates/mainMenu/privacyPolicy/privacyPolicy.html',
+        templateUrl: 'templates/profileMenu/privacyPolicy/privacyPolicy.html',
         controller: 'privacyPolicyCtrl'
     })
 

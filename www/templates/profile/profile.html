@@ -1,7 +1,7 @@
 <ion-view title="Profile" id="profile">
     
     <ion-nav-buttons side="primary">
-        <button ng-click="openPopover($event)" ng-controller="mainMenuCtrl" class="button icon ion-android-more-vertical"></button>
+        <button ng-click="openPopover($event)" ng-controller="profileMenuCtrl" class="button icon ion-android-more-vertical"></button>
     </ion-nav-buttons>
 
 
@@ -15,7 +15,7 @@
                  <form id="page-form2" class="list ">
                      <ion-list id="page-list1" class="">
                          <ion-item class="item-avatar item item-text-wrap animated zoomIn item-remove-animate " id="page-list-item1">
-                             <img src="img/default.png" class="img-rounded" />
+                             <img ng-src="{{imgURI}}" err-src="img/default.png" class="img-rounded" />
                              <h2>User Name</h2>
                              <p class="points">{{calendar.points}} Points</p>
                          </ion-item>
