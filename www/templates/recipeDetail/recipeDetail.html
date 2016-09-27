@@ -1,6 +1,6 @@
 <ion-view view-title="Recipe Detail" id="recipeDetail" hide-nav-bar="true"  style="background-color:#323232;">
     <ing-added-modal></ing-added-modal>
-    <button class="button button-dark button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsController.recipesList" ng-hide="pageScrolled"></button>
+    <button class="button button-dark button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsMaster" ng-hide="pageScrolled"></button>
     <img ng-src="{{recipeID.fullscreen}}" class="fullscreen" />
     <ion-content scroll="true" on-scroll="scrolled()">
         <div class="detail-page-content padding" ng-class="{'detail-open': detailTabOpen}" button-flash>

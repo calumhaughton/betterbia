@@ -1,14 +1,34 @@
 <ion-view title="Tabs Controller" hide-back-button="true" id="tabs">
     <ion-tabs class="tabs-balanced tabs-icon-only " id="tabsController-tabs1">
+        <!--<div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s4"><a class="active" href="#/tabs/test1"><i class="material-icons">home</i></a></li>
+                    <li class="tab col s4"><a href="#/tabs/test2"><i class="material-icons">list</i></a></li>
+                    <li class="tab col s4"><a href="#/tabs/test3"><i class="material-icons">shopping_cart</i></a></li>
+                </ul>
+            </div>
+            <div id="test1" class="col s12">
+                <ion-nav-view name="tab1"></ion-nav-view>
+            </div>
+            <div id="test2" class="col s12">
+                <ion-nav-view name="tab2"></ion-nav-view>
+            </div>
+            <div id="test3" class="col s12">
+                <ion-nav-view name="tab3"></ion-nav-view>
+            </div>
+        </div>-->
+
         <ion-tab title="Home" icon="ion-android-home" href="#/tabs/profile" id="tabsController-tab1">
-            <ion-nav-view name="tab1"></ion-nav-view>
+            <ion-nav-view name="tab1" animation="slide-left-right"></ion-nav-view>
         </ion-tab>
         <ion-tab title="Recipes" icon="ion-android-list" href="#/tabs/recipesList" id="tabsController-tab4">
-            <ion-nav-view name="tab2"></ion-nav-view>
+            <ion-nav-view name="tab2" animation="slide-left-right"></ion-nav-view>
         </ion-tab>
         <ion-tab title="Shopping Lists" icon="ion-android-cart" href="#/tabs/listHome" id="tabsController-tab2">
-            <ion-nav-view name="tab3"></ion-nav-view>
+            <ion-nav-view name="tab3" animation="slide-left-right"></ion-nav-view>
         </ion-tab>
+
     </ion-tabs>
 </ion-view>
 

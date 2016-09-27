@@ -120,7 +120,7 @@ angular.module('app.controllers').controller('loginCtrl', function ($scope, $sta
             $localStorage.password = password;
             //Get the first account because Firebase.get() returns a list.
             $localStorage.accountId = account[0].$id;
-            $state.go('tabsController.profile');
+            $state.go('tabsMaster');
             $scope.util.errorFeedback = false;
           }
         });

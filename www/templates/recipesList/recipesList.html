@@ -1,8 +1,9 @@
-<ion-view title="Recipes" id="recipesList">
+<!--<ion-view title="Recipes" id="recipesList">
     <ion-nav-buttons side="primary">
         <button ng-click="" class="button icon ion-search"></button>
     </ion-nav-buttons>
-
+-->
+<div ng-controller="recipesListCtrl">
     <ion-floating-menu>
         <ion-floating-item value="All"></ion-floating-item>
         <ion-floating-item value="Chicken"></ion-floating-item>
@@ -14,31 +15,34 @@
 
     <time-select></time-select>
     <ing-added-modal></ing-added-modal>
-    <ion-content padding="true" class="has-header">
-            <ion-list>
-                <div class="spinner" ng-show="spinnerBoolean">
-                    <ion-spinner></ion-spinner>
-                </div>
-                <div class="list card" ng-repeat="recipe in filteredRecipes | timeFilter" button-flash>
-                    <div class="item detail-card">
-                        <div class="detail-card-images" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">
-                            <img src="{{recipe.thumbnail}}" class="card-image" />
-                            <img ng-src="{{recipe.spice | spiceImg}}" class="spice-image"/>
-                        </div>
-                        <div class="detail-card-content">
-                            <div class="detail-card-text-area" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">
-                                <h3>{{recipe.title}}</h3>
-                                <p><i class="icon ion-android-time"></i> {{recipe.time}} Minutes</p>
-                                
-                            </div>
-                            <a class="waves-effect btn-flat add-btn button-transition right" ng-class="{green:trigger}"  ng-click="addRecipeToShoppingList(recipe.id); reset()"><i class="material-icons add-btn-icon" ng-show="!trigger">add_shopping_cart</i><i class="material-icons add-btn-icon" style="color:white;" ng-show="trigger">check_circle</i></a>
-                            <!--<button class="button button-stable icon right margin-bottom-10 button-transition" ng-class="{green:trigger, 'ion-android-cart':!trigger, 'ion-android-checkmark-circle':trigger}" ng-click="addRecipeToShoppingList(recipe.id); reset() "></button>-->
-                            <!--<button class="button button-positive button-block no-margin" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">Cook this recipe</button>-->
-                        </div>
-                        
+
+    <ion-content padding="true">
+        <ion-list>
+            <div class="spinner" ng-show="spinnerBoolean">
+                <ion-spinner></ion-spinner>
+            </div>
+            <div class="list card" ng-repeat="recipe in filteredRecipes | timeFilter" button-flash>
+                <div class="item detail-card">
+                    <div class="detail-card-images" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">
+                        <img src="{{recipe.thumbnail}}" class="card-image" />
+                        <img ng-src="{{recipe.spice | spiceImg}}" class="spice-image" />
                     </div>
+                    <div class="detail-card-content">
+                        <div class="detail-card-text-area" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">
+                            <h3>{{recipe.title}}</h3>
+                            <p><i class="icon ion-android-time"></i> {{recipe.time}} Minutes</p>
+
+                        </div>
+                        <a class="waves-effect btn-flat add-btn button-transition right" ng-class="{green:trigger}" ng-click="addRecipeToShoppingList(recipe.id); reset()"><i class="material-icons add-btn-icon" ng-show="!trigger">add_shopping_cart</i><i class="material-icons add-btn-icon" style="color:white;" ng-show="trigger">check_circle</i></a>
+                        <!--<button class="button button-stable icon right margin-bottom-10 button-transition" ng-class="{green:trigger, 'ion-android-cart':!trigger, 'ion-android-checkmark-circle':trigger}" ng-click="addRecipeToShoppingList(recipe.id); reset() "></button>-->
+                        <!--<button class="button button-positive button-block no-margin" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">Cook this recipe</button>-->
+                    </div>
+
                 </div>
-            </ion-list>
+            </div>
+        </ion-list>
     </ion-content>
-    
+</div>
+    <!--
 </ion-view>
+        -->
