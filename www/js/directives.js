@@ -381,7 +381,6 @@ angular.module('app.directives', [])
             };
 
             $scope.recalcPoints = function (type, boolean) {
-
                 //retrieve the selected date, and add it the database
                 var date = $scope.selected._d.toString();
                 
@@ -572,6 +571,33 @@ angular.module('app.directives', [])
     }
 })
 
+
+// calculate the number of ingredients on the shopping list to show a counter on the listHome page
+.directive('ingredientCounter', function () {
+    return function (scope, element, attrs) {
+        if ('ingredients' in scope.list) {
+            scope.listIngs = scope.list.ingredients;
+            scope.listLength = Object.keys(scope.listIngs).length;
+        } else {
+            scope.listLength = "0";
+        }
+    }
+})
+
+// calculate the number of ingredients for a shared shopping list on the listHome page
+.directive('ingredientCounterSharedlist', function ($firebaseObject) {
+    return function (scope, element, attrs) {
+        scope.fullSharedList = $firebaseObject(firebase.database().ref('accounts/' + scope.sharedList.accountId + '/shoppingList/myLists/' + scope.sharedList.name));
+        scope.fullSharedList.$loaded().then(function () {
+            if ('ingredients' in scope.fullSharedList) {
+                scope.listIngs = scope.fullSharedList.ingredients;
+                scope.listLength = Object.keys(scope.listIngs).length;
+            } else {
+                scope.listLength = "0";
+            }
+        })
+    }
+})
 
 // Sort through the ingredients on the recipe detail and shopping list page, and alters display based on each ingredient
 .directive('ingredientDisplay', function () {

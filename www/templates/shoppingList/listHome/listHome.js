@@ -69,8 +69,6 @@ angular.module('app.controllers').controller('listHomeCtrl', function ($scope, $
                     onTap: function (e) {
                         $scope.accounts.$loaded().then(function () {
                             angular.forEach($scope.accounts, function (value, key) {
-                                console.log(key);
-                                console.log(value);
                                 if ($scope.shareTo.email === value.email) {
                                     var updateAccount = $firebaseArray(firebase.database().ref('accounts/' + key + '/shoppingList/sharedWithMe'));
                                     updateAccount.$loaded().then(function () {
@@ -81,6 +79,32 @@ angular.module('app.controllers').controller('listHomeCtrl', function ($scope, $
                                     });
                                 }
                             });
+                        });
+                    }
+                }
+            ]
+        });
+    }
+
+    $scope.deleteList = function (listName) {
+        var myPopup = $ionicPopup.show({
+            title: 'Delete List',
+            subTitle: 'This will permanently remove the list for you and anyone this list has been shared with.',
+            scope: $scope,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    onTap: function (e) {
+                        myPopup.close();
+                    }
+                },
+                {
+                    text: '<b>Delete List</b>',
+                    type: 'button-positive',
+                    onTap: function (e) {
+                        var listForDeletion = $firebaseObject(firebase.database().ref('accounts/' + $localStorage.accountId + '/shoppingList/myLists/' + listName));
+                        listForDeletion.$loaded().then(function () {
+                            listForDeletion.$remove();
                         });
                     }
                 }

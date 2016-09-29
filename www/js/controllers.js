@@ -62,6 +62,34 @@ angular.module('app.controllers', [])
       };
   })
 
+
+    // filter to limit the number of ingredients displayed on the listHome page
+.filter("limitTo5", function () {
+    return function (data) {       
+        if (data != null) {
+            var ingArray = [];
+            var dataLength = Object.keys(data).length;
+
+            angular.forEach(data, function (value, key) {
+                ingArray.push(value.name);
+            });
+
+            if (ingArray.length > 5) {
+                var output = ingArray.slice(0, 5);
+                output.push('...');
+            } else {
+                var output = ingArray;
+            }
+
+            return output;
+        } else {
+            var output = ["There isn't anything on this list yet."];
+            return output;
+        }
+            
+    }
+})
+
     // takes in a list of recipes, and filters using a time value. Returns a set of recipes that match the time selected.
 .filter("timeFilter", function (timeStore) {
     return function (data) {
