@@ -778,7 +778,7 @@ angular.module('app.directives', [])
 .directive("ingAddedModal", function () {
     return {
         restrict: "E",
-        templateUrl: "templates/ing-added-modal.html",
+        templateUrl: "templates/modals/ing-added-modal.html",
         replace: true,
         transclude:true,
         link:function($scope) {
@@ -829,7 +829,7 @@ angular.module('app.directives', [])
 .directive("ingAddedDetailModal", function () {
     return {
         restrict: "E",
-        templateUrl: "templates/ing-added-detail-modal.html",
+        templateUrl: "templates/modals/ing-added-detail-modal.html",
         replace: true,
         transclude: true,
         link: function ($scope) {

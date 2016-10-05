@@ -11,46 +11,9 @@ angular.module('app.routes', [])
     
   .state('tabsMaster', {
       url: '/tabsMaster',
-      templateUrl: 'templates/tabsMaster.html',
+      templateUrl: 'templates/tabs/tabsMaster.html',
       controller:'masterCtrl'
   })
-
-  //   .state('tabsController.profile', {
-  //  url: '/profile',
-  //  views: {
-  //    'tab1': {
-  //      templateUrl: 'templates/profile/profile.html',
-  //      controller: 'profileCtrl'
-  //    }
-  //  }
-  //})
-
-  //.state('tabsController.recipesList', {
-  //  url: '/recipesList',
-  //  views: {
-  //    'tab2': {
-  //      templateUrl: 'templates/recipesList/recipesList.html',
-  //      controller: 'recipesListCtrl'
-  //    }
-  //  }
-  //})
-
-  //.state('tabsController.listHome', {
-  //  url: '/listHome',
-  //  views: {
-  //    'tab3': {
-  //      templateUrl: 'templates/shoppingList/listHome/listHome.html',
-  //      controller: 'listHomeCtrl'
-  //    }
-  //  }
-  //})
-
-  //.state('tabsController', {
-  //    url: '/tabs',
-  //    templateUrl: 'templates/tabsController.html',
-  //    controller: 'tabsCtrl',
-  //    abstract: true
-  //})
 
   .state('listDetail', {
       url: '/listDetail',
