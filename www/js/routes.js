@@ -24,7 +24,7 @@ angular.module('app.routes', [])
   .state('tabsController.recipesList', {
     url: '/recipesList',
     views: {
-      'tab4': {
+      'tab2': {
         templateUrl: 'templates/recipesList/recipesList.html',
         controller: 'recipesListCtrl'
       }
@@ -34,7 +34,7 @@ angular.module('app.routes', [])
   .state('tabsController.listHome', {
     url: '/listHome',
     views: {
-      'tab2': {
+      'tab3': {
         templateUrl: 'templates/shoppingList/listHome/listHome.html',
         controller: 'listHomeCtrl'
       }
