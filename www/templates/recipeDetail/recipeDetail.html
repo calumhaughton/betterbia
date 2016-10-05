@@ -1,11 +1,10 @@
 <ion-view view-title="Recipe Detail" id="recipeDetail" hide-nav-bar="true"  style="background-color:#323232;">
-    <ing-added-modal></ing-added-modal>
-    <button class="button button-dark button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsController.recipesList" ng-hide="pageScrolled"></button>
+    <ing-added-detail-modal></ing-added-detail-modal>
+    <button class="button button-dark button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsMaster" ng-hide="pageScrolled"></button>
     <img ng-src="{{recipeID.fullscreen}}" class="fullscreen" />
     <ion-content scroll="true" on-scroll="scrolled()">
         <div class="detail-page-content padding" ng-class="{'detail-open': detailTabOpen}" button-flash>
-            <h3>{{recipeID.title}}</h3>
-            <button class="button button-positive button-full icon button-transition" ng-click="addAllToList(); reset()" ng-class="{'green':trigger, 'ion-android-checkmark-circle':trigger, 'ion-android-cart':!trigger}">  Add to Shopping List</button>
+            <h3 style="font-size:28px;font-weight:300;">{{recipeID.title}}</h3>
 
             <div class="button-flex-group">
                 <button class="button button-round icon ion-clipboard" ng-class="{'button-balanced': isSet(1)}" ng-click="setTab(1)"></button>
@@ -28,6 +27,9 @@
             <div class="card detail-tab" ng-show="isSet(2)">
                 <div class="item item-text-wrap">
                     <h4>Ingredients</h4>
+                    <!--<button class="button button-positive button-full icon button-transition" ng-click="addAllToList(); reset()" ng-class="{'green':trigger, 'ion-android-checkmark-circle':trigger, 'ion-android-cart':!trigger}">  Add to Shopping List</button>-->
+                    <a class="waves-effect btn button-transition bg-blue" style="margin-top:10px;margin-bottom:10px;height:45px;width:100%;color:white;text-transform:initial;" ng-class="{green:trigger}" ng-click="addAllToList(); reset()"><i class="material-icons" style="color:white;margin-top:5px;" ng-show="!trigger">add_shopping_cart</i><i class="material-icons" style="color:white;margin-top:5px;" ng-show="trigger">check_circle</i> <span ng-show="!trigger" style="position:relative;top:-3px;">Add to Shopping List</span><span ng-show="trigger" style="position:relative;top:-3px;">Added to Shopping List</span></a>
+
                     <ion-list>
                         <ion-item ng-repeat="ingredient in recipeID.ingredients" ingredient-display button-flash>
                             <div ng-show="measureDisplay">
@@ -72,7 +74,7 @@
     </ion-content>
     <ion-footer-bar align-title="left" class="bar-large bar-balanced">
         <div class="button-bar">
-            <button ui-sref="recipeSteps" class="button button-balanced button-block">Cook This Recipe</button>
+            <a ui-sref="recipeSteps" class="btn btn-large waves-effect waves-light bg-green" style="width:100%;box-shadow:none;text-transform:initial;">Cook This Recipe</a>
         </div>
     </ion-footer-bar>
 </ion-view>

@@ -28,7 +28,6 @@ angular.module('ion-floating-menu', [])
                     hasFooter: '=?'
                 },
                 template: '<ul id="floating-menu"  \n\
-                            ng-style="{\'bottom\' : \'{{bottomValue}}\'}" \n\
                             ng-class="{\'active\' : isOpen}" \n\
                             ng-click="open()">' +
                         '<div ng-transclude></div>' +

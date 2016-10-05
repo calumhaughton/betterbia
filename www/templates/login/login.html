@@ -2,7 +2,7 @@
     <ion-content class="manual-ios-statusbar-padding" scroll="true">
 
         <div class="main-header">
-            <h1>betterbia</h1>
+            <h4 style="color:white;font-weight:400;margin:0;">betterbia</h4>
             <p>attainable, sustainable</p>
         </div>
             
@@ -16,22 +16,12 @@
                     </div>
                     <form novalidate name="loginForm" ng-submit="loginForm.$valid && login(user)">
                         <div class="list">
-                            <!-- <div class="row">
-                                <div class="input-field col s12">
-                                    <input id="email" type="email" class="validate">
-                                    <label for="email">Email</label>
-                                </div>
-                            </div> -->
                             <div class="row" style="margin-bottom:0px;padding:0px;">
                                 <div class="input-field col s12">
                                     <input id="email" type="email" class="validate" ng-model="user.email" required />
                                     <label for="email">Email</label>
                                 </div>
                             </div>
-                            <!--<label class="item item-input item-floating-label bb-form-input" ng-class="{'has-errors':loginForm.email.$touched && loginForm.email.$invalid, 'no-errors':loginForm.email.$touched && loginForm.email.$valid}">
-                                <span class="input-label">Email</span>
-                                <input name="email" type="email" ng-model="user.email" placeholder="Email" required>
-                            </label>-->
 
                             <!-- Error handling for email field -->
                             <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched || loginForm.$submitted" role="alert">
@@ -44,12 +34,6 @@
                                     <label for="password">Password</label>
                                 </div>
                             </div>
-
-                            <!--<label class="item item-input item-floating-label bb-form-input" ng-class="{'has-errors':loginForm.password.$touched && loginForm.password.$invalid, 'no-errors':loginForm.password.$touched && loginForm.password.$valid}">
-                                <span class="input-label">Password</span>
-                                <input name="password" type="password" ng-model="user.password" placeholder="Password" ng-minlength="5" ng-maxlength="30" required>
-                            </label>-->
-
                             <!-- Error handling for password field -->
                             <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched || loginForm.$submitted" role="alert">
                                 <div ng-messages-include="templates/messages.html"></div>
@@ -168,6 +152,7 @@
             </div>
             <div ng-show="loading">
                 <ion-spinner icon="android" style="fill:white;stroke:white;"></ion-spinner>
+                <p style="color:white;text-align:center;margin-top:195px;">Logging in...</p>
             </div>
         </div>        
 

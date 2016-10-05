@@ -1,31 +1,52 @@
-﻿<ion-view title="Shopping Lists" id="listHome" class="" hide-nav-bar="false">
-    <ion-nav-buttons side="primary">
-        <button class="button icon ion-android-more-vertical"></button>
-    </ion-nav-buttons>
+﻿<div ng-controller="listHomeCtrl">
+        <ion-content>
+           <div class="card waves-effect" style="width:45%;height:190px;display:inline-block;margin-left:3.3333%;" ng-repeat="list in lists | toArray | orderBy:'name'" ingredient-counter>
+               <div class="card-content" style="padding:15px;">
+                   <div ng-click="setList(list.name, thisAccount)" ui-sref="listDetail">
+                       <span class="card-title" style="line-height:14px;font-size:16px;font-weight:600;">{{list.name}}</span>
+                       <p style="font-size:12px;color:#808080;">{{listLength}} Items</p>
+                       <ul style="height:100%;">
+                           <li ng-repeat="ingredient in list.ingredients | limitTo5" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ingredient}}</li>
+                       </ul>
+                   </div>
+                            
+                   <a class="waves-effect waves-circle activator list-more-icon"><i class="material-icons" style="margin-top:5px;">more_vert</i></a>
 
-        <ion-content class="padding">
+               </div>
+               <div class="card-reveal" style="padding:0px;border-radius:2px;">
+                   <ul class="menu-item-list" style="margin-top:5px;margin-bottom:5px;">
+                       <li class="waves-effect" ng-click="shareList(list.name)"><i class="material-icons" style="top:5px;">reply</i>Share List</li>
+                       <li class="waves-effect" ng-click="editList(list.name)"><i class="material-icons">mode_edit</i>Edit List</li>
+                       <li class="waves-effect" ng-click="deleteList(list.name)"><i class="material-icons">delete</i>Delete List</li>
+                       <li class="waves-effect card-title" style="font-size:15px;font-weight:400;"><i class="material-icons">check</i>Done</li>
+                   </ul>
+               </div>
+            </div>
 
-            <ion-list>
-
-                <ion-item ng-repeat="list in lists" class="restrict-height" style="padding:0px;margin-top:8px;border-color:transparent;background-color:transparent;border-style:none;">
-                    <div class="flex-list-shell">
-                        <div class="flex-list-item text-middle" ng-click="setList(list.name, thisAccount)" ui-sref="listDetail">
-                            <h2>{{list.name}}</h2>
-                        </div>
-                        <button class="button button-light icon ion-android-share right flex-list-button" ng-click="shareList(list.name)"></button>
+            <div class="card waves-effect" style="width:45%;height:190px;display:inline-block;margin-left:3.3333%;" ng-repeat="sharedList in sharedLists" ingredient-counter-sharedlist>
+                <div class="card-content" style="padding:15px;">
+                    <div ng-click="setList(sharedList.name, sharedList.accountId)" ui-sref="listDetail">
+                        <span class="card-title" style="line-height:14px;font-size:16px;font-weight:600;">{{sharedList.name}}</span>
+                        <p style="font-size:12px;color:#808080;">{{listLength}} Items</p>
+                        <ul>
+                            <li ng-repeat="ingredient in fullSharedList.ingredients | limitTo5" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ingredient}}</li>
+                        </ul>
                     </div>
-                </ion-item>
+                    
+                    <a class="waves-effect waves-circle activator list-more-icon"><i class="material-icons" style="margin-top:5px;">more_vert</i></a>
 
-                <ion-item ng-repeat="sharedList in sharedLists" class="restrict-height" style="padding:0px;margin-top:8px;border-color:transparent;background-color:transparent;border-style:none;">
-                    <div class="flex-list-shell">
-                        <div class="flex-list-item text-middle" ng-click="setList(sharedList.name, sharedList.accountId)" ui-sref="listDetail">
-                            <h2>{{sharedList.name}}</h2>
-                        </div>
-                    </div>
-                </ion-item>
+                </div>
+                <div class="card-reveal" style="padding:0px;border-radius:2px;">
+                    <ul class="menu-item-list" style="margin-top:5px;margin-bottom:5px;">
+                        <li style="color:#808080!important;"><i class="material-icons" style="top:5px;">reply</i>Share List</li>
+                        <li style="color:#808080!important;"><i class="material-icons">mode_edit</i>Edit List</li>
+                        <li style="color:#808080!important;"><i class="material-icons">delete</i>Delete List</li>
+                        <li class="waves-effect card-title" style="font-size:15px;font-weight:400;"><i class="material-icons">check</i>Done</li>
+                    </ul>
+                </div>
+            </div>
 
-            </ion-list>
-            <button class="button button-block button-positive" ng-click="createNewList()">Create New List</button>
         </ion-content>
 
-</ion-view>
+    <a class="btn-floating btn-large waves-effect waves-light bg-blue" style="position:absolute;bottom:75px;right:45px;" ng-click="createNewList()"><i class="material-icons">add</i></a>
+</div>

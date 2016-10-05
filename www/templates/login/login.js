@@ -18,7 +18,7 @@ angular.module('app.controllers').controller('loginCtrl', function ($scope, $sta
     //Check if user is already authenticated on Firebase and authenticate using the saved credentials.
     if ($localStorage) {
       if ($localStorage.loginProvider) {
-        Utils.message(Popup.successIcon, Popup.welcomeBack);
+        $scope.loading = true;
         //The user is previously logged in, and there is a saved login credential.
         if ($localStorage.loginProvider == "Firebase") {
           //Log the user in using Firebase.
@@ -42,7 +42,6 @@ angular.module('app.controllers').controller('loginCtrl', function ($scope, $sta
         }
       } else if ($localStorage.isGuest) {
         //The user previously logged in as guest, entering as a new guest again.
-        Utils.message(Popup.successIcon, Popup.welcomeBack);
         loginFirebaseGuest();
       }
     }
@@ -114,14 +113,16 @@ angular.module('app.controllers').controller('loginCtrl', function ($scope, $sta
         var account = Firebase.get('accounts', 'userId', userId);
         account.$loaded().then(function() {
           if (account.length > 0) {
-              $scope.loading = false;
             $localStorage.loginProvider = "Firebase";
             $localStorage.email = email;
             $localStorage.password = password;
             //Get the first account because Firebase.get() returns a list.
             $localStorage.accountId = account[0].$id;
-            $state.go('tabsController.profile');
+            $state.go('tabsMaster');
             $scope.util.errorFeedback = false;
+            $timeout(function () {
+                $scope.loading = false;
+            }, 3000);            
           }
         });
       })

@@ -1,13 +1,29 @@
 <ion-view title="Shopping List" id="listDetail" class="" hide-nav-bar="true" >
 
         <div class="inline-nav-bar nav-bar-default" ng-class="{'nav-bar-scrolled': navScrolled.option}">
-            <button class="button button-light button-clear icon ion-android-arrow-back back-btn-position" ng-class="{'button-dark': navScrolled.option}" ui-sref="tabsController.listHome"></button>
-            <h4>{{shoppingList.selectedList.listName}}</h4>
+            <button class="button button-light button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsMaster"></button>
+            <h5>{{shoppingList.selectedList.listName}}</h5>
         </div>
 
         <ion-content style="background:#323232;" on-scroll="scrolled()" class="padding">
             
-            <ion-list style="position:relative;top:50px;">
+            <div class="shopping-list z-depth-1" style="margin-top:50px;">
+                <p class="checkbox-input waves-effect list-ingredient" ng-repeat="ingredient in items | filter:{checked:false} | orderBy:'name'" list-exit-animation>
+                    <input type="checkbox" class="filled-in" id="{{ingredient.name}}" ng-model="trash" checked="checked" ng-change="setTrash()"/>
+                    <label for="{{ingredient.name}}" class="darken-text" ng-class="{'strikethrough': trash}">{{ingredient.name}}</label>
+                </p>
+            </div>
+            <div class="shopping-list z-depth-1">
+                <div class="item item-divider waves-effect" ng-click="shoppingList.clearDone()" ng-show="trashItems.length" style="margin:0;margin-top:8px;height:50px;border:0;border-bottom:1px solid #808080;width:100%;padding:16px;">
+                    <span>Got it!<i class="material-icons right" style="color:#323232;margin-top:-4px;">delete_sweep</i> </span>
+                </div>
+                <p class="checkbox-input waves-effect list-ingredient" ng-repeat="ingredient in items | filter:{checked:true} as trashItems" list-exit-animation>
+                    <input type="checkbox" class="filled-in" id="{{ingredient.name}}" ng-model="trash" checked="checked" ng-change="setTrash()" />
+                    <label for="{{ingredient.name}}" class="darken-text" ng-class="{'strikethrough': trash}">{{ingredient.name}}</label>
+                </p>
+            </div>
+
+            <!--<ion-list style="position:relative;top:50px;">
                 <ion-item ng-repeat="ingredient in items | filter:{checked:false} | orderBy:'name'"
                           class="item-remove-animate restrict-height"
                           style="padding:0px;border-color:transparent;background-color:transparent;border-style:none;"
@@ -60,28 +76,41 @@
                         </div>
                     </div>
                 </ion-item>
-            </ion-list>
+            </ion-list>-->
         </ion-content>
 
 
-        <ion-footer-bar align-title="left" class="bar-large bar-balanced item-input-inset">
+        <ion-footer-bar align-title="left" class="bar-large item-input-inset">
             <div for="newItem" class="item-input-wrapper">
-                <span class="autocomplete-wrapper"
-                      ng-class="{'autocomplete-hidden': suggestions.length == 0}">
-                    <input id="newItem"
-                           type="text"
-                           class="autocomplete-input"
-                           ng-model="newItem"
-                           ng-keyup="$event.keyCode == 13 && addItem(newItem)"
-                           placeholder="Add item">
-                    <span class="autocomplete-suggestions">
-                        <div class="autocomplete-suggestion" ng-repeat="suggestion in suggestions">
+                <div class="autocomplete-wrapper" ng-class="{'autocomplete-hidden': suggestions.length == 0}">
+
+                    <div class="input-field col s6" style="margin:0;padding:0;background-color:white;">
+                        <input id="newItem"
+                               type="text"
+                               class="autocomplete-input"
+                               ng-model="newItem"
+                               ng-keyup="$event.keyCode == 13 && addItem(newItem)"
+                               placeholder="Add Item..."
+                               style="margin:0;background-color:white;color:#323232;border:none;">
+                        <label for="newItem"></label>
+                    </div>
+                    
+                    <div class="autocomplete-suggestions" style="width:100vw;">
+                        <!--<div class="autocomplete-suggestion" ng-repeat="suggestion in suggestions">
                             <p ng-click="addItem(suggestion)">{{suggestion}}</p>
-                        </div>
-                    </span>
-                </span>
+                        </div>-->
+                        <ul class="collection" style="margin:0px 0px 9px 0px;left:-10.667px;border-radius:0px;">
+                            <li class="collection-item" ng-repeat="suggestion in suggestions" ng-click="addItem(suggestion)">
+                                <div>
+                                    {{suggestion}}
+                                    <a class="secondary-content"><i class="material-icons" style="color:#3B5998;">add</i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <button id="addItem" ng-click="addItem(newItem)" class="button icon ion-plus"></button>
+            <a class="waves-effect btn-flat add-btn" ng-click="addItem(newItem)"><i class="material-icons add-btn-icon" style="color:#323232;">add</i></a>
         </ion-footer-bar>
 
 </ion-view>
