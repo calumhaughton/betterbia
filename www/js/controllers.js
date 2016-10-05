@@ -62,6 +62,15 @@ angular.module('app.controllers', [])
       };
   })
 
+ .filter("toArray", function () {
+     return function(obj) {
+         var result = [];
+         angular.forEach(obj, function(val, key) {
+             result.push(val);
+         });
+         return result;
+     };
+ })
 
     // filter to limit the number of ingredients displayed on the listHome page
 .filter("limitTo5", function () {

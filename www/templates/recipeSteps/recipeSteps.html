@@ -105,8 +105,10 @@
 
 
         <div class="padding">
-            <button class="button button-round button-green button-arrow-left icon ion-android-arrow-back" ng-click="previous()" ng-show="buttonStatus.prev"></button>
-            <button class="button button-round button-green button-arrow-right icon ion-android-arrow-forward" ng-click="next()" style="float:right;" ng-show="buttonStatus.next"></button>
+            <a class="btn waves-effect waves-light button-green button-round button-arrow-left bg-green" ng-click="previous()" ng-show="buttonStatus.prev"><i class="material-icons" style="font-size:38px;margin-top:14px;margin-left:-14px;">chevron_left</i></a>
+            <a class="btn waves-effect waves-light button-green button-round button-arrow-right bg-green" ng-click="next()" ng-show="buttonStatus.next"><i class="material-icons" style="font-size:38px;margin-top:14px;margin-left:-12px;">chevron_right</i></a>
+            <!--<button class="button button-round button-green button-arrow-left icon ion-android-arrow-back" ng-click="previous()" ng-show="buttonStatus.prev"></button>
+            <button class="button button-round button-green button-arrow-right icon ion-android-arrow-forward" ng-click="next()" style="float:right;" ng-show="buttonStatus.next"></button>-->
             <button class="button button-balanced button-full" style="float:right;" ng-show="buttonStatus.done">Done</button>
         </div>
 

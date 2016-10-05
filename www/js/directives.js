@@ -5,7 +5,11 @@ angular.module('app.directives', [])
 .directive('betterbiaNav', function () {
     return {
         restrict: 'E',
-        templateUrl: '../templates/betterbia-nav.html',
+        template: '<div class="app-header"> \n\
+                        <h5 style="font-size:18px;color:white;margin:8px;display:inline-block">{{title}}</h5> \n\
+                        <a class="waves-effect waves-light waves-circle right"><i class="material-icons" style="margin-top:5px;color:white;">more_vert</i></a> \n\
+                        <a class="waves-effect waves-light waves-circle right search-icon-transition" ng-show="showSearch"><i class="material-icons" style="margin-top:5px;color:white;">search</i></a> \n\
+                    </div>',
         transclude: true,
         replace:true,
         scope: {
@@ -669,6 +673,27 @@ angular.module('app.directives', [])
     }
 })
 
+    // controls the animation for when an item leaves the shopping list
+
+.directive('listExitAnimation', function ($timeout) {
+    return function (scope, element, attrs) {
+        scope.trash;
+
+        if (scope.ingredient.checked) {
+            scope.trash = true;
+        } else {
+            scope.trash = false;
+        }
+        
+        scope.setTrash = function () {
+            $timeout(function () {
+                scope.ingredient.checked = !scope.ingredient.checked;
+                scope.items.$save(scope.ingredient);
+            }, 500);            
+        }
+    }
+})
+
 // shows options when an item edit button is clicked on the shopping list
 
 .directive('optionsDisplay', function ($timeout) {
@@ -755,6 +780,7 @@ angular.module('app.directives', [])
         restrict: "E",
         templateUrl: "templates/ing-added-modal.html",
         replace: true,
+        transclude:true,
         link:function($scope) {
             if ($scope.page === "Recipe Detail") {
                 $scope.menuHidden = true;
@@ -800,6 +826,56 @@ angular.module('app.directives', [])
     }
 })
 
+.directive("ingAddedDetailModal", function () {
+    return {
+        restrict: "E",
+        templateUrl: "templates/ing-added-detail-modal.html",
+        replace: true,
+        transclude: true,
+        link: function ($scope) {
+            if ($scope.page === "Recipe Detail") {
+                $scope.menuHidden = true;
+            } else {
+                $scope.menuHidden = false;
+            }
+        },
+        controller: function ($rootScope, $scope, $timeout, ShoppingList) {
+            $scope.multipleIngredients = [];
+
+            $scope.ingredient = "";
+            $scope.list = "";
+
+            $scope.moreThanOneItem = false;
+            $scope.showModal = false;
+            $scope.menuHidden = false;
+
+            $rootScope.$on('ingredientAdded', function () {
+
+                $scope.ingredient = ShoppingList.addedIngredient.name;
+                $scope.list = ShoppingList.addedIngredient.list;
+
+                $scope.multipleIngredients.push($scope.ingredient);
+
+                if ($scope.multipleIngredients.length > 1) {
+                    $scope.moreThanOneItem = true;
+                }
+
+                $scope.showModal = true;
+
+                $timeout(function () {
+                    $scope.showModal = false;
+                }, 3000);
+
+                $timeout(function () {
+                    $scope.multipleIngredients = [];
+                    $scope.moreThanOneItem = false;
+                    $scope.ingredient = "";
+                    $scope.list = "";
+                }, 4000);
+            });
+        }
+    }
+})
 
 // Compare two inputs together, used to check if password and confirm password matches each other.
 .directive('compareTo', function () {

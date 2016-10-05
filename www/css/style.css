@@ -116,7 +116,7 @@ ion-slide {
     width:100%;
     position:fixed;
     z-index:1000;
-    height:45px;
+    height:50px;
     color:white;
     transition:ease all 0.1s;
 }
@@ -126,7 +126,7 @@ ion-slide {
 }
 
 .nav-bar-scrolled {
-    background-color:white !important;
+    background-color:#6fa724 !important;
     box-shadow:0px 2px 6px #222222;
 }
 
@@ -139,9 +139,6 @@ ion-slide {
     font-size:18px;
 }
 
-.inline-nav-bar.nav-bar-scrolled > h5 {
-    color:#323232;
-}
 
 .back-btn-position {
     position:absolute;
@@ -254,17 +251,11 @@ ion-footer-bar.bar.bar-large .item-input-wrapper input {
   color: #444;
   position: absolute;
   width: 100%;
-  padding: 8px 8px 0px 8px;
-  background-color: inherit;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-bottom: 1px dashed #DDD;
-  border-radius: 4px 4px 0px 0px;
 }
+
 .autocomplete-hidden .autocomplete-suggestions {
   display: none;
 }
-
-
 
 .shift-button-over {
     right:121px;
@@ -339,7 +330,7 @@ calendar  div.week > span.day {
   width: 14.28571429%;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  border-left: solid 1px #444;
+  border-left: solid 1px #CCC;
   font-size: 0.75em;
   text-align: center;
   height: 30px;
@@ -381,7 +372,7 @@ calendar  div.week > span.day.different-month {
 .selected {
   background: #E3F2FF !important;
   font-weight: 900;
-  
+  box-shadow:inset 0px 0px 0px 1px #4a95d5;   
 }
 
 .unselectable {
@@ -431,6 +422,9 @@ calendar form {
     left: initial;
 }
 
+.darken-text {
+    color:#222222 !important;
+}
 .user-avatar {
     width:80%;
     height:80px;
@@ -732,10 +726,6 @@ p.points {
     color:white;
 }
 
-.button-green>activated {
-    background-color:green;
-}
-
 .button-arrow-left {
     position:fixed;
     left: 60px;
@@ -899,6 +889,9 @@ menu > div > menu-item > div > span {
 
 .show-ing-modal {
     margin-top:-20px !important;
+}
+.show-ing-detail-modal {
+    margin-top:100px !important;
 }
 
 /* Log In page rules */
@@ -1178,6 +1171,16 @@ p[ng-message] {
     box-shadow:0 1px 0 0 #38761d;
 }
 
+.input-field input[type=text]#newItem:focus {
+    border-bottom:0;
+    box-shadow:0 0 0 0 white;
+}
+
+.input-field input[type=text]#newItem.valid {
+    border-bottom:0;
+    box-shadow:0 0 0 0 white;
+}
+
 .view-container {
     position:initial;
 }
@@ -1222,3 +1225,54 @@ p[ng-message] {
     padding-left:20px;
     line-height:45px;
 }
+
+.shopping-list {
+
+}
+
+.shopping-list > p {
+    border-bottom:1px solid #808080;
+}
+
+.shopping-list > p:first-child {
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+}
+
+.shopping-list > .item:first-child {
+    border-top-left-radius:2px;
+    border-top-right-radius:2px;
+}
+
+.shopping-list > p:last-child {
+    border-bottom:none !important;
+    border-bottom-left-radius:2px;
+    border-bottom-right-radius:2px;
+}
+
+.strikethrough {
+    text-decoration:line-through;
+}
+
+.list-ingredient.ng-animate.ng-enter {
+    opacity: 0;
+    max-height:0px;
+    transition:ease all 1s;
+}
+
+.list-ingredient.ng-animate.ng-enter.ng-enter-active {
+    opacity:1;
+    max-height:50px;
+}
+
+.list-ingredient.ng-animate.ng-leave {
+    opacity: 1;
+    max-height:50px;
+    transition:ease all 1s;
+}
+
+.list-ingredient.ng-animate.ng-leave.ng-leave-active {
+    opacity:0;
+    max-height:0px;
+}
+

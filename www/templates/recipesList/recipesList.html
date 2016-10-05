@@ -23,11 +23,11 @@
             </div>
             <div class="list card" ng-repeat="recipe in filteredRecipes | timeFilter" button-flash>
                 <div class="item detail-card">
-                    <div class="detail-card-images" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">
+                    <div class="detail-card-images waves-effect waves-block" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">
                         <img src="{{recipe.thumbnail}}" class="card-image" />
                         <img ng-src="{{recipe.spice | spiceImg}}" class="spice-image" />
                     </div>
-                    <div class="detail-card-content">
+                    <div class="detail-card-content waves-effect waves-block">
                         <div class="detail-card-text-area" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">
                             <h3>{{recipe.title}}</h3>
                             <p><i class="icon ion-android-time"></i> {{recipe.time}} Minutes</p>
