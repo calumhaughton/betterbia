@@ -107,7 +107,7 @@ angular.module('app.controllers', [])
 
         if (!isNaN(time)) {
             angular.forEach(data, function (recipe) {
-                if (recipe.time == time || (recipe.time + 5) == time || (recipe.time - 5) == time) {
+                if (recipe.time <= time) {
                     output[recipe.id] = recipe;
                 }
             });

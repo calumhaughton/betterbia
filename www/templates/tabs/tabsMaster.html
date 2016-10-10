@@ -3,6 +3,7 @@
     <betterbia-nav title="title"></betterbia-nav>
 
     <ion-content scroll="false" style="margin-top:48px;">
+
         <ion-slide-box on-slide-changed="updateTitle($index)" show-pager="false" ion-slide-tabs>
             <ion-slide ion-slide-tab-label="<i class='material-icons tab-icon'>home</i>">
                 <ng-include src="'templates/profile/profile.html'"></ng-include>
@@ -14,5 +15,11 @@
                 <ng-include src="'templates/shoppingList/listHome/listHome.html'"></ng-include>
             </ion-slide>
         </ion-slide-box>
+
+        <div class="recipe-list-inputs" ng-class="{'show-recipe-inputs': showInputs}">
+            <ing-selector></ing-selector>
+            <time-selector></time-selector>
+        </div>
+        
     </ion-content>
 </ion-view>

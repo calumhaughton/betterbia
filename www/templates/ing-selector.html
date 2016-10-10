@@ -1,0 +1,33 @@
+﻿<a class="btn-floating btn-large waves-effect waves-light bg-green ing-select-btn" ng-click="toggleFabMenu()" ng-class="{upper:selector.overlay}">
+    <i class="material-icons fade-transition" ng-show="selector.open">close</i>
+    <img ng-src="img/ing-select/{{selector.ingredient}}.svg" ng-show="!selector.open" style="height:42px;width:42px;margin-top:6px;" class="fade-transition"/>
+</a>
+
+<ul class="fab-btn-options">
+    <li>
+        <a ng-if="selector.link" class="fab-btn-link btn-floating waves-effect first bg-white" ng-click="selectIngredient('Veg'); toggleFabMenu()"><img src="img/ing-select/Veg-grey.svg" /></a>
+        <div ng-if="selector.text" class="fab-btn-text waves-effect first enter-left" ng-click="selectIngredient('Veg'); toggleFabMenu()">Vegetarian</div>
+    </li>
+    <li>
+        <a ng-if="selector.link" class="fab-btn-link btn-floating waves-effect second bg-white" ng-click="selectIngredient('Pork'); toggleFabMenu()"><img src="img/ing-select/Pork-grey.svg" /></a>
+        <div ng-if="selector.text" class="fab-btn-text waves-effect second enter-left" ng-click="selectIngredient('Pork'); toggleFabMenu()">Pork</div>
+    </li>
+    <li>
+        <a ng-if="selector.link" class="fab-btn-link btn-floating waves-effect third bg-white" ng-click="selectIngredient('Fish'); toggleFabMenu()"><img src="img/ing-select/Fish-grey.svg" /></a>
+        <div ng-if="selector.text" class="fab-btn-text waves-effect third enter-left" ng-click="selectIngredient('Fish'); toggleFabMenu()">Fish</div>
+    </li>
+    <li>
+        <a ng-if="selector.link" class="fab-btn-link btn-floating waves-effect fourth bg-white" ng-click="selectIngredient('Beef'); toggleFabMenu()"><img src="img/ing-select/Beef-grey.svg" /></a>
+        <div ng-if="selector.text" class="fab-btn-text waves-effect fourth enter-left" ng-click="selectIngredient('Beef'); toggleFabMenu()">Beef</div>
+    </li>
+    <li>
+        <a ng-if="selector.link" class="fab-btn-link btn-floating waves-effect fifth bg-white" ng-click="selectIngredient('Chicken'); toggleFabMenu()"><img src="img/ing-select/Chicken-grey.svg" /></a>
+        <div ng-if="selector.text" class="fab-btn-text waves-effect fifth enter-left" ng-click="selectIngredient('Chicken'); toggleFabMenu()">Chicken</div>
+    </li>
+    <li>
+        <a ng-if="selector.link" class="fab-btn-link btn-floating waves-effect last bg-white" ng-click="selectIngredient('All'); toggleFabMenu()"><img src="img/ing-select/All-grey.svg" /></a>
+        <div ng-if="selector.text" class="fab-btn-text waves-effect last enter-left" ng-click="selectIngredient('All'); toggleFabMenu()">All</div>
+    </li>
+</ul>
+
+<div class="modal-overlay" ng-if="selector.overlay" ng-click="toggleFabMenu()"></div>

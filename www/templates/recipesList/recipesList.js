@@ -63,4 +63,15 @@ angular.module('app.controllers').controller('recipesListCtrl', function ($scope
     };
 
     $scope.page = "Recipes List";
+
+    //$scope.fabLink = false;
+    //$scope.fabText = false;
+    //$scope.modalOverlay = false;
+
+    //$scope.showFabMenu = function () {
+    //    $scope.modalOverlay = !$scope.modalOverlay;
+    //    $scope.fabLink = !$scope.fabLink;
+    //    $scope.fabText = !$scope.fabText;
+    //}
+
 });

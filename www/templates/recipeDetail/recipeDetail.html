@@ -8,9 +8,9 @@
 
             <div class="button-flex-group">
                 <button class="button button-round icon ion-clipboard" ng-class="{'button-balanced': isSet(1)}" ng-click="setTab(1)"></button>
-                <button class="button button-round icon ion-pizza" ng-class="{'button-balanced': isSet(2)}" ng-click="setTab(2)"></button>
-                <button class="button button-round icon ion-erlenmeyer-flask" ng-class="{'button-balanced': isSet(3)}" ng-click="setTab(3)"></button>
-                <button class="button button-round icon ion-umbrella" ng-class="{'button-balanced': isSet(4)}" ng-click="setTab(4)"></button>
+                <button class="button button-round" ng-class="{'button-balanced': isSet(2)}" ng-click="setTab(2)"><img src="img/ingredients.svg" style="width:45px;height:45px;margin:7px 0px 0px -1px;" /></button>
+                <button class="button button-round" ng-class="{'button-balanced': isSet(3)}" ng-click="setTab(3)"><img src="img/pot.svg" style="width:35px;height:35px;margin:10px 0px 0px 1px;"/></button>
+                <button class="button button-round" ng-class="{'button-balanced': isSet(4)}" ng-click="setTab(4)"><img src="img/cheftips.svg" style="width:45px;height:45px;margin:7px 0px 0px -2px;"/></button>
             </div>
 
             <div style="margin-top:10px;" ng-show="detailTabOpen">
@@ -26,8 +26,8 @@
             </div>
             <div class="card detail-tab" ng-show="isSet(2)">
                 <div class="item item-text-wrap">
+
                     <h4>Ingredients</h4>
-                    <!--<button class="button button-positive button-full icon button-transition" ng-click="addAllToList(); reset()" ng-class="{'green':trigger, 'ion-android-checkmark-circle':trigger, 'ion-android-cart':!trigger}">  Add to Shopping List</button>-->
                     <a class="waves-effect btn button-transition bg-blue" style="margin-top:10px;margin-bottom:10px;height:45px;width:100%;color:white;text-transform:initial;" ng-class="{green:trigger}" ng-click="addAllToList(); reset()"><i class="material-icons" style="color:white;margin-top:5px;" ng-show="!trigger">add_shopping_cart</i><i class="material-icons" style="color:white;margin-top:5px;" ng-show="trigger">check_circle</i> <span ng-show="!trigger" style="position:relative;top:-3px;">Add to Shopping List</span><span ng-show="trigger" style="position:relative;top:-3px;">Added to Shopping List</span></a>
 
                     <ion-list>
@@ -48,6 +48,7 @@
                     </ion-list>
                 </div>
             </div>
+
             <div class="card detail-tab" ng-show="isSet(3)">
                 <div class="item item-text-wrap">
                     <h4>Equipment</h4>

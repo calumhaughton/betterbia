@@ -1,19 +1,6 @@
-<!--<ion-view title="Recipes" id="recipesList">
-    <ion-nav-buttons side="primary">
-        <button ng-click="" class="button icon ion-search"></button>
-    </ion-nav-buttons>
--->
 <div ng-controller="recipesListCtrl">
-    <ion-floating-menu>
-        <ion-floating-item value="All"></ion-floating-item>
-        <ion-floating-item value="Chicken"></ion-floating-item>
-        <ion-floating-item value="Beef"></ion-floating-item>
-        <ion-floating-item value="Fish"></ion-floating-item>
-        <ion-floating-item value="Pork"></ion-floating-item>
-        <ion-floating-item value="Veg"></ion-floating-item>
-    </ion-floating-menu>
 
-    <time-select></time-select>
+    <!--<time-select></time-select>-->
     <ing-added-modal></ing-added-modal>
 
     <ion-content padding="true">
@@ -33,9 +20,12 @@
                             <p><i class="icon ion-android-time"></i> {{recipe.time}} Minutes</p>
 
                         </div>
-                        <a class="waves-effect btn-flat add-btn button-transition right" ng-class="{green:trigger}" ng-click="addRecipeToShoppingList(recipe.id); reset()"><i class="material-icons add-btn-icon" ng-show="!trigger">add_shopping_cart</i><i class="material-icons add-btn-icon" style="color:white;" ng-show="trigger">check_circle</i></a>
-                        <!--<button class="button button-stable icon right margin-bottom-10 button-transition" ng-class="{green:trigger, 'ion-android-cart':!trigger, 'ion-android-checkmark-circle':trigger}" ng-click="addRecipeToShoppingList(recipe.id); reset() "></button>-->
-                        <!--<button class="button button-positive button-block no-margin" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">Cook this recipe</button>-->
+
+                        <a class="waves-effect btn-flat add-btn button-transition right" ng-class="{green:trigger}" ng-click="addRecipeToShoppingList(recipe.id); reset()">
+                            <i class="material-icons add-btn-icon" ng-show="!trigger">add_shopping_cart</i>
+                            <i class="material-icons add-btn-icon" style="color:white;" ng-show="trigger">check_circle</i>
+                        </a>
+                        
                     </div>
 
                 </div>
@@ -43,6 +33,3 @@
         </ion-list>
     </ion-content>
 </div>
-    <!--
-</ion-view>
-        -->

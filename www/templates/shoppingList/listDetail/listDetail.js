@@ -49,10 +49,12 @@ angular.module('app.controllers').controller('listDetailCtrl', function ($scope,
         if ($ionicScrollDelegate.getScrollPosition().top > 0) {
             $scope.$apply(function () {
                 $scope.navScrolled.option = true;
+                StatusBar.backgroundColorByHexString("#5b800d");
             });
         } else {
             $scope.$apply(function () {
                 $scope.navScrolled.option = false;
+                StatusBar.backgroundColorByHexString("#272727");
             });
         }
     }

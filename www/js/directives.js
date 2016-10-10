@@ -1,6 +1,107 @@
 angular.module('app.directives', [])
 
 
+//ingredient selector directive
+
+.directive('ingSelector', function ($timeout, ingTypeStore) {
+    return {
+        restrict: 'E',
+        templateUrl: 'templates/ing-selector.html',
+        controller: function ($scope) {
+            
+            $scope.selectIngredient = function (ingredient) {
+                ingTypeStore.setType(ingredient);
+                $scope.selector.ingredient = ingredient;
+            }
+
+            $scope.selector = {
+                open:false,
+                link: false,
+                text: false,
+                overlay: false,
+                ingredient: 'All'
+            }
+
+            $scope.toggleFabMenu = function () {
+                if (!$scope.selector.open) {
+                    $scope.selector.overlay = true;
+                    $timeout(function () {
+                        $scope.selector.link = true;
+                    }, 150);
+                    $timeout(function () {
+                        $scope.selector.text = true;
+                    }, 350);
+                    $timeout(function () {
+                        $scope.selector.open = true;
+                    }, 500);
+                } else {
+                    $scope.selector.text = false;
+                    $timeout(function () {
+                        $scope.selector.link = false;
+                    }, 250);
+                    $timeout(function () {
+                        $scope.selector.overlay = false;
+                    }, 500);
+                    $timeout(function () {
+                        $scope.selector.open = false;
+                    }, 600);
+                }
+                
+            }
+        }
+    }
+})
+
+//ingredient selector directive
+
+.directive('timeSelector', function ($timeout, $rootScope, timeStore) {
+    return {
+        restrict: 'E',
+        templateUrl: 'templates/time-selector.html',
+        controller: function ($scope) {
+            $scope.setTime = function (time) {
+                timeStore.setTime(time);
+                $scope.timeSelector.time = time;
+            }
+
+            $scope.timeSelector = {
+                open:false,
+                link: false,
+                text: false,
+                overlay: false,
+                time: '60'
+            }
+
+            $scope.toggleTimeMenu = function () {
+                if (!$scope.timeSelector.open) {
+                    $scope.timeSelector.overlay = true;
+                    $timeout(function () {
+                        $scope.timeSelector.link = true;
+                    }, 150);
+                    $timeout(function () {
+                        $scope.timeSelector.text = true;
+                    }, 350);
+                    $timeout(function () {
+                        $scope.timeSelector.open = true;
+                    }, 500);
+                } else {
+                    $scope.timeSelector.text = false;
+                    $timeout(function () {
+                        $scope.timeSelector.link = false;
+                    }, 250);
+                    $timeout(function () {
+                        $scope.timeSelector.overlay = false;
+                    }, 500);
+                    $timeout(function () {
+                        $scope.timeSelector.open = false;
+                    }, 600);
+                }
+                
+            }
+        }
+    }
+})
+
 // navbar directive 
 .directive('betterbiaNav', function () {
     return {
