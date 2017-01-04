@@ -1,17 +1,20 @@
 ﻿// recipesListCtrl
 
 
-angular.module('app.controllers').controller('recipesListCtrl', function ($scope, $rootScope, $log, $timeout, recipeStore, timeStore, detailStore, ingTypeStore, ShoppingList) {
+angular.module('app.controllers').controller('recipesListCtrl', function ($scope, $rootScope, $log, $timeout, recipeStore, timeStore, detailStore, ingTypeStore, ShoppingList, searchStore) {
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
         StatusBar.backgroundColorByHexString("#5b800d");
     });
-    
+    // Load recipe data
     $scope.recipes = recipeStore;
     $scope.filteredRecipes = {};
+
+    $scope.searchFilter = searchStore.getFilter();
 
     $scope.spinnerBoolean = true;
     $scope.time = "All";
 
+    // When all recipes have loaded, add them to filteredRecipes to be displayed, and turn off loading spinner
     $scope.recipes.$loaded().then(function () {
         $scope.filteredRecipes = {};
         angular.forEach($scope.recipes, function (value, key) {
@@ -22,11 +25,18 @@ angular.module('app.controllers').controller('recipesListCtrl', function ($scope
         $scope.spinnerBoolean = false;
     });
     
+    // When a new ingredient type has been selected, update the screen
     $rootScope.$on('newIngredient', function () {
         var ing = ingTypeStore.getType();
         $scope.getRecipes(ing);
     });
 
+    // As the user types into the search bar, this function is called
+    $scope.$on('newSearchFilter', function () {
+        $scope.searchFilter = searchStore.getFilter();
+    });
+
+    // Get recipes for an individual ingredient
     $scope.getRecipes = function (ingredient) {
         $scope.filteredRecipes = {};
         angular.forEach($scope.recipes, function (value, key) {
@@ -43,35 +53,20 @@ angular.module('app.controllers').controller('recipesListCtrl', function ($scope
         });
     };
 
-    $scope.setTime = function (time) {
-        timeStore.setTime(time);
-    };
-
+    // Stores recipe.id to load on the detail page
     $scope.goToDetail = function (id) {
         detailStore.setID(id);
     };
 
-    $scope.addRecipeToShoppingList = function (id)
-    {
-        detailStore.setID(id);
-        var recipeDetail = detailStore.getID();
-        recipeDetail.$loaded().then(function () {
-            for (var i = 0; i < recipeDetail.ingredients.length; i++) {
-                ShoppingList.addFromRecipe(recipeDetail.ingredients[i]);
-            }
-        });
-    };
-
     $scope.page = "Recipes List";
 
-    //$scope.fabLink = false;
-    //$scope.fabText = false;
-    //$scope.modalOverlay = false;
-
-    //$scope.showFabMenu = function () {
-    //    $scope.modalOverlay = !$scope.modalOverlay;
-    //    $scope.fabLink = !$scope.fabLink;
-    //    $scope.fabText = !$scope.fabText;
-    //}
+    // Checks if the 'No Results' message should display
+    $scope.checkResultsLength = function (results) {
+        if (results != null) {
+            var resultsArray = Object.keys(results);
+            var length = resultsArray.length;
+            return length;
+        }
+    }
 
 });

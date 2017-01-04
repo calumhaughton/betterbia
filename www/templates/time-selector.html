@@ -1,27 +1,32 @@
-﻿<a class="btn-floating btn-large waves-effect waves-light bg-green time-select-btn" ng-click="toggleTimeMenu()" ng-class="{upper:timeSelector.overlay}">
+﻿<!-- Main Input Btn -->
+<a class="btn-floating btn-large waves-effect waves-light bg-green time-select-btn" ng-click="toggleTimeMenu()" ng-class="{upper:timeSelector.overlay}">
     <i class="material-icons fade-transition" ng-show="timeSelector.open">close</i>
     <img ng-src="img/time-select/{{timeSelector.time}}.svg" ng-show="!timeSelector.open" style="height:42px;width:42px;margin-top:7px;margin-left:1px;" class="fade-transition" />
 </a>
 
 <ul class="fab-btn-options set-right">
+    <!-- 60 Mins Select -->
     <li>
         <a ng-if="timeSelector.link" class="fab-btn-link btn-floating waves-effect first bg-white" ng-click="setTime('60'); toggleTimeMenu()">
             <img src="img/time-select/60-grey.svg" />
         </a>
         <div ng-if="timeSelector.text" class="fab-btn-text waves-effect first enter-right" ng-click="setTime('60'); toggleTimeMenu()">60 Minutes</div>
     </li>
+    <!-- 45 Mins Select -->
     <li>
         <a ng-if="timeSelector.link" class="fab-btn-link btn-floating waves-effect second bg-white" ng-click="setTime('45'); toggleTimeMenu()">
             <img src="img/time-select/45-grey.svg" />
         </a>
         <div ng-if="timeSelector.text" class="fab-btn-text waves-effect second enter-right" ng-click="setTime('45'); toggleTimeMenu()">45 Minutes</div>
     </li>
+    <!-- 30 Mins Select -->
     <li>
         <a ng-if="timeSelector.link" class="fab-btn-link btn-floating waves-effect third bg-white" ng-click="setTime('30'); toggleTimeMenu()">
             <img src="img/time-select/30-grey.svg" />
         </a>
         <div ng-if="timeSelector.text" class="fab-btn-text waves-effect third enter-right" ng-click="setTime('30'); toggleTimeMenu()">30 Minutes</div>
     </li>
+    <!-- 20 Mins Select -->
     <li>
         <a ng-if="timeSelector.link" class="fab-btn-link btn-floating waves-effect fourth bg-white" ng-click="setTime('20'); toggleTimeMenu()">
             <img src="img/time-select/20-grey.svg" />
@@ -29,5 +34,5 @@
         <div ng-if="timeSelector.text" class="fab-btn-text waves-effect fourth enter-right" ng-click="setTime('20'); toggleTimeMenu()">20 Minutes</div>
     </li>
 </ul>
-
+<!-- Overlay to hide the rest of the screen -->
 <div class="modal-overlay" ng-if="timeSelector.overlay" ng-click="toggleTimeMenu()"></div>

@@ -1,8 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
   <head>
-   <!--  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">   -->
-    
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     
@@ -12,24 +10,25 @@
     
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 
-    
-     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+    <!-- cordova script -->
+    <script src="cordova.js"></script>
 
     <!-- Google Material Icons -->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-
+    <!-- CSS Links -->
     <link href="css/ionic.app.css" rel="stylesheet">
     <link href="lib/ion-floating-menu/dist/ion-floating-menu.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="lib/angularjs-slider/dist/rzslider.css" />
     <link rel="stylesheet" type="text/css" href="lib/animate.css/animate.min.css" />
-    <link rel="stylesheet" type="text/css" href="lib/materialize/dist/css/materialize.min.css" />
+    <link href="lib/materialize/dist/css/materialize.css" rel="stylesheet" />
+    <link href="lib/angular-xeditable/dist/css/xeditable.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" />
+
+    
+     
 
     <style type="text/css">
       .platform-ios .manual-ios-statusbar-padding{
@@ -52,16 +51,14 @@
       }
     </style>
 
-      <!-- jQuery -->
-      <script src="lib/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="lib/jquery/dist/jquery.min.js"></script>
 
-      <!-- ngMessages -->
-      <script src="lib/angular-messages/angular-messages.min.js"></script>
+    <!-- ngMessages -->
+    <script src="lib/angular-messages/angular-messages.min.js"></script>
 
-
-
-      <!-- ngStorage -->
-      <script src="lib/ngstorage/ngStorage.min.js"></script>
+    <!-- ngStorage -->
+    <script src="lib/ngstorage/ngStorage.min.js"></script>
 
     <!-- timer and calendar js -->
     <script src="lib/moment/moment.js"></script>
@@ -81,7 +78,13 @@
     <!-- Underscore JS-->
     <script src="lib/underscore/underscore-min.js"></script>
 
+    <!-- Native Transitions -->
+    <script src="lib/ionic-native-transitions/dist/ionic-native-transitions.min.js"></script>
 
+    <!-- Editable Input Forms -->
+    <script src="lib/angular-xeditable/dist/js/xeditable.js"></script>
+
+    <!-- Firebase Js -->
     <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
     <script>
     // Initialize Firebase
@@ -89,15 +92,12 @@
         apiKey: "AIzaSyAcdXzdpzcodmguS1LvgAWOC369CwO7qHI",
         authDomain: "betterbia-db.firebaseapp.com",
         databaseURL: "https://betterbia-db.firebaseio.com",
-        storageBucket: "betterbia-db.appspot.com",
+        storageBucket: "gs://betterbia-db.appspot.com",
       };
       firebase.initializeApp(config);
     </script>
 
-
-    
-    
-      <!-- Main js files -->
+    <!-- Project js files -->
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/routes.js"></script>
@@ -106,18 +106,18 @@
 
     <script src="templates/login/login.js"></script>
     <script src="templates/completeAccount/completeAccount.js"></script>
-    <script src="templates/forgotPassword/forgotPassword.js"></script>
     <script src="templates/profile/profile.js"></script>
+    <script src="templates/profileMenu/profileMenu.js"></script>
+    <script src="templates/profileMenu/editProfile/editProfile.js"></script>
+    <script src="templates/profileMenu/help/help.js"></script>
+    <script src="templates/profileMenu/privacyPolicy/privacyPolicy.js"></script>
     <script src="templates/recipeDetail/recipeDetail.js"></script>
     <script src="templates/recipesList/recipesList.js"></script>
     <script src="templates/recipeSteps/recipeSteps.js"></script>
     <script src="templates/shoppingList/listDetail/listDetail.js"></script>
     <script src="templates/shoppingList/listHome/listHome.js"></script>
-    <script src="templates/signup/signup.js"></script>
     <script src="templates/tabs/tabsMaster.js"></script>
 
-
-    
     <!-- ngCordovaOAuth -->
     <script src="lib/ng-cordova-oauth.min.js"></script> 
     <script src="lib/sha1.js"></script>
@@ -128,8 +128,8 @@
       <!-- Ionic router for multi tabs -->
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
    
-      <!-- Materialize JS -->
-      <script src="lib/materialize/dist/js/materialize.min.js"></script>
+    <!-- Materialize JS -->
+    <script src="lib/materialize/dist/js/materialize.min.js"></script>
 
 
     

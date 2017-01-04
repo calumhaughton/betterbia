@@ -1,12 +1,12 @@
 ﻿<div ng-controller="listHomeCtrl">
         <ion-content>
            <div class="card waves-effect" style="width:45%;height:190px;display:inline-block;margin-left:3.3333%;" ng-repeat="list in lists | toArray | orderBy:'name'" ingredient-counter>
-               <div class="card-content" style="padding:15px;">
-                   <div ng-click="setList(list.name, thisAccount)" ui-sref="listDetail">
+               <div class="card-content" style="padding:15px;height:100%;">
+                   <div ng-click="setList(list.name, thisAccount)" ui-sref="listDetail" style="height:100%;">
                        <span class="card-title" style="line-height:14px;font-size:16px;font-weight:600;">{{list.name}}</span>
                        <p style="font-size:12px;color:#808080;">{{listLength}} Items</p>
                        <ul style="height:100%;">
-                           <li ng-repeat="ingredient in list.ingredients | limitTo5" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ingredient}}</li>
+                           <li ng-repeat="ingredient in list.ingredients | limitTo5 track by $index" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ingredient}}</li>
                        </ul>
                    </div>
                             
@@ -23,13 +23,13 @@
                </div>
             </div>
 
-            <div class="card waves-effect" style="width:45%;height:190px;display:inline-block;margin-left:3.3333%;" ng-repeat="sharedList in sharedLists" ingredient-counter-sharedlist>
+            <div class="card waves-effect" style="width:45%;height:190px;display:inline-block;margin-left:3.3333%;" ng-repeat="sharedList in sharedLists | toArray | filter:{'accepted':true}" ng-controller="sharedListCtrl">
                 <div class="card-content" style="padding:15px;">
                     <div ng-click="setList(sharedList.name, sharedList.accountId)" ui-sref="listDetail">
                         <span class="card-title" style="line-height:14px;font-size:16px;font-weight:600;">{{sharedList.name}}</span>
                         <p style="font-size:12px;color:#808080;">{{listLength}} Items</p>
                         <ul>
-                            <li ng-repeat="ingredient in fullSharedList.ingredients | limitTo5" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ingredient}}</li>
+                            <li ng-repeat="ingredient in fullSharedList.ingredients | limitTo5 track by $index" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ingredient}}</li>
                         </ul>
                     </div>
                     
@@ -38,11 +38,26 @@
                 </div>
                 <div class="card-reveal" style="padding:0px;border-radius:2px;">
                     <ul class="menu-item-list" style="margin-top:5px;margin-bottom:5px;">
-                        <li style="color:#808080!important;"><i class="material-icons" style="top:5px;">reply</i>Share List</li>
+                        <li class="waves-effect" ng-click="unshareList(sharedList.name)"><i class="material-icons" style="top:5px;">remove_circle_outline</i>Unshare List</li>
                         <li style="color:#808080!important;"><i class="material-icons">mode_edit</i>Edit List</li>
                         <li style="color:#808080!important;"><i class="material-icons">delete</i>Delete List</li>
                         <li class="waves-effect card-title" style="font-size:15px;font-weight:400;"><i class="material-icons">check</i>Done</li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="card waves-effect" style="width:45%;min-height:190px;display:inline-block;margin-left:3.3333%;" ng-repeat="sharedList in sharedLists | toArray | filter:{'accepted':false} as unacceptedLists" ng-controller="sharedListCtrl">
+                <div class="card-content" style="padding:15px;">
+                    <div>
+                        <span class="card-title" style="line-height:14px;font-size:16px;font-weight:600;">{{sharedList.name}}</span>
+                        <p style="font-size:12px;color:#808080;">{{listLength}} Items</p>
+                        <p>{{sharedList.email}} shared a list with you.</p>
+                        <div style="text-align:center;margin-top:8px;">
+                            <a class="btn waves-effect waves-light bg-blue" ng-click="acceptList()">Accept List</a>
+                            <a class="btn waves-effect btn-flat" style="margin-top:6px;" ng-click="cancelList()">Cancel</a>
+                        </div> 
+                    </div>
+
                 </div>
             </div>
 

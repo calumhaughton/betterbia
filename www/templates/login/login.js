@@ -1,191 +1,210 @@
 ﻿// loginCtrl
 
-angular.module('app.controllers').controller('loginCtrl', function ($scope, $state, $localStorage, Social, Utils, $cordovaOauth, Popup, Firebase, $timeout) {
+angular.module('app.controllers').controller('loginCtrl', function ($scope, $state, $localStorage, Social, Utils, $cordovaOauth, Popup, Firebase, $timeout, ShoppingList, $rootScope, $firebaseArray) {
     $scope.util = Utils;
 
-    $scope.defaultUser = {
-        email: 'a@mail.com',
-        password: 'password'
-    };
-
     $scope.$on('$ionicView.enter', function () {
-    //Clear the Login Form.
+
+        //Set statusbar
+        StatusBar.backgroundColorByHexString("#272727");
+        //Clear the Login Form.
         $scope.user = {
             email: '',
             password: ''
         };
 
-    //Check if user is already authenticated on Firebase and authenticate using the saved credentials.
-    if ($localStorage) {
-      if ($localStorage.loginProvider) {
-        $scope.loading = true;
-        //The user is previously logged in, and there is a saved login credential.
-        if ($localStorage.loginProvider == "Firebase") {
-          //Log the user in using Firebase.
-          loginWithFirebase($localStorage.email, $localStorage.password);
-        } else {
-          //Log the user in using Social Login.
-          var provider = $localStorage.loginProvider;
-          var credential;
-          switch (provider) {
-            case 'Facebook':
-              credential = firebase.auth.FacebookAuthProvider.credential($localStorage.access_token);
-              break;
-            case 'Google':
-              credential = firebase.auth.GoogleAuthProvider.credential($localStorage.id_token, $localStorage.access_token);
-              break;
-            case 'Twitter':
-              credential = firebase.auth.TwitterAuthProvider.credential($localStorage.oauth_token, $localStorage.oauth_token_secret);
-              break;
-          }
-          loginWithCredential(credential, $localStorage.loginProvider);
+        //Check if user is already authenticated on Firebase and authenticate using the saved credentials.
+        if ($localStorage) {
+            if ($localStorage.loginProvider) {
+                $scope.loading = true;
+                //The user is previously logged in, and there is a saved login credential.
+                if ($localStorage.loginProvider == "Firebase") {
+                    //Log the user in using Firebase.
+                    loginWithFirebase($localStorage.email, $localStorage.password);
+                } else {
+                    //Log the user in using Social Login.
+                    var provider = $localStorage.loginProvider;
+                    var credential;
+                    switch (provider) {
+                        case 'Facebook':
+                            credential = firebase.auth.FacebookAuthProvider.credential($localStorage.access_token);
+                            break;
+                        case 'Google':
+                            credential = firebase.auth.GoogleAuthProvider.credential($localStorage.id_token, $localStorage.access_token);
+                            break;
+                        case 'Twitter':
+                            credential = firebase.auth.TwitterAuthProvider.credential($localStorage.oauth_token, $localStorage.oauth_token_secret);
+                            break;
+                    }
+                    loginWithCredential(credential, $localStorage.loginProvider);
+                }
+            } else if ($localStorage.isGuest) {
+                //The user previously logged in as guest, entering as a new guest again.
+                loginFirebaseGuest();
+            }
         }
-      } else if ($localStorage.isGuest) {
-        //The user previously logged in as guest, entering as a new guest again.
-        loginFirebaseGuest();
-      }
-    }
-  })
+    });
 
+  // Manages display of loading spinner on login/account creation
   $scope.loading = false;
+
 
   $scope.login = function (user) {
       if (angular.isDefined(user)) {
           $scope.loading = true;
-      loginWithFirebase(user.email, user.password);
-    }
+          loginWithFirebase(user.email, user.password);
+      }
   };
 
   $scope.loginWithFacebook = function() {
-    Utils.show();
-    //Login with Facebook token using the appId from app.js
-    $cordovaOauth.facebook(Social.facebookAppId, ["public_profile", "email"]).then(function(response) {
-      var credential = firebase.auth.FacebookAuthProvider.credential(response.access_token);
-      $localStorage.access_token = response.access_token;
-      loginWithCredential(credential, 'Facebook');
-    }, function(error) {
-      //User cancelled login. Hide the loading modal.
-      Utils.hide();
-    });
-  };
-
-  $scope.loginWithGoogle = function() {
-    Utils.show();
-    //Login with Google token using the googleWebClientId from app.js
-    $cordovaOauth.google(Social.googleWebClientId, ["https://www.googleapis.com/auth/userinfo.email"]).then(function(response) {
-      var credential = firebase.auth.GoogleAuthProvider.credential(response.id_token,
-        response.access_token);
-      $localStorage.id_token = response.id_token;
-      $localStorage.access_token = response.access_token;
-      loginWithCredential(credential, 'Google');
-    }, function(error) {
-      //User cancelled login. Hide the loading modal.
-      Utils.hide();
-    });
-  };
-
-  $scope.loginWithTwitter = function() {
-    Utils.show();
-    //Login with Twitter token using the twitterKey and twitterSecret from app.js
-    $cordovaOauth.twitter(Social.twitterKey, Social.twitterSecret).then(function(response) {
-      var credential = firebase.auth.TwitterAuthProvider.credential(response.oauth_token,
-        response.oauth_token_secret);
-      $localStorage.oauth_token = response.oauth_token;
-      $localStorage.oauth_token_secret = response.oauth_token_secret;
-      loginWithCredential(credential, 'Twitter');
-    }, function(error) {
-      //User cancelled login. Hide the loading modal.
-      Utils.hide();
-    });
-  };
-
-  $scope.loginAsGuest = function() {
-    Utils.show();
-    loginFirebaseGuest();
-  };
-
-  //Function to login to Firebase using email and password.
-  loginWithFirebase = function(email, password) {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(function(response) {
-        //Retrieve the account from the Firebase Database
-        var userId = firebase.auth().currentUser.uid;
-        var account = Firebase.get('accounts', 'userId', userId);
-        account.$loaded().then(function() {
-          if (account.length > 0) {
-            $localStorage.loginProvider = "Firebase";
-            $localStorage.email = email;
-            $localStorage.password = password;
-            //Get the first account because Firebase.get() returns a list.
-            $localStorage.accountId = account[0].$id;
-            $state.go('tabsMaster');
-            $scope.util.errorFeedback = false;
-            $timeout(function () {
-                $scope.loading = false;
-            }, 3000);            
-          }
+    $scope.loading = true;
+    var fbLoginSuccess = function (userData) {
+        // Login using the Facebook plugin, and pass the generated access token to Firebase
+        facebookConnectPlugin.getAccessToken(function (token) {
+            var credential = firebase.auth.FacebookAuthProvider.credential(token);
+            loginWithCredential(credential, 'Facebook');
         });
-      })
-      .catch(function(error) {
-        var errorCode = error.code;
-        showFirebaseLoginError(errorCode);
+    }
+
+    facebookConnectPlugin.login(["public_profile", "email"], fbLoginSuccess, function (error) {
+        console.log(error);
+    });
+  };
+
+  // Function to login to Firebase using email and password.
+  loginWithFirebase = function (email, password) {
+      // Check user account is a Firebase account
+      firebase.auth().fetchProvidersForEmail(email).then(function (data) {
+          if (data[0] === 'password') {
+              firebase.auth().signInWithEmailAndPassword(email, password)
+              .then(function (response) {
+                  // Retrieve the account from the Firebase Database
+                  var userId = firebase.auth().currentUser.uid;
+                  var account = Firebase.get('accounts', 'userId', userId);
+                  account.$loaded().then(function () {
+                      if (account.length > 0) {
+                          $localStorage.loginProvider = "Firebase";
+                          $localStorage.email = email;
+                          $localStorage.password = password;
+                          // Get the first account because Firebase.get() returns a list.
+                          $localStorage.accountId = account[0].$id;
+                          $localStorage.username = account[0].username;
+                          $localStorage.imageURL = account[0].imageURL;
+                          // Proceed to main page
+                          $state.go('tabsMaster');
+                          $scope.util.errorFeedback = false;
+                          $timeout(function () {
+                              $scope.loading = false;
+                          }, 3000);
+                      }
+                  });
+              })
+              .catch(function (error) {
+                  var errorCode = error.code;
+                  showFirebaseLoginError(errorCode);
+              });
+          } else {
+              // If account is from Facebook, display error message
+              $scope.$apply(function () {
+                  $scope.loading = false;
+                  Utils.message(Popup.errorIcon, Popup.facebookAccount);
+              });
+          }
       });
+    
   }
 
-  //Function to login to Firebase using a credential and provider.
+  // Function to login to Firebase using a credential and provider.
   loginWithCredential = function(credential, provider) {
-    console.log(JSON.stringify(credential));
     firebase.auth().signInWithCredential(credential)
       .then(function(response) {
-        console.log(JSON.stringify(response));
-        //Check if account already exists on the database.
+        // Check if account already exists on the database.
         checkAndLoginAccount(response, provider, credential);
-        //Save social login credentials.
+        // Save social login credentials.
         $localStorage.loginProvider = provider;
         $localStorage.credential = credential;
       })
       .catch(function(error) {
-        //Show error message.
+        // Show error message.
         var errorCode = error.code;
         showSocialLoginError(errorCode);
       });
   };
 
-  //Function to login guests to Firebase. Note that each attempt inserts a new user in your Firebase Auth User with their own userId.
-  loginFirebaseGuest = function() {
-    firebase.auth().signInAnonymously()
-      .then(function(response) {
-        Utils.hide();
-        $localStorage.isGuest = true;
-        $state.go('tabsController.profile');
-      })
-      .catch(function(error) {
-        var errorCode = error.code;
-        showFirebaseLoginError(errorCode);
-      });
-  };
-
-  //Check if the Social Login used already has an account on the Firebase Database. If not, the user is asked to complete a form.
+  // Check if the Social Login used already has an account on the Firebase Database. If not, the user is asked to complete a form.
   checkAndLoginAccount = function(response, provider, credential) {
     var userId = firebase.auth().currentUser.uid;
     var account = Firebase.get('accounts', 'userId', userId);
     account.$loaded().then(function() {
       if (account.length > 0) {
         // Account already exists, proceed to home.
-        Utils.hide();
-        //Get the first account because Firebase.get() returns a list.
+        // Get the first account because Firebase.get() returns a list.
         $localStorage.accountId = account[0].$id;
-        $state.go('tabsController.profile');
+        $localStorage.username = account[0].username;
+        $localStorage.imageURL = account[0].imageURL;
+        $localStorage.email = account[0].email;
+        $scope.loading = false;
+        $state.go('tabsMaster');
       } else {
-        //No account yet, proceed to completeAccount.
-        Utils.hide();
+        // No account yet, pull data from Facebook and save to Firebase Database.
         $localStorage.provider = provider;
-        $state.go('completeAccount');
+        facebookConnectPlugin.api('/me?fields=id,name,email,picture', [], function (success) {
+            $timeout(function () {
+                $localStorage.username = success.name;
+                $localStorage.imageURL = success.picture.data.url;
+                $localStorage.email = success.email;
+                //Get Firebase reference to add accounts database.
+                var accounts = $firebaseArray(firebase.database().ref('accounts'));
+                
+                accounts.$loaded().then(function () {
+                    accounts.$add({
+                        username: success.name,
+                        email: success.email,
+                        userId: firebase.auth().currentUser.uid,
+                        imageURL: success.picture.data.url,
+                        dateCreated: Date(),
+                        provider: 'Facebook',
+                        shoppingList: {
+                            defaultList: {
+                                name: "My Shopping List",
+                                group: "myLists"
+                            },
+                            myLists: {
+                                "My Shopping List": {
+                                    ingredients: {},
+                                    name: "My Shopping List"
+                                }
+                            },
+                            sharedWithMe: {}
+                        },
+                        calendar: {
+                            "Date": 0,
+                            "points": 0
+                        },
+                        onboarding: {
+                            profile:false,
+                            recipes:false,
+                            shoppingLists:false
+                        }
+                    }).then(function (ref) {
+                        // Account created successfully, logging user in automatically after a short delay.
+                        $localStorage.accountId = ref.key;
+                        $localStorage.loginProvider = "Facebook";
+                        $scope.loading = false;
+                        $state.go('tabsMaster');
+                    });
+                });
+
+            }, 500);
+
+        }, function (error) {
+            console.log(error);
+        });
       }
     });
   };
 
-  //Shows the error popup message when using the Login with Firebase.
+  // Displays message at the top of the page if there is an error while logging in with Firebase
   showFirebaseLoginError = function(errorCode) {
     switch (errorCode) {
       case 'auth/user-not-found':
@@ -216,7 +235,7 @@ angular.module('app.controllers').controller('loginCtrl', function ($scope, $sta
     }
   };
 
-  //Shows the error popup message when using the Social Login with Firebase.
+// Displays message at the top of the page if there is an error while logging in with Facebook
   showSocialLoginError = function (errorCode) {
     switch (errorCode) {
       case 'auth/account-exists-with-different-credential':
@@ -243,48 +262,76 @@ angular.module('app.controllers').controller('loginCtrl', function ($scope, $sta
     }
   };
 
+  // Manages display of different forms on Login page
   $scope.showLogin = true;
   $scope.showSignUp = false;
+  $scope.showForgotPassword = false;
+
+ 
 
   $scope.updateShowLogin = function () {
       $scope.showLogin = false;
+      Utils.message("", "");
       $timeout(function () {
           $scope.showSignUp = true;
+          $scope.user = {};
       }, 1000);
   }
 
   $scope.updateShowSignUp = function () {
       $scope.showSignUp = false;
+      $scope.showForgotPassword = false;
+      Utils.message("", "");
       $timeout(function () {
           $scope.showLogin = true;
+          $scope.user = {};
+      }, 1000);
+  }
+
+  $scope.updateShowForgotPassword = function () {
+      $scope.showLogin = false;
+      Utils.message("", "");
+      $timeout(function () {
+          $scope.showForgotPassword = true;
       }, 1000);
   }
 
 
-// Code for signup page
+// Code for Signup form
+
+$scope.creatingAccount = false;
 
 $scope.register = function (user) {
-        //Check if form is filled up.
+        // Check if form is filled up.
         if (angular.isDefined(user)) {
-            Utils.show();
-            //Check if an account with the same email already exists.
-            var account = Firebase.get('accounts', 'email', user.email);
+            $scope.loading = true;
+            $scope.creatingAccount = true;
+            // Check if an account with the same email already exists.
+            var account = Firebase.get('accounts', 'email', user.signUpEmail);
             account.$loaded().then(function () {
-                //Account with same email already exists.
+                // Account with same email already exists.
                 if (account.length > 0) {
+                    $scope.loading = false;
+                    $scope.creatingAccount = false;
                     Utils.message(Popup.errorIcon, Popup.emailAlreadyExists);
                 } else {
-                    //Account doesn't exist yet, proceed to insert account data to database.
-                    firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+                    // Account doesn't exist yet, proceed to insert account data to database.
+                    firebase.auth().createUserWithEmailAndPassword(user.signUpEmail, user.signUpPassword)
                       .then(function () {
-                          //Get Firebase reference to add accounts database.
+                          // Get Firebase reference to add accounts database.
                           var accounts = Firebase.all('accounts');
                           accounts.$add({
-                              email: user.email,
+                              username:user.name,
+                              email: user.signUpEmail,
                               userId: firebase.auth().currentUser.uid,
+                              imageURL: "img/default.png",
                               dateCreated: Date(),
                               provider: 'Firebase',
                               shoppingList: {
+                                  defaultList: {
+                                      name: "My Shopping List",
+                                      group: "myLists"
+                                  },
                                   myLists: {
                                       "My Shopping List": {
                                           ingredients: {},
@@ -294,27 +341,50 @@ $scope.register = function (user) {
                                   sharedWithMe: {}
                               },
                               calendar: {
-                                  "Date": 0
+                                  "Date": 0,
+                                  "points": 0
+                              },
+                              onboarding: {
+                                  profile: false,
+                                  recipes: false,
+                                  shoppingLists: false
                               }
                           }).then(function (ref) {
-                              //Account created successfully, logging user in automatically after a short delay.
-                              Utils.message(Popup.successIcon, Popup.accountCreateSuccess)
-                                .then(function () {
-                                    $localStorage.email = user.email;
-                                    $localStorage.password = user.password;
-                                    setAccountAndLogin(ref.key);
-                                })
-                                .catch(function () {
-                                    //User closed the prompt, proceed immediately to login.
-                                    $localStorage.email = user.email;
-                                    $localStorage.password = user.password;
-                                    setAccountAndLogin(ref.key);
-                                });
+                              // Account created successfully, logging user in automatically after a short delay.
+                              // Retrieve the account from the Firebase Database
+                              var userId = firebase.auth().currentUser.uid;
+                              var account = Firebase.get('accounts', 'userId', userId);
+                              account.$loaded().then(function () {
+                                  if (account.length > 0) {
+                                      $localStorage.loginProvider = "Firebase";
+                                      $localStorage.email = user.signUpEmail;
+                                      $localStorage.password = user.signUpPassword;
+                                      //Get the first account because Firebase.get() returns a list.
+                                      $localStorage.accountId = account[0].$id;
+                                      $localStorage.username = account[0].username;
+                                      $localStorage.imageURL = account[0].imageURL;
+                                      $state.go('tabsMaster');
+                                      $scope.util.errorFeedback = false;
+
+                                      $timeout(function () {
+                                          $scope.loading = false;
+                                          $scope.creatingAccount = false;
+                                      }, 3000);
+
+                                  }
+                              });  
                           });
                       })
                       .catch(function (error) {
                           var errorCode = error.code;
                           var errorMessage = error.message;
+
+                          // Put screen back to form
+                          $timeout(function () {
+                              $scope.loading = false;
+                              $scope.creatingAccount = false;
+                          }, 100);
+                          
                           //Show error message.
                           console.log(errorCode);
                           switch (errorCode) {
@@ -340,11 +410,62 @@ $scope.register = function (user) {
         }
     };
 
-    //Function to set the accountId from the Firebase database and store it on $localStorage.accountId.
+    // Function to set the accountId from the Firebase database and store it on $localStorage.accountId.
     setAccountAndLogin = function (key) {
         $localStorage.accountId = key;
         $localStorage.loginProvider = "Firebase";
-        $state.go('tabsController.profile');
+        $scope.loading = false;
+        $state.go('tabsMaster');
     };
 
+
+
+
+    // Code for Forgotten PW page
+
+    $scope.emailSent = false;
+    $scope.facebookAccount = false;
+
+    $scope.returnToLogin = function () {
+        $scope.showForgotPassword = false;
+        $scope.emailSent = false;
+        $scope.facebookAccount = false;
+
+        $scope.showLogin = true;
+    }
+
+    $scope.resetPassword = function (user) {
+        if (angular.isDefined(user)) {
+            firebase.auth().fetchProvidersForEmail(user.resetEmail).then(function (data) {
+                if (data[0] === 'password') {
+                    firebase.auth().sendPasswordResetEmail(user.resetEmail).then(function () {
+                        // Bring user to the Email Sent page.
+                        $scope.$apply(function () {
+                            $scope.emailSent = true;
+                        });    
+
+                    }, function (error) {
+                        var errorCode = error.code;
+                        //Show error message.
+                        console.log(errorCode);
+                        switch (errorCode) {
+                            case 'auth/user-not-found':
+                                Utils.message(Popup.errorIcon, Popup.emailNotFound);
+                                break;
+                            case 'auth/invalid-email':
+                                Utils.message(Popup.errorIcon, Popup.invalidEmail);
+                                break;
+                            default:
+                                Utils.message(Popup.errorIcon, Popup.errorPasswordReset);
+                                break;
+                        }
+                    });
+                } else {
+                    $scope.$apply(function () {
+                        $scope.facebookAccount = true;
+                    });
+                }
+            });
+        }
+    };
 });

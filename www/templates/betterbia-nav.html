@@ -1,0 +1,29 @@
+﻿<div class="app-header">
+    <!-- Main Title -->
+    <h5 class="page-header-title" ng-class="{'filter-title': filterSearchBar}">{{title}}</h5>
+
+    <!-- Menu Btn -->
+    <a class="waves-effect waves-light waves-circle right" ng-click="openPopover($event)" ng-hide="filterSearchBar">
+        <i class="material-icons" style="margin-top:5px;color:white;">more_vert</i>
+    </a>
+
+    <!-- Recipes Search Btn-->
+    <a class="waves-effect waves-light waves-circle search-icon-transition" ng-class="{'filter-search-btn': filterSearchBar}" ng-click="toggleSearchInput()" ng-show="showSearch">
+        <i class="material-icons" style="margin-top:5px;color:white;" ng-show="!filterSearchBar">search</i>
+        <i class="material-icons" style="margin-top:5px;color:white;" ng-show="filterSearchBar">arrow_back</i>
+    </a>
+
+    <!-- Search Input -->
+    <div class="input-field col s6 search-input-field" style="" ng-if="filterSearchBar">
+        <input id="searchField"
+               type="text"
+               ng-model="search.item"
+               ng-keyup="filterRecipes(search.item)"
+               style="margin:0;background-color:#6fa724;color:white;border:none;"
+               focus-me>
+        <label for="searchField"></label>
+    </div>
+    <a class="waves-effect waves-light waves-circle close-icon" ng-if="filterSearchBar" ng-click="clearSearchInput()">
+        <i class="material-icons" style="margin-top:5px;color:white;">close</i>
+    </a>
+</div>

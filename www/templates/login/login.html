@@ -1,158 +1,182 @@
-<ion-view title="login" hide-nav-bar="true" id="login" style="background-image:url('img/test-bg-img.png');background-color:#323232;background-repeat:no-repeat;">
-    <ion-content class="manual-ios-statusbar-padding" scroll="true">
 
-        <div class="main-header">
-            <h4 style="color:white;font-weight:400;margin:0;">betterbia</h4>
-            <p>attainable, sustainable</p>
+<ion-view title="login" hide-nav-bar="true" id="login" style="background-image:url('img/bg-img.jpg');background-color:#323232;background-repeat:no-repeat;">
+    <ion-content class="manual-ios-statusbar-padding" scroll="true">
+        <!-- Logo and Title -->
+        <div class="main-header" ng-class="{'main-header-signup-active': showSignUp}">
+            <img src="img/logo.svg" class="main-header-image" ng-class="{'image-signup-active': showSignUp}"/>
+
+            <div class="main-header-text-holder" ng-class="{'text-holder-signup-active': showSignUp}">
+                <h4 class="main-header-title" ng-class="{'title-signup-active': showSignUp}">betterbia</h4>
+                <p class="main-header-p" ng-class="{'p-signup-active': showSignUp}">attainable, sustainable</p>
+            </div>
         </div>
             
         <div class="triangle"></div>
 
         <div class="login-input-body">
-            <div ng-hide="loading">
+            <div ng-if="!loading">
+                <!-- Login Form -->
                 <div ng-if="showLogin" class="bb-form-section fade">
                     <div ng-show="util.errorFeedback">
                         <p ng-bind-html="util.errorMessage" class="error"></p>
                     </div>
                     <form novalidate name="loginForm" ng-submit="loginForm.$valid && login(user)">
                         <div class="list">
+
+                            <!-- Email Input -->
                             <div class="row" style="margin-bottom:0px;padding:0px;">
                                 <div class="input-field col s12">
-                                    <input id="email" type="email" class="validate" ng-model="user.email" required />
+                                    <input id="email" name="email" type="email" class="validate" ng-model="user.email" required />
                                     <label for="email">Email</label>
                                 </div>
                             </div>
-
                             <!-- Error handling for email field -->
-                            <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched || loginForm.$submitted" role="alert">
+                            <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched || loginForm.$submitted" role="alert" class="error-message-holder">
                                 <div ng-messages-include="templates/messages.html"></div>
                             </div>
 
+                            <!-- Password Field -->
                             <div class="row" style="margin-bottom:0px;padding:0px;">
                                 <div class="input-field col s12">
-                                    <input id="password" type="password" class="validate" ng-model="user.password" required />
+                                    <input id="password" name="password" type="password" class="validate" ng-model="user.password" required />
                                     <label for="password">Password</label>
                                 </div>
                             </div>
                             <!-- Error handling for password field -->
-                            <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched || loginForm.$submitted" role="alert">
+                            <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched || loginForm.$submitted" role="alert" class="error-message-holder">
                                 <div ng-messages-include="templates/messages.html"></div>
                             </div>
 
-                            <!--<input type="submit" class="button button-block button-balanced" value="Login" ng-disabled="loginForm.$invalid">-->
-                            <button class="btn waves-effect waves-light full-width bg-green" type="submit" name="action" style="height:50px;margin-bottom:15px;">Login</button>
+                            <button class="btn waves-effect waves-light full-width bg-green" type="submit" name="action" style="height:50px;margin-bottom:30px;margin-top:30px;">Login</button>
                         </div>
 
                     </form>
-
+                    <!-- Facebook Login Btn -->
                     <a class="btn waves-effect waves-light full-width bg-blue" ng-click="loginWithFacebook()" style="height:50px;margin-bottom:15px;padding-top:5px;"><i class="icon padding medium ion-social-facebook"></i>Login with Facebook</a>
-                    <a class="btn waves-effect waves-light full-width bg-charcoal" ng-click="loginAsGuest()" style="height:50px;padding-top:5px;"><i class="icon padding medium ion-person"></i>Login as Guest</a>
 
-                    
-                    <!--
-                    <button ng-click="loginWithFacebook()" class="button button-positive button-block"><i class="icon padding medium ion-social-facebook clear"></i>Login with Facebook</button>
-                    <button ng-click="loginAsGuest()" class="button button-dark button-block"><i class="icon padding medium ion-person clear"></i>Login as Guest</button>
-                    -->
-
-                    <a class="btn waves-effect waves-light full-width" ng-click="login(defaultUser)" style="height:50px;padding-top:5px;margin-top:15px;">Bypass Login</a>
-
-                    <div id="login-button-bar7" class="button-bar">
-                        <a ui-sref="forgotPassword" id="login-button32" style="color:#FFFFFF;font-size:-9px;" class="button button-positive button-small button-block button-clear">Forgotten password?</a>
+                    <!-- Signup/Forgotten PW Links -->
+                    <div id="login-button-bar7" class="button-bar">            
                         <button id="login-button34" style="color:#FFFFFF;" class="button button-positive button-small button-block button-clear" ng-click="updateShowLogin()">No account? Sign up!</button>
+                        <button id="login-button34" style="color:#FFFFFF;" class="button button-positive button-small button-block button-clear" ng-click="updateShowForgotPassword()">Forgotten password?</button>
                     </div>
                 </div>
+
+                <!-- Forgoteen PW Page -->
+                <div ng-if="showForgotPassword" class="bb-form-section fade">
+                    <!-- Enter Email -->
+                   <div ng-if="!emailSent && !facebookAccount">
+                       <p style="font-size:16px;text-align:center;color:white;">Enter your email address below and we will send you an email with instructions to reset your password</p>
+
+                       <form novalidate name="forgotPasswordForm" ng-submit="forgotPasswordForm.$valid && resetPassword(user)">
+                           <div class="list">
+
+                               <!-- Email Field -->
+                               <div class="row" style="margin-bottom:0px;padding:0px;">
+                                   <div class="input-field col s12">
+                                       <input id="email" type="email" class="validate" ng-model="user.resetEmail" required />
+                                       <label for="email">Email</label>
+                                   </div>
+                               </div>
+                               <!-- Error Handling for Email -->
+                               <div ng-messages="registerForm.email.$error" ng-show="registerForm.email.$touched || registerForm.$submitted" role="alert">
+                                   <div ng-messages-include="templates/messages.html"></div>
+                               </div>
+                               <!-- Send Btn -->
+                               <button class="btn waves-effect waves-light full-width bg-green" type="submit" name="action" style="height:50px;margin-bottom:15px; " ng-disabled="forgotPasswordForm.$invalid">Send Email</button>
+                           </div>
+                       </form>
+                       <!-- Back to Login Btn -->
+                       <div id="login-button-bar7" class="button-bar">
+                           <button id="login-button34" style="color:#FFFFFF;" class="button button-positive button-small button-block button-clear" ng-click="updateShowSignUp()">Back to Login Page</button>
+                       </div>
+                   </div>
+                    <!-- Email Sent Message -->
+                    <div ng-if="emailSent">
+                        <p style="font-size:16px;text-align:center;color:white;margin-top:30px;">We have a sent you an email to reset your password.</p>
+                        <button class="btn waves-effect waves-light full-width bg-green" type="submit" name="action" style="height:50px;margin-bottom:15px;margin-top:20px;" ng-click="returnToLogin()">Back to Login</button>
+                    </div>
+                    <!-- Facebook Account Error -->
+                    <div ng-if="facebookAccount">
+                        <p style="font-size:16px;text-align:center;color:white;margin-top:30px;">It looks like this account has been set up with Facebook. Please return to the log in page and hit the 'Login with Facebook' button.</p>
+                        <button class="btn waves-effect waves-light full-width bg-green" type="submit" name="action" style="height:50px;margin-bottom:15px;margin-top:20px;" ng-click="returnToLogin()">Back to Login</button>
+                    </div>
+                 
+                </div>
+                <!-- Signup Form -->
                 <div ng-if="showSignUp" class="bb-form-section fade">
-                    <form novalidate name="registerForm" ng-submit="registerForm.$valid && register(user)">
-                        <div class="list">
-                            <!--
-                            <label class="item item-input item-floating-label bb-form-input" ng-class="{'has-errors':registerForm.name.$touched && registerForm.name.$invalid, 'no-errors':registerForm.name.$touched && registerForm.name.$valid}">
-                                <span class="input-label">Full Name</span>
-                                <input name="name" ng-model="user.name" type="text" placeholder="Full Name" required>
-                            </label>
-                            -->
-                            <div class="row" style="margin-bottom:0px;padding:0px;">
-                                <div class="input-field col s12">
-                                    <input id="fullname" type="text" class="validate" ng-model="user.name" required />
-                                    <label for="fullname">Full Name</label>
-                                </div>
-                            </div>
-
-                            <!-- Error handling for Name field -->
-                            <div ng-messages="registerForm.name.$error" ng-show="registerForm.name.$touched || registerForm.$submitted" role="alert">
-                                <div ng-messages-include="templates/messages.html"></div>
-                            </div>
-
-                            <!--
-                            <label class="item item-input item-floating-label bb-form-input" ng-class="{'has-errors':registerForm.email.$touched && registerForm.email.$invalid, 'no-errors':registerForm.email.$touched && registerForm.email.$valid}">
-                                <span class="input-label">Email</span>
-                                <input name="email" ng-model="user.email" type="email" placeholder="Email" ng-minlength="5" ng-maxlength="30" required>
-                            </label>
-                            -->
-
-                            <div class="row" style="margin-bottom:0px;padding:0px;">
-                                <div class="input-field col s12">
-                                    <input id="email" type="email" class="validate" ng-model="user.email" required />
-                                    <label for="email">Email</label>
-                                </div>
-                            </div>
-
-                            <!-- Error handling for email field -->
-                            <div ng-messages="registerForm.email.$error" ng-show="registerForm.email.$touched || registerForm.$submitted" role="alert">
-                                <div ng-messages-include="templates/messages.html"></div>
-                            </div>
-
-                            <!--
-                            <label class="item item-input item-floating-label bb-form-input" ng-class="{'has-errors':registerForm.password.$touched && registerForm.password.$invalid, 'no-errors':registerForm.password.$touched && registerForm.password.$valid}">
-                                <span class="input-label">Password</span>
-                                <input name="password" ng-model="user.password" type="password" placeholder="Password" ng-minlength="5" ng-maxlength="30" required>
-                            </label>
-                            -->
-
-                            <div class="row" style="margin-bottom:0px;padding:0px;">
-                                <div class="input-field col s12">
-                                    <input id="password" type="password" class="validate" ng-model="user.password" required />
-                                    <label for="password">Password</label>
-                                </div>
-                            </div>
-
-                            <!-- Error handling for PW field -->
-                            <div ng-messages="registerForm.password.$error" ng-show="registerForm.password.$touched || registerForm.$submitted" role="alert">
-                                <div ng-messages-include="templates/messages.html"></div>
-                            </div>
-
-                            <!--
-                            <label class="item item-input item-floating-label bb-form-input"ng-class="{'has-errors':registerForm.confirmPw.$dirty && registerForm.confirmPw.$invalid, 'no-errors':registerForm.confirmPw.$touched && registerForm.confirmPw.$valid}">
-                                <span class="input-label">Confirm Password</span>
-                                <input name="confirmPw" ng-model="user.confirmPw" type="password" placeholder="Confirm Password" required compare-to="user.password">
-                            </label>
-                            -->
-
-                            <div class="row" style="margin-bottom:0px;padding:0px;">
-                                <div class="input-field col s12">
-                                    <input id="confirmPw" type="password" class="validate" ng-model="user.confirmPw" compare-to="user.password" required />
-                                    <label for="confirmPw">Confirm Password</label>
-                                </div>
-                            </div>
-
-                            <!-- Error handling for Confirm PW field -->
-                            <div ng-messages="registerForm.confirmPw.$error" ng-show="registerForm.confirmPw.$dirty || registerForm.$submitted" role="alert">
-                                <div ng-messages-include="templates/messages.html"></div>
-                            </div>
-
-                            <!--<input type="submit" class="button button-block button-balanced" value="Create an Account" ng-disabled="registerForm.$invalid">-->
-                            <button class="btn waves-effect waves-light full-width bg-green" type="submit" name="action" style="height:50px;margin-bottom:15px;">Create an Account</button>
+                        <div ng-show="util.errorFeedback">
+                            <p ng-bind-html="util.errorMessage" class="error"></p>
                         </div>
+                        <form novalidate name="registerForm" ng-submit="registerForm.$valid && register(user)">
+                            <div class="list">
 
-                    </form>
+                                <!-- Name Field -->
+                                <div class="row" style="margin-bottom:0px;padding:0px;">
+                                    <div class="input-field col s12">
+                                        <input id="fullname" name="fullname" type="text" class="validate" ng-model="user.name" required />
+                                        <label for="fullname">Full Name</label>
+                                    </div>
+                                </div>
+                                <!-- Error handling for Name field -->
+                                <div ng-messages="registerForm.fullname.$error" ng-show="registerForm.fullname.$touched || registerForm.$submitted" role="alert" class="error-message-holder">
+                                    <div ng-messages-include="templates/messages.html"></div>
+                                </div>
+
+                                <!-- Email Field -->
+                                <div class="row" style="margin-bottom:0px;padding:0px;">
+                                    <div class="input-field col s12">
+                                        <input id="signUpEmail" name="signUpEmail" type="email" class="validate" ng-model="user.signUpEmail" required />
+                                        <label for="signUpEmail">Email</label>
+                                    </div>
+                                </div>
+                                <!-- Error handling for email field -->
+                                <div ng-messages="registerForm.signUpEmail.$error" ng-show="registerForm.signUpEmail.$touched || registerForm.$submitted" role="alert" class="error-message-holder">
+                                    <div ng-messages-include="templates/messages.html"></div>
+                                </div>
+
+                                <!-- Password Field -->
+                                <div class="row" style="margin-bottom:0px;padding:0px;">
+                                    <div class="input-field col s12">
+                                        <input id="signUpPassword" name="signUpPassword" type="password" class="validate" ng-model="user.signUpPassword" required />
+                                        <label for="signUpPassword">Password</label>
+                                    </div>
+                                </div>
+                                <!-- Error handling for PW field -->
+                                <div ng-messages="registerForm.signUpPassword.$error" ng-show="registerForm.signUpPassword.$touched || registerForm.$submitted" role="alert" class="error-message-holder">
+                                    <div ng-messages-include="templates/messages.html"></div>
+                                </div>
+
+                                <!-- ConfirmPW Field -->
+                                <div class="row" style="margin-bottom:0px;padding:0px;">
+                                    <div class="input-field col s12">
+                                        <input id="confirmPw" type="password" name="confirmPw" class="validate" ng-model="user.confirmPw" compare-to="user.signUpPassword" required />
+                                        <label for="confirmPw">Confirm Password</label>
+                                    </div>
+                                </div>
+                                <!-- Error handling for Confirm PW field -->
+                                <div ng-messages="registerForm.confirmPw.$error" ng-show="registerForm.confirmPw.$dirty || registerForm.$submitted" role="alert" class="error-message-holder" style="margin-bottom:10px;">
+                                    <div ng-messages-include="templates/messages.html"></div>
+                                </div>
+
+                                <button class="btn waves-effect waves-light full-width bg-green" type="submit" name="action" style="height:50px;margin-bottom:15px;" ng-disabled="registerForm.$invalid">Create an Account</button>
+                            </div>
+
+                        </form>
+                    <!-- Signup with Facebook Btn-->
+                    <a class="btn waves-effect waves-light full-width bg-blue" ng-click="" style="height:50px;margin-bottom:15px;padding-top:5px;"><i class="icon padding medium ion-social-facebook"></i>Signup with Facebook</a>
+                    <!-- Back to Login Btn -->
                     <div id="login-button-bar7" class="button-bar">
                         <button id="login-button34" style="color:#FFFFFF;" class="button button-positive button-small button-block button-clear" ng-click="updateShowSignUp()">Back to Login Page</button>
                     </div>
                 </div>
 
             </div>
+
+            <!-- Loading/Creating Account Messaging -->
             <div ng-show="loading">
-                <ion-spinner icon="android" style="fill:white;stroke:white;"></ion-spinner>
-                <p style="color:white;text-align:center;margin-top:195px;">Logging in...</p>
+                <ion-spinner icon="android" class="page-loading" style="fill:white;stroke:white;"></ion-spinner>
+                <p style="color:white;text-align:center;margin-top:165px;" ng-if="!creatingAccount">Logging in...</p>
+                <p style="color:white;text-align:center;margin-top:205px;" ng-if="creatingAccount">Creating account and logging in...</p>
             </div>
         </div>        
 

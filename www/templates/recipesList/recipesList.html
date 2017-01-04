@@ -1,30 +1,28 @@
 <div ng-controller="recipesListCtrl">
 
-    <!--<time-select></time-select>-->
-    <ing-added-modal></ing-added-modal>
-
-    <ion-content padding="true">
-        <ion-list>
+    <ion-content padding="true" overflow-scroll="true" has-bouncing="true">
+        <ion-list class="recipes-list">
+            <!-- Spinner to display while loading -->
             <div class="spinner" ng-show="spinnerBoolean">
                 <ion-spinner></ion-spinner>
             </div>
-            <div class="list card" ng-repeat="recipe in filteredRecipes | timeFilter" button-flash>
+
+            <!-- Text shown when no results are returned -->
+            <p ng-show="!checkResultsLength(results) && !spinnerBoolean" style="color:white;text-align:center;">No recipes found!</p>
+
+            <!-- Repeats a list of recipes, filtering through time and search mechanisms -->
+            <div class="list card" ng-repeat="recipe in results = (filteredRecipes | timeFilter | toArray | filter:searchFilter)">
+
                 <div class="item detail-card">
                     <div class="detail-card-images waves-effect waves-block" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">
-                        <img src="{{recipe.thumbnail}}" class="card-image" />
-                        <img ng-src="{{recipe.spice | spiceImg}}" class="spice-image" />
+                        <img src="{{recipe.thumbnail}}" class="card-image"/>
                     </div>
-                    <div class="detail-card-content waves-effect waves-block">
-                        <div class="detail-card-text-area" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">
+                    <div class="detail-card-content waves-effect waves-block" ui-sref="recipeDetail" ng-click="goToDetail(recipe.id)">
+
+                        <div class="detail-card-text-area">
                             <h3>{{recipe.title}}</h3>
                             <p><i class="icon ion-android-time"></i> {{recipe.time}} Minutes</p>
-
                         </div>
-
-                        <a class="waves-effect btn-flat add-btn button-transition right" ng-class="{green:trigger}" ng-click="addRecipeToShoppingList(recipe.id); reset()">
-                            <i class="material-icons add-btn-icon" ng-show="!trigger">add_shopping_cart</i>
-                            <i class="material-icons add-btn-icon" style="color:white;" ng-show="trigger">check_circle</i>
-                        </a>
                         
                     </div>
 

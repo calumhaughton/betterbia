@@ -1,26 +1,31 @@
+<div ng-controller="profileCtrl">
     <ion-content padding="false" scroll="false">
-       
+        <!-- Calendar -->
         <calendar selected="day"></calendar>
         
+        <!-- Calendar Script -->
          <script id="calendar-temp.html" type="text/ng-template">
 
              <div class="cal-wrapper">
                  <form>
-
-                    <div class="user-avatar">
-                        <img src="img/default.png" class="user-img" />
-                        <h5>User Name</h5>
+                     <!-- User Details -->
+                    <div class="user-avatar" ui-sref="editProfile">
+                        <img ng-src="{{imageURL}}" class="user-img waves-effect" />
+                        <h5>{{username}}</h5>
                         <p class="points">{{calendar.points}} Points</p>
                     </div>
 
+                     <!-- Inputs -->
                      <p style="color:white;">How did you get on today?</p>
                      
                      <div class="z-depth-1" style="margin-bottom:20px;">
+                         <!-- Ate Healthy Checkbox-->
                          <p class="checkbox-input waves-effect" style="border-bottom:1px solid #808080;border-top-left-radius:2px;border-top-right-radius:2px;">
                              <input type="checkbox" class="filled-in" id="healthy-check" checked="checked" ng-model="healthy" ng-change="recalcPoints('ateHealthy', healthy)" />
                              <label for="healthy-check" ng-class="{'darken-text': healthy}">I ate healthy</label>
                          </p>
 
+                         <!-- Exercised Checkbox -->
                          <p class="checkbox-input waves-effect" style="border-bottom-left-radius:2px;border-bottom-right-radius:2px;">
                              <input type="checkbox" class="filled-in" id="exercise-check" checked="checked" ng-model="exercise" ng-change="recalcPoints('exercised', exercise)" />
                              <label for="exercise-check" ng-class="{'darken-text': exercise}">I exercised</label>
@@ -28,6 +33,8 @@
                      </div>
                     
                  </form> 
+
+                 <!-- Calendar Header -->
                  <div class="header">
                      <a class="waves-effect waves-light waves-circle" ng-click="previous()"><i class="material-icons" style="margin-top:7px;color:white;margin-left:-3px;">chevron_left</i></a>
                      <span>{{month.format("MMMM YYYY")}}</span>
@@ -42,7 +49,17 @@
                      <span class="day-header">Fri</span>
                      <span class="day-header">Sat</span>
                  </div>
-                 <div class="calendar-drop-shadow">
+
+                 <!-- Calendar Loading -->
+                 <div class="calendar-drop-shadow" ng-if="loading">
+                     <ion-spinner icon="android" class="calendar-loading"></ion-spinner>
+                     <div class="week" ng-repeat="week in weeks">
+                         <span class="day"style="opacity:0.8;color:#CCC;" ng-repeat="day in week.days">{{day.number}}</span>
+                     </div>
+                 </div>
+
+                 <!-- Calendar Body -->
+                 <div class="calendar-drop-shadow" ng-if="!loading">
                      <div class="week" ng-repeat="week in weeks">
                          <span class="day" ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected), unselectable: !day.isSelectable }" ng-click="select(day)" ng-repeat="day in week.days" custom="day" calendar="calendar" calendar-day>{{day.number}}</span>
                      </div>
@@ -54,3 +71,4 @@
         
 
     </ion-content>
+</div>

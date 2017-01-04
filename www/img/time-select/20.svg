@@ -3,7 +3,24 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="200px" height="200px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve">
-<path opacity="0.5" fill="#FFFFFF" d="M178.562,149.477c9.128-14.298,14.406-31.295,14.406-49.535
-	c0-50.813-41.228-91.984-92.04-91.984L101,100L178.562,149.477z"/>
-<circle fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-miterlimit="10" cx="100.855" cy="99.922" r="92.003"/>
+<g>
+	<path opacity="0.5" fill="#FFFFFF" d="M178.562,149.477c9.128-14.298,14.406-31.295,14.406-49.535
+		c0-50.813-41.228-91.984-92.04-91.984L101,100L178.562,149.477z"/>
+	
+		<circle fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-miterlimit="10" cx="100.855" cy="99.922" r="92.003"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="10" stroke-miterlimit="10" x1="100.5" y1="8.5" x2="100.5" y2="38.5"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="10" stroke-miterlimit="10" x1="100.5" y1="162.5" x2="100.5" y2="192.5"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="10" stroke-miterlimit="10" x1="8.5" y1="100.5" x2="38.5" y2="100.5"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="10" stroke-miterlimit="10" x1="162.5" y1="100.5" x2="192.5" y2="100.5"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="55.473" y1="20.066" x2="65.473" y2="37.388"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="21.645" y1="53.53" x2="38.965" y2="63.531"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="21.115" y1="145.559" x2="38.436" y2="135.559"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="54.637" y1="179.389" x2="64.637" y2="162.068"/>
+	
+		<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="146.607" y1="179.916" x2="136.607" y2="162.596"/>
+	
+		<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="180.494" y1="146.397" x2="163.174" y2="136.397"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="180.965" y1="54.424" x2="163.645" y2="64.424"/>
+	<line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="147.502" y1="20.539" x2="137.504" y2="37.859"/>
+</g>
 </svg>

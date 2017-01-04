@@ -18,27 +18,27 @@
   <preference name="BackupWebStorage" value="none" />
   <preference name="SplashScreen" value="screen" />
   <feature name="StatusBar">
-    <param name="ios-package" value="CDVStatusBar" onload="true" />
+    <param name="ios-package" onload="true" value="CDVStatusBar" />
   </feature>
   <platform name="android">
-    <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi" />
-    <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi" />
-    <icon src="resources/android/icon/drawable-hdpi-icon.png" density="hdpi" />
-    <icon src="resources/android/icon/drawable-xhdpi-icon.png" density="xhdpi" />
-    <icon src="resources/android/icon/drawable-xxhdpi-icon.png" density="xxhdpi" />
-    <icon src="resources/android/icon/drawable-xxxhdpi-icon.png" density="xxxhdpi" />
-    <splash src="resources/android/splash/drawable-land-ldpi-screen.png" density="land-ldpi" />
-    <splash src="resources/android/splash/drawable-land-mdpi-screen.png" density="land-mdpi" />
-    <splash src="resources/android/splash/drawable-land-hdpi-screen.png" density="land-hdpi" />
-    <splash src="resources/android/splash/drawable-land-xhdpi-screen.png" density="land-xhdpi" />
-    <splash src="resources/android/splash/drawable-land-xxhdpi-screen.png" density="land-xxhdpi" />
-    <splash src="resources/android/splash/drawable-land-xxxhdpi-screen.png" density="land-xxxhdpi" />
-    <splash src="resources/android/splash/drawable-port-ldpi-screen.png" density="port-ldpi" />
-    <splash src="resources/android/splash/drawable-port-mdpi-screen.png" density="port-mdpi" />
-    <splash src="resources/android/splash/drawable-port-hdpi-screen.png" density="port-hdpi" />
-    <splash src="resources/android/splash/drawable-port-xhdpi-screen.png" density="port-xhdpi" />
-    <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi" />
-    <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi" />
+    <icon src="resources\android\icon\drawable-ldpi-icon.png" density="ldpi" />
+    <icon src="resources\android\icon\drawable-mdpi-icon.png" density="mdpi" />
+    <icon src="resources\android\icon\drawable-hdpi-icon.png" density="hdpi" />
+    <icon src="resources\android\icon\drawable-xhdpi-icon.png" density="xhdpi" />
+    <icon src="resources\android\icon\drawable-xxhdpi-icon.png" density="xxhdpi" />
+    <icon src="resources\android\icon\drawable-xxxhdpi-icon.png" density="xxxhdpi" />
+    <splash src="resources\android\splash\drawable-land-ldpi-screen.png" density="land-ldpi" />
+    <splash src="resources\android\splash\drawable-land-mdpi-screen.png" density="land-mdpi" />
+    <splash src="resources\android\splash\drawable-land-hdpi-screen.png" density="land-hdpi" />
+    <splash src="resources\android\splash\drawable-land-xhdpi-screen.png" density="land-xhdpi" />
+    <splash src="resources\android\splash\drawable-land-xxhdpi-screen.png" density="land-xxhdpi" />
+    <splash src="resources\android\splash\drawable-land-xxxhdpi-screen.png" density="land-xxxhdpi" />
+    <splash src="resources\android\splash\drawable-port-ldpi-screen.png" density="port-ldpi" />
+    <splash src="resources\android\splash\drawable-port-mdpi-screen.png" density="port-mdpi" />
+    <splash src="resources\android\splash\drawable-port-hdpi-screen.png" density="port-hdpi" />
+    <splash src="resources\android\splash\drawable-port-xhdpi-screen.png" density="port-xhdpi" />
+    <splash src="resources\android\splash\drawable-port-xxhdpi-screen.png" density="port-xxhdpi" />
+    <splash src="resources\android\splash\drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi" />
   </platform>
   <plugin name="cordova-plugin-compat" version="1.0.0" />
   <plugin name="cordova-plugin-console" version="1.0.3" />
@@ -51,4 +51,16 @@
   <plugin name="cordova-plugin-vibration" version="2.1.1" />
   <plugin name="cordova-plugin-whitelist" version="1.2.2" />
   <plugin name="ionic-plugin-keyboard" version="2.2.1" />
+  <plugin name="com.telerik.plugins.nativepagetransitions" version="0.6.5" />
+  <plugin name="cordova-plugin-app-event" version="1.2.0" />
+  <plugin name="cordova-plugin-camera" version="2.3.0" />
+  <plugin name="cordova-plugin-image-picker" version="1.1.1" />
+  <plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.4" />
+  <plugin name="cordova-plugin-facebook4" spec="~1.7.4">
+    <variable name="APP_ID" value="1714490675467225" />
+    <variable name="APP_NAME" value="betterbia" />
+  </plugin>
+  <icon src="resources\android\icon\drawable-xhdpi-icon.png" />
+  <plugin name="cordova-plugin-email-composer" version="0.8.3" />
+  <plugin name="cordova-plugin-screen-orientation" version="1.4.2" />
 </widget>

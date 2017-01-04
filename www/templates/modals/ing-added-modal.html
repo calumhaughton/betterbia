@@ -1,8 +1,37 @@
-﻿<div class="card ing-modal" ng-class="{'show-ing-modal':showModal, 'ing-modal-menu-hidden':menuHidden}">
-    <div class="item item-text-wrap" ng-show="!moreThanOneItem">
-        {{ingredient}} has been added to {{list}}.
-    </div>
-    <div class="item item-text-wrap" ng-show="moreThanOneItem">
-        {{multipleIngredients.length}} items have been added to {{list}}.
+﻿<div class="card ing-modal" ng-class="{'show-ing-modal':showModal}">
+    <div class="item item-text-wrap" style="padding:12px;">
+
+        <!-- Adding Items w/ Change Btn -->
+        <div ng-show="!addedToList">
+            <ion-spinner icon="android" class="add-load-spin" style=""></ion-spinner>
+            <div style="width:65%;font-size:14px;margin-left:32px;margin-top:3px;">
+                Adding <span ng-show="!moreThanOneItem">{{ingredient.name}}</span><span ng-show="moreThanOneItem">{{multipleIngredients.length}} items</span> to {{chosenList}}...
+            </div>
+            <a class="waves-effect btn-flat change-btn" ng-click="changeList()">Change</a>
+        </div>
+
+        <!-- Items Added -->
+        <div ng-show="addedToList">
+            <i class="material-icons" style="color:#6fa724;position:absolute;top:12px;">done</i>
+            <div style="width:65%;font-size:14px;margin-left:32px;margin-top:3px;">
+                Added <span ng-show="!moreThanOneItem">{{ingredient.name}}</span><span ng-show="moreThanOneItem">{{multipleIngredients.length}} items</span> to {{chosenList}}.
+            </div>
+        </div>
+
+        <!-- Change List -->
+        <div ng-if="updateList">
+            <form style="padding-bottom:50px;margin:10px 0px 0px 15px;">
+                <p ng-repeat="list in lists | filterFirebaseInternals track by $index" class="list-container">
+                    <input class="with-gap" name="group1" type="radio" id="{{list}}" ng-value="list" ng-click="setChosenList(list)"  list="{{list}}" check-default/>
+                    <label for="{{list}}" class="list-label">{{list}}</label>
+                </p>
+                <!-- Set Default List-->
+                <p style="margin-left:8px;margin-top:-5px;">
+                    <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="defaultBoolean" />
+                    <label for="filled-in-box" style="color:#323232;padding-left:32px;padding-top:14px;">Always add to this list</label>
+                </p>
+            </form>
+            <a class="btn waves-effect waves-light bg-blue add-to-list-btn" ng-click="addIngtoList(); setDefaultList(defaultBoolean)">Add to List</a>
+        </div>
     </div>
 </div>

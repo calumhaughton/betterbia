@@ -1,0 +1,41 @@
+﻿<ion-view view-title="Help" id="accountOptions" style="background-color:#323232;" hide-nav-bar="true">
+    <!-- Page Header -->
+    <div class="inline-nav-bar bg-green">
+        <button class="button button-light button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsMaster"></button>
+        <h5 style="font-size:18px;color:white;display:inline-block">Feedback</h5>
+
+    </div>
+
+    <ion-content scroll="true" padding="true" style="margin-top:50px;">
+        <!-- Text paragraphs -->
+        <p style="font-size:16px;text-align:left;color:white;">Hi there!</p> 
+        <p style="font-size:16px;text-align:left;color:white;">At betterbia we welcome any and all feedback from our users. If you have run into a problem, found a bug or just a have question about something feel free to send us a message. </p>
+        <p style="font-size:16px;text-align:left;color:white;">We will try get back to you as soon as we can.</p>
+
+            <form class="col s12">
+
+                <!-- Subject Input -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" ng-model="MailData.subject" id="subject" class="validate">
+                        <label for="subject">Subject</label>
+                    </div>
+                </div>
+
+                <!-- Textarea Input -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea id="icon_prefix2" ng-model="MailData.html" class="materialize-textarea white-text"></textarea>
+                        <label for="icon_prefix2">Message</label>
+                    </div>
+                </div>
+
+            </form>
+
+        <!-- Send -->
+        <a class="btn waves-effect waves-light full-width bg-green"  ng-click="sendMail()"><i class="material-icons right">email</i>Send</a>
+
+    </ion-content>
+
+</ion-view>

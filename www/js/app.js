@@ -1,13 +1,10 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
 'Use Strict';
+// Email Management System
+var SERVER_SIDE_URL = "https://betterbiaemail.herokuapp.com";
 
-// 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'firebase', 'ngStorage', 'ngCordovaOauth', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ion-floating-menu', 'timer', 'rzModule', 'ngAnimate', 'ngMessages', 'angular-svg-round-progressbar'])
+
+// App dependencies
+angular.module('app', ['ionic', 'ngCordova', 'firebase', 'ngStorage', 'ngCordovaOauth', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ion-floating-menu', 'timer', 'rzModule', 'ngAnimate', 'ngMessages', 'angular-svg-round-progressbar', 'ionic-native-transitions', 'xeditable'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -21,23 +18,16 @@ angular.module('app', ['ionic', 'firebase', 'ngStorage', 'ngCordovaOauth', 'app.
             StatusBar.styleDefault();
         }
 
-        //update the color of the android notification bar
-        //if (window.StatusBar) {
-        //    if (ionic.Platform.isAndroid()) {
-        //        StatusBar.backgroundColorByHexString("#272727");
-        //    } else {
-        //        StatusBar.styleLightContent();
-        //    }
-        //}
+        //update the color of the android notification bar, and lock the orientation of the device
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            console.log(StatusBar);
             StatusBar.backgroundColorByHexString("#272727");
+            screen.lockOrientation('portrait');
         }
     });
 })
 
-
+// Service used to access Firebase throughout the login workflow
   .factory('Firebase', function ($firebaseArray, $firebaseObject) {
       var ref = firebase.database().ref();
       return {
@@ -54,4 +44,37 @@ angular.module('app', ['ionic', 'firebase', 'ngStorage', 'ngCordovaOauth', 'app.
               return data;
           }
       };
-  });
+  })
+
+// Manages Ionic Native Transitions
+.config(function ($ionicNativeTransitionsProvider) {
+
+    $ionicNativeTransitionsProvider.setDefaultOptions({
+        duration: 300,
+        slowdownfactor: 4,
+        iosdelay: -1,
+        androiddelay: -1,
+        winphonedelay: -1,
+        fixedPixelsTop: 0,
+        fixedPixelsBottom: 0,
+        triggerTransitionEvent: '$ionicView.afterEnter',
+        backInOppositeDirection: false
+    });
+
+    $ionicNativeTransitionsProvider.setDefaultTransition({
+        type: 'slide',
+        direction: 'left'
+    });
+
+    $ionicNativeTransitionsProvider.setDefaultBackTransition({
+        type: 'slide',
+        direction: 'right'
+    });
+
+})
+
+// Cancels Javascript scrolling, in favour of Native scrolling
+.config(function ($ionicConfigProvider) {
+    $ionicConfigProvider.scrolling.jsScrolling(false);
+})
+;

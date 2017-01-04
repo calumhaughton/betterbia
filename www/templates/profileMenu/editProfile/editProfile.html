@@ -1,0 +1,29 @@
+﻿<ion-view view-title="Edit Profile" id="accountOptions" style="background-color:#323232;" hide-nav-bar="true">
+    
+    <!-- Header -->
+    <div class="inline-nav-bar bg-green">
+        <button class="button button-light button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsMaster"></button>
+        <h5 style="font-size:18px;color:white;display:inline-block">Edit Profile</h5>
+    </div>
+
+    <ion-content scroll="true" style="margin-top:50px;text-align:center;" class="padding">
+
+        <!-- Profile Image -->
+        <div class="profile-image-holder waves-effect waves-light" ng-click="changeProfilePhoto()">
+            <img ng-src="{{imageURL}}" err-src="img/default.png" class="waves-effect waves-light edit-profile-image" />  
+            <div class="image-edit"><i class="material-icons" style="font-size:16px;position:relative;top:3px;">camera_alt</i>&nbsp;Edit</div>
+        </div>
+
+        <!-- Profile Information -->
+        <div class="profile-details">
+            <h6 style="color:#b8b8b8;font-size:12px;">Username</h6>
+            <p style="color:white;font-size:16px;">{{username}}</p>
+
+            <h6 style="color:#b8b8b8;font-size:12px;margin-top:25px;">Email Address</h6>
+            <p style="color:white;font-size:16px;">{{email}}</p>
+  
+        </div>
+
+    </ion-content>
+
+</ion-view>

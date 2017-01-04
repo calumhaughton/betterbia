@@ -1,91 +1,180 @@
 <ion-view view-title="Recipe Detail" id="recipeDetail" hide-nav-bar="true"  style="background-color:#323232;">
-    <ing-added-detail-modal></ing-added-detail-modal>
-    <button class="button button-dark button-clear icon ion-android-arrow-back back-btn-position" ui-sref="tabsMaster" ng-hide="pageScrolled"></button>
-    <img ng-src="{{recipeID.fullscreen}}" class="fullscreen" />
+    <!-- Modal Popup -->
+    <ing-added-modal></ing-added-modal>
+
+    <!-- Back Btn -->
+    <button class="button button-clear icon ion-android-arrow-back back-btn-position" native-ui-sref="tabsMaster" native-options="{type:'slide',direction:'right'}" ng-hide="pageScrolled" ng-if="recipeID.lightImg" style="color:white;"></button>
+    <button class="button button-clear icon ion-android-arrow-back back-btn-position" native-ui-sref="tabsMaster" native-options="{type:'slide',direction:'right'}" ng-hide="pageScrolled" ng-if="!recipeID.lightImg" style="color:#323232;"></button>
+    
+    <!-- Tapable area at the top of the screen to close tabs -->
+    <div class="click-to-close-area" ng-click="closeTabs()" ng-hide="pageScrolled"></div>
+
+    <!-- Main Image -->
+    <img ng-src="{{recipeID.fullscreen}}" class="fullscreen"/>
+
     <ion-content scroll="true" on-scroll="scrolled()">
-        <div class="detail-page-content padding" ng-class="{'detail-open': detailTabOpen}" button-flash>
-            <h3 style="font-size:28px;font-weight:300;">{{recipeID.title}}</h3>
-
-            <div class="button-flex-group">
-                <button class="button button-round icon ion-clipboard" ng-class="{'button-balanced': isSet(1)}" ng-click="setTab(1)"></button>
-                <button class="button button-round" ng-class="{'button-balanced': isSet(2)}" ng-click="setTab(2)">
-                    <img src="img/ingredients.svg" ng-show="!isSet(2)" style="width:45px;height:45px;margin:7px 0px 0px -1px;" />
-                    <img src="img/ingredients-white.svg" ng-show="isSet(2)" style="width:45px;height:45px;margin:7px 0px 0px -1px;" />
-                </button>
-                <button class="button button-round" ng-class="{'button-balanced': isSet(3)}" ng-click="setTab(3)">
-                    <img src="img/pot.svg" ng-show="!isSet(3)" style="width:35px;height:35px;margin:10px 0px 0px 1px;"/>
-                    <img src="img/pot-white.svg" ng-show="isSet(3)" style="width:35px;height:35px;margin:10px 0px 0px 1px;" />
-
-                </button>
-                <button class="button button-round" ng-class="{'button-balanced': isSet(4)}" ng-click="setTab(4)">
-                    <img src="img/cheftips.svg" ng-show="!isSet(4)" style="width:45px;height:45px;margin:7px 0px 0px -2px;"/>
-                    <img src="img/cheftips-white.svg" ng-show="isSet(4)" style="width:45px;height:45px;margin:7px 0px 0px -2px;" />
-                </button>
+        <div class="detail-page-content padding" ng-class="{'one-line':lines.one, 'two-line':lines.two, 'three-line':lines.three, 'detail-open': detailTabOpen}" button-flash>
+            <!-- Recipe Info -->
+            <h3 style="font-size:28px;font-weight:300;margin-bottom:5px;">{{recipeID.title}}</h3>
+            <div class="detail-info-section">
+                <i class="icon ion-android-time"></i> {{recipeID.time}} Minutes
             </div>
 
-            <div style="margin-top:10px;" ng-show="detailTabOpen">
-                <div class="pointer" ng-class="{'vanish':!showDetailTab, 'tab-two':isSet(2), 'tab-three':isSet(3), 'tab-four':isSet(4)}"></div>
-                <hr />
+            <!-- Tab Buttons -->
+            <div class="button-flex-group" ng-class="{'tab-padding': !detailTabOpen, 'slide-out-left':showServingSelect}">
+
+                <!-- Overview Btn -->
+                <div class="button-flex-item">
+                    <button class="button button-round detail-button icon ion-clipboard" ng-class="{'button-balanced': isSet(1)}" ng-click="setTab(1)"></button>
+                    <h5 class="button-title">Overview</h5>
+                </div>
+
+                <!-- Ingredients Btn -->
+                <div class="button-flex-item">
+                    <button class="button button-round detail-button" ng-class="{'button-balanced': isSet(2)}" ng-click="setTab(2)">
+                        <img src="img/ingredients.svg" ng-show="!isSet(2)" class="ingredients-img" />
+                        <img src="img/ingredients-white.svg" ng-show="isSet(2)" class="ingredients-img" />
+                    </button>
+                    <h5 class="button-title">Ingredients</h5>
+                </div>
+
+                <!-- Equipment Btn -->
+                <div class="button-flex-item">
+                    <button class="button button-round detail-button" ng-class="{'button-balanced': isSet(3)}" ng-click="setTab(3)">
+                        <img src="img/pot.svg" ng-show="!isSet(3)" class="equipment-img" />
+                        <img src="img/pot-white.svg" ng-show="isSet(3)" class="equipment-img" />
+                    </button>
+                    <h5 class="button-title">Equipment</h5>
+                </div>
+
+                <!-- Tips Btn -->
+                <div class="button-flex-item">
+                    <button class="button button-round detail-button" ng-class="{'button-balanced': isSet(4)}" ng-click="setTab(4)">
+                        <img src="img/cheftips.svg" ng-show="!isSet(4)" class="tips-img" />
+                        <img src="img/cheftips-white.svg" ng-show="isSet(4)" class="tips-img" />
+                    </button>
+                    <h5 class="button-title">Tips</h5>
+                </div>
+                
             </div>
             
-            <div class="card detail-tab" ng-show="isSet(1)">
-                <div class="item item-text-wrap">
-                    <h4>Overview</h4>
-                    {{recipeID.overview[0]}}
-                </div>
-            </div>
-            <div class="card detail-tab" ng-show="isSet(2)">
-                <div class="item item-text-wrap">
+            <div class="tab-line" ng-class="{'show-line':showDetailTab, 'two-selected':isSet(2), 'three-selected':isSet(3), 'four-selected':isSet(4)}"></div>
 
-                    <h4>Ingredients</h4>
-                    <a class="waves-effect btn button-transition bg-blue" style="margin-top:10px;margin-bottom:10px;height:45px;width:100%;color:white;text-transform:initial;" ng-class="{green:trigger}" ng-click="addAllToList(); reset()"><i class="material-icons" style="color:white;margin-top:5px;" ng-show="!trigger">add_shopping_cart</i><i class="material-icons" style="color:white;margin-top:5px;" ng-show="trigger">check_circle</i> <span ng-show="!trigger" style="position:relative;top:-3px;">Add to Shopping List</span><span ng-show="trigger" style="position:relative;top:-3px;">Added to Shopping List</span></a>
+            
 
-                    <ion-list>
-                        <ion-item ng-repeat="ingredient in recipeID.ingredients" ingredient-display button-flash>
-                            <div ng-show="measureDisplay">
-                                <strong>{{ingredient.name}}</strong>
-                                <br />
-                                <small><span ng-bind-html="ingredient.quantity | DecimalToFraction"></span> {{ingredient.measure}}<span ng-show="prepDisplay">, {{ingredient.prep}}</span></small>
-                                <a class="waves-effect btn-flat add-btn button-transition right" ng-class="{green:trigger}" ng-click="addToList(ingredient); reset()" style="margin-top:-22px;"><i class="material-icons add-btn-icon" ng-show="!trigger">add_shopping_cart</i><i class="material-icons add-btn-icon" style="color:white;" ng-show="trigger">check_circle</i></a>
-                            </div>
-                            <div ng-hide="measureDisplay" ng-class="{'text-middle':!prepDisplay}">
-                                <strong><span ng-bind-html="ingredient.quantity | DecimalToFraction"></span> {{ingredient.name}}</strong>
-                                <br />
-                                <small ng-show="prepDisplay">{{ingredient.prep}}</small>
-                                <a class="waves-effect btn-flat add-btn button-transition right" ng-class="{green:trigger}" ng-click="addToList(ingredient); reset()" style="margin-top:-30px;"><i class="material-icons add-btn-icon" ng-show="!trigger">add_shopping_cart</i><i class="material-icons add-btn-icon" style="color:white;" ng-show="trigger">check_circle</i></a>
-                            </div>
-                        </ion-item>
-                    </ion-list>
-                </div>
-            </div>
+            <!-- Sliding Tab Box -->
+            <ion-slide-box delgate-handle="detail-tabs" show-pager="false" on-slide-changed="swipeSlide($index)" ng-if="showDetailTab" class="detail-slide-box">
 
-            <div class="card detail-tab" ng-show="isSet(3)">
-                <div class="item item-text-wrap">
-                    <h4>Equipment</h4>
-                    <ion-list>
-                        <ion-item ng-repeat="item in recipeID.equipment">
-                            {{item}}
-                        </ion-item>
-                    </ion-list>
-                </div>
-            </div>
-            <div class="card detail-tab" ng-show="isSet(4)">
-                <div class="item item-text-wrap">
-                    <h4>Chef Tips</h4>
-                    <ion-list>
-                        <ion-item ng-repeat="tip in recipeID.cheftips">
-                            {{tip}}
-                        </ion-item>
-                    </ion-list>
-                </div>
-            </div>
-            <hr class="detail-line" ng-class="{'push-line-down':detailTabOpen, 'remove-margin':showDetailTab}" />
+                <!-- Overview Tab -->
+                <ion-slide class="detail-slide">
+                    <div class="card detail-tab">
+                        <ul class="overview-steps-list">
+                            <li ng-repeat="step in recipeID.overview" class="overview-list-item">
+                                {{step}}
+                            </li>
+                        </ul>
+                    </div>
+                </ion-slide>
+
+                <!-- Ingredient Tab -->
+                <ion-slide class="detail-slide">
+                    <div class="detail-tab">
+
+                        <!-- Serving Selection UI -->
+                        <div class="serving-select-section">
+                            <h6 class="serving-size-text" style="color:#b8b8b8;"><i class="icon ion-android-restaurant"></i> Serving Size</h6>
+
+                            <a class="btn-floating waves-effect waves-light serving-btn" ng-click="changeServing('remove')" ng-if="servingSize > 1">
+                                <i class="material-icons" style="font-size:18px;">remove</i>
+                            </a>
+
+                            <a class="btn-floating serving-btn" ng-if="servingSize === 1">
+                                <i class="material-icons" style="font-size:18px;color:#525252;">remove</i>
+                            </a>
+
+                            <h6 class="serving-size-text" style="font-size:16px;">{{servingSize}}</h6>
+                            
+                            <a class="btn-floating waves-effect waves-light serving-btn" ng-click="changeServing('add')" ng-if="servingSize < 4">
+                                <i class="material-icons" style="font-size:18px;">add</i>
+                            </a>
+
+                            <a class="btn-floating serving-btn" ng-if="servingSize === 4">
+                                <i class="material-icons" style="font-size:18px;color:#525252;">add</i>
+                            </a>
+                        </div>
+
+                        <!-- Add to List Button-->
+                        <button class="waves-effect btn button-transition bg-blue"
+                           style="margin-bottom:10px;height:50px;width:100%;color:white;text-transform:initial;"
+                           ng-class="{green:trigger}"
+                           ng-click="addAllToList(); reset()"
+                           ng-disabled="ingredientsToAdd.length === 0">
+                            <i class="material-icons" style="color:white;margin-top:5px;" ng-show="!trigger && ingredientsToAdd.length>0">add_shopping_cart</i>
+                            <i class="material-icons" style="color:white;margin-top:5px;" ng-show="trigger">check_circle</i>
+                            <span ng-show="!trigger && ingredientsToAdd.length>0" style="position:relative;top:-3px;">Add {{ingredientsToAdd.length}} Item<span ng-show="(ingredientsToAdd.length>1)">s</span> to List</span>
+                            <span ng-show="trigger" style="position:relative;top:-3px;">Added to List</span>
+                            <span ng-show="ingredientsToAdd.length === 0">Select Items to Add</span>
+                        </button>
+
+                        <!-- List of Ingredients -->
+                        <div class="item item-text-wrap" style="padding:0;border-radius:2px;">
+                            <ion-list style="padding-top:0;">
+
+                                <ion-item ng-repeat="ingredient in recipeID.ingredients" style="padding:0px;" ingredient-display button-flash class="ingredient-item">
+
+                                    <button class="button button-dark button-clear waves-effect ing-list-btn" ng-click="addRemoveIng()">
+                                        <i class="material-icons fade-transition check-button" ng-show="!checkboxFilled">check_box_outline_blank</i>
+                                        <i class="material-icons fade-transition check-button" ng-show="checkboxFilled" style="color:#3B5998;">check_box</i>
+
+                                        <span ng-if="!measureDisplay && (ingredient.quantity>0 && !(ingredient.name == 'Egg'))" ng-bind-html="ingredient.quantity * servingSize | DecimalToFraction"></span>
+                                        <span ng-if="!measureDisplay && (ingredient.quantity>0) && (ingredient.name == 'Egg')" ng-bind-html="ingredient.quantity"></span>
+
+                                        {{ingredient.name}}
+                                        
+                                        <small ng-if="measureDisplay" class="right"><span ng-bind-html="ingredient.quantity * servingSize | DecimalToFraction"></span><span ng-hide="ingredient.measure === 'g'">&nbsp;</span>{{ingredient.measure}}</small>
+
+                                    </button>
+
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                    </div>
+                </ion-slide>
+
+                <!-- Equipment Tab -->
+                <ion-slide class="detail-slide">
+                    <div class="card detail-tab">
+
+                        <div class="item item-text-wrap">
+                            <ion-list>
+                                <ion-item ng-repeat="item in recipeID.equipment">
+                                    {{item}}
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                    </div>
+                </ion-slide>
+
+                <!-- Tips Tab -->
+                <ion-slide class="detail-slide">
+                    <div class="card detail-tab">
+                        <div class="item item-text-wrap">
+                            <ion-list>
+                                <ion-item ng-repeat="tip in recipeID.cheftips">
+                                    {{tip}}
+                                </ion-item>
+                            </ion-list>
+                        </div>
+                    </div>
+                </ion-slide>
+            </ion-slide-box>
         </div>
-        
     </ion-content>
+
+    <!-- Cook this Recipe Btn -->
     <ion-footer-bar align-title="left" class="bar-large bar-balanced">
         <div class="button-bar">
-            <a ui-sref="recipeSteps" class="btn btn-large waves-effect waves-light bg-green" style="width:100%;box-shadow:none;text-transform:initial;">Cook This Recipe</a>
+            <a ui-sref="recipeSteps" ng-click="setServingSize(servingSize)" class="btn btn-large waves-effect waves-light bg-green" style="width:100%;box-shadow:none;text-transform:initial;">Cook This Recipe</a>
         </div>
     </ion-footer-bar>
 </ion-view>

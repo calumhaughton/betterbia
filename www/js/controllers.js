@@ -1,67 +1,7 @@
 'Use Strict';
 angular.module('app.controllers', [])
 
-
-// tabs controller used to update shopping list count
-
-.controller('tabsCtrl', function ($scope, ShoppingList) {
-    //$scope.tabBadge = {
-    //    count:0
-    //}
-
-    //$scope.list;
-
-    //ShoppingList.items.$watch(function (event) {
-    //    $scope.list = ShoppingList.names();
-    //    $scope.tabBadge.count = $scope.list.length;
-    //});    
-})
-
-//Pop up controller
-  .controller('PopoverController', function ($scope, $ionicPopover, $localStorage, $state) {
-
-      $ionicPopover.fromTemplateUrl('templates/profile/profile-menu.html', {
-          scope: $scope
-      }).then(function (popover) {
-          $scope.popover = popover;
-      });
-
-      $scope.openPopover = function ($event) {
-          $scope.popover.show($event);
-      };
-      $scope.closePopover = function () {
-          $scope.popover.hide();
-      };
-      //Cleanup the popover when we're done with it!
-      $scope.$on('$destroy', function () {
-          $scope.popover.remove();
-      });
-      // Execute action on hide popover
-      $scope.$on('popover.hidden', function () {
-          // Execute action
-      });
-      // Execute action on remove popover
-      $scope.$on('popover.removed', function () {
-          // Execute action
-      });
-
-      $scope.logout = function () {
-          if (firebase.auth()) {
-              firebase.auth().signOut().then(function () {
-                  //Close the popover menu
-                  $scope.closePopover();
-                  //Clear the saved credentials.
-                  $localStorage.$reset();
-                  //Proceed to login screen.
-                  $state.go('login');
-              }, function (error) {
-                  //Show error message.
-                  Utils.message(Popup.errorIcon, Popup.errorLogout);
-              });
-          }
-      };
-  })
-
+// Parses an object, and pushes each value into an array    
  .filter("toArray", function () {
      return function(obj) {
          var result = [];
@@ -72,7 +12,22 @@ angular.module('app.controllers', [])
      };
  })
 
-    // filter to limit the number of ingredients displayed on the listHome page
+// Removes Firebase internal object values from an array, and returns the other values to a new array
+.filter('filterFirebaseInternals', function () {
+    return function (data) {
+        var output = [];
+
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].slice(0, 1) !== '$') {
+                output.push(data[i]);
+            }
+        }
+
+        return output;    
+    }
+})
+
+// Limits an array to 5 items, and places '...' as the last element. Used on List Home page.
 .filter("limitTo5", function () {
     return function (data) {       
         if (data != null) {
@@ -99,27 +54,31 @@ angular.module('app.controllers', [])
     }
 })
 
-    // takes in a list of recipes, and filters using a time value. Returns a set of recipes that match the time selected.
+// Loops through Recipes List, and filters using the stored value in timeStore. Returns a set of recipes that match the time selected.
 .filter("timeFilter", function (timeStore) {
     return function (data) {
+
         var output = {};
         var time = timeStore.getTime();
 
         if (!isNaN(time)) {
+
             angular.forEach(data, function (recipe) {
+                // If recipe.time is equal to or less than the stored value, add recipe to output
                 if (recipe.time <= time) {
                     output[recipe.id] = recipe;
                 }
             });
 
             return output;
+
         } else {
             return data;
         }
     }
 })
 
-    // Takes in a seconds value, and outputs it as MM:SS format
+// Turns time value from SSSS to MM:SS
 .filter("SecondstoMinutes", function () {
     return function (data) {
         var minutes = data / 60;
@@ -137,24 +96,38 @@ angular.module('app.controllers', [])
     }
 })
 
+// Converts a decimal value to the HTML value for its fraction
 .filter("DecimalToFraction", function () {
     return function (data) {
-        var output = data;
-        // If the quantity value is in decimal, swap it out for a fraction
+        var output = data;        
+
+        // Find the value to turn into a fraction
         var excess = data % 1;
 
         // If the quantity is less than 1, replace the existing quantity with the fraction. 
         if (data < 1) {
             if (excess !== 0) {
                 switch (excess) {
+                    case 0.125:
+                        output = '&#8539;';
+                        break;
                     case 0.25:
                         output = '&frac14;';
+                        break;
+                    case 0.375:
+                        output = '&#8540;';
                         break;
                     case 0.5:
                         output = '&frac12;';
                         break;
+                    case 0.675:
+                        output = '&#8541;';
+                        break;
                     case 0.75:
                         output = '&frac34;';
+                        break;
+                    case 0.875:
+                        output = '#8542;';
                         break;
                     default:
                         // do nothing
@@ -167,14 +140,26 @@ angular.module('app.controllers', [])
             if (excess !== 0) {
                 var num = Math.floor(data);
                 switch (excess) {
+                    case 0.125:
+                        output = num + '&#8539;';
+                        break;
                     case 0.25:
                         output = num + '&frac14;';
+                        break;
+                    case 0.375:
+                        output = num + '&#8540;';
                         break;
                     case 0.5:
                         output = num + '&frac12;';
                         break;
+                    case 0.675:
+                        output = num + '&#8541;';
+                        break;
                     case 0.75:
                         output = num + '&frac34;';
+                        break;
+                    case 0.875:
+                        output = num + '#8542;';
                         break;
                     default:
                         // do nothing
@@ -186,20 +171,7 @@ angular.module('app.controllers', [])
     }
 })
 
-.filter('spiceImg', function () {
-    return function (data) {
-        if (data === 0) {
-            return "";
-        } else if (data === 1) {
-            return "img/mild.svg";
-        } else if (data === 2) {
-            return "img/medium.svg";
-        } else if (data === 3) {
-            return "img/hot.svg";
-        }
-    }
-})
-
+// Used by the Shopping List service to clear items from the List Detail page
 .filter('trash', function () {
     return function (data) {
         var output = [];
@@ -210,5 +182,4 @@ angular.module('app.controllers', [])
         }
         return output
     }
-})
-;
+});

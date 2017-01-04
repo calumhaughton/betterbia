@@ -1,0 +1,11 @@
+﻿<ion-popover-view style="height:165px !important;">
+    <ion-content>
+        <div class="list">
+            <a class="item" ng-click="closePopover(); shareList(shoppingList.selectedList.listName)" ng-show="listLocation === 'myLists'">Share List</a>
+            <a class="item" ng-click="closePopover(); editList(shoppingList.selectedList.listName)" ng-show="listLocation === 'myLists'">Edit List Name</a>
+            <a class="item" ng-click="closePopover(); unshareList(shoppingList.selectedList.listName)" ng-show="listLocation === 'sharedWithMe'">Unshare List</a>
+            <a class="item" style="color:#b8b8b8;" ng-show="listLocation === 'sharedWithMe'">Edit List Name</a>
+            <a class="item" ng-click="closePopover(); shoppingList.clearDone()">Clear Got Items</a>
+        </div>
+    </ion-content>
+</ion-popover-view>

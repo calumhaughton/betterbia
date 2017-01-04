@@ -1,21 +1,69 @@
-﻿<ion-view id="tabsMaster" hide-nav-bar="true">
+﻿<ion-view id="tabsMaster" hide-nav-bar="true" style="background-color:#323232;">
     
+    <!-- App nav bar -->
     <betterbia-nav title="title"></betterbia-nav>
 
     <ion-content scroll="false" style="margin-top:48px;">
-
+        <!-- Main page slide box-->
         <ion-slide-box on-slide-changed="updateTitle($index)" show-pager="false" ion-slide-tabs>
+
+            <!-- Profile Page -->
             <ion-slide ion-slide-tab-label="<i class='material-icons tab-icon'>home</i>">
+                <!-- Profile onboarding -->
+                <div ng-if="!onboarding.profile" class="onboarding-template">
+                    <img src="img/logo.svg" class="profile-logo"/>
+                    <h4 style="color:white;font-weight:200;font-size:24px;margin-top:4px;">Welcome to betterbia!</h4>
+
+                    <div style="text-align:left;">
+                        <p>While you get started with the app, we'll give you a few tips.</p>
+                        <p>First up, it's the profile page. Use this page to keep track of your progress. If you've eaten well, or done some exercise, log it here! The calendar will give you a quick snapshot of your progress, without overloading you with extra details.</p>
+                    </div>
+
+                    <a class="btn waves-effect waves-light bg-green" style="margin-top:15px;" ng-click="profileOnboarded()">Thanks!</a>
+                </div>
+                <!-- Profile.html -->
                 <ng-include src="'templates/profile/profile.html'"></ng-include>
+
             </ion-slide>
+
+            <!-- Recipes List Page-->
             <ion-slide ion-slide-tab-label="<i class='material-icons tab-icon'>list</i>">
+                <!-- Recipes Onboarding -->
+                <div ng-if="!onboarding.recipes" class="onboarding-template">
+                    <h4 style="color:white;font-weight:200;font-size:24px;">Recipes</h4>
+
+                    <div style="text-align:left;">
+                        <p>It's pretty straight forward: see something you like? Tap it to take a look!</p>
+                        <p>The list can be filtered using the buttons at the bottom of the screen.</p>
+                    </div>
+
+                    <a class="btn waves-effect waves-light bg-green" style="margin-top:15px;" ng-click="recipesOnboarded()">Got it!</a>
+
+                </div>
+                <!-- RecipesList.html-->
                 <ng-include src="'templates/recipesList/recipesList.html'"></ng-include>
             </ion-slide>
+
+            <!-- Shopping List Page -->
             <ion-slide ion-slide-tab-label="<i class='material-icons tab-icon'>shopping_cart</i>">
+                <!-- Shopping List Onboarding-->
+                <div ng-if="!onboarding.shoppingLists" class="onboarding-template">
+                    <h4 style="color:white;font-weight:200;font-size:24px;">Shopping Lists</h4>
+
+                    <div style="text-align:left;">
+                        <p>Create as many lists as you need, share them with whoever you want, and add anything you like!</p>
+                        <p>You can also add ingredients to your lists directly from the recipes pages.</p>
+                    </div>
+
+                    <a class="btn waves-effect waves-light bg-green" style="margin-top:15px;" ng-click="listsOnboarded()">Okay!</a>
+
+                </div>
+                <!-- ListHome.html-->
                 <ng-include src="'templates/shoppingList/listHome/listHome.html'"></ng-include>
             </ion-slide>
         </ion-slide-box>
 
+        <!-- Ingredient and Time inputs for Recipe List -->
         <div class="recipe-list-inputs" ng-class="{'show-recipe-inputs': showInputs}">
             <ing-selector></ing-selector>
             <time-selector></time-selector>
